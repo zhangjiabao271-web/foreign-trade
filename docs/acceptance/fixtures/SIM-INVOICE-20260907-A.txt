@@ -1,0 +1,15 @@
+SIMULATION ONLY - NOT A LEGAL OR COMMERCIAL INVOICE
+Local nonproduction acceptance evidence. No real sale, shipment or payment.
+
+Reference: SIM-INVOICE-20260907-A
+Order: SO-2026-000001
+Shipment: SHP-2026-000001
+Quotation: Q-2026-000001 V2
+Date: 2026-09-07
+Item: LOCAL-ROLE-20260907-A (synthetic acceptance product)
+Quantity: 10 set
+Unit sale price: 125.00 CNY
+Total sale amount: 1250.00 CNY
+
+Contains no internal cost or profit. No actual customer or banking details.
+For testing upload, immutable storage versioning and shipment document checks only.

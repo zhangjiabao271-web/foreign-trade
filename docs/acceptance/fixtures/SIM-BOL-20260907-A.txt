@@ -1,0 +1,16 @@
+SIMULATION ONLY - NOT A BILL OF LADING OR DOCUMENT OF TITLE
+NOT NEGOTIABLE - NOT VALID FOR CARRIAGE, CUSTOMS, TAX OR PAYMENT
+
+Reference: SIM-BOL-20260907-A
+Order: SO-2026-000001
+Shipment: SHP-2026-000001
+Booking reference: SIM-BOOKING-20260907-A
+Customs test case: CUS-2026-000001
+Refund test case: REF-2026-000001
+Date: 2026-09-07
+Synthetic item: LOCAL-ROLE-20260907-A
+Synthetic quantity: 10 set in 1 simulated carton
+
+No actual carrier, vessel, shipper, consignee, ports or transport movement.
+No signature or endorsement. No actual goods received for shipment.
+Only tests software file upload, immutable evidence and checklist requirements.

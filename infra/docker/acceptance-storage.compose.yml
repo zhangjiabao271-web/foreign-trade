@@ -1,0 +1,9 @@
+# Append after fresh.compose.yml and identity-acceptance.compose.yml.
+# Only for -p trade-fresh-acceptance; retain its existing named MinIO volume.
+services:
+  minio:
+    ports: !override ["127.0.0.1:9300:9000"]
+  api:
+    environment:
+      MINIO_PUBLIC_ENDPOINT: localhost:9300
+      MINIO_PUBLIC_SECURE: "false"

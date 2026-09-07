@@ -1,0 +1,29 @@
+.env
+.next/
+node_modules/
+.pnpm-store/
+coverage/
+playwright-report/
+test-results/
+.pytest_cache/
+.test-cache/
+.mypy_cache/
+.ruff_cache/
+.venv/
+.uv-cache/
+**/__pycache__/
+*.py[cod]
+*.tsbuildinfo
+dist/
+tmp/
+backups/
+!.github/
+
+# 第三方版权/内部参考资料，保留在磁盘但不进入版本历史
+/外贸应知应会手册.pdf
+/小微企业税务应知应会手册.pdf
+/MDSPT SOP 司拜科标准化出海流程.pdf
+/TRADE_WORKBENCH_IMPLEMENTATION_GUIDE.docx
+
+# 本地调试输出
+/debug.log

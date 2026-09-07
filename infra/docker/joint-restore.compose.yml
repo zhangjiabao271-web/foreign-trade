@@ -1,0 +1,42 @@
+name: trade-joint-restore-v2
+services:
+  postgres:
+    image: postgres:18-bookworm
+    environment:
+      POSTGRES_USER: rehearsal
+      POSTGRES_DB: postgres
+      POSTGRES_PASSWORD: local-joint-restore-only
+    volumes: ["business-data:/var/lib/postgresql"]
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U rehearsal"]
+      interval: 2s
+      timeout: 3s
+      retries: 20
+  logto-postgres:
+    image: postgres:17-alpine
+    environment:
+      POSTGRES_USER: logto
+      POSTGRES_DB: postgres
+      POSTGRES_PASSWORD: local-joint-restore-only
+    volumes: ["identity-data:/var/lib/postgresql/data"]
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U logto"]
+      interval: 2s
+      timeout: 3s
+      retries: 20
+  minio:
+    image: minio/minio:RELEASE.2025-09-07T16-13-09Z
+    command: server /data
+    environment:
+      MINIO_ROOT_USER: rehearsal
+      MINIO_ROOT_PASSWORD: local-isolated-rehearsal-only
+    volumes: ["object-data:/data"]
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:9000/minio/health/live"]
+      interval: 2s
+      timeout: 3s
+      retries: 20
+volumes:
+  business-data:
+  identity-data:
+  object-data:

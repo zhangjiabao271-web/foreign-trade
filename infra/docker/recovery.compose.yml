@@ -1,0 +1,86 @@
+name: trade-recovery-acceptance
+services:
+  minio-source:
+    image: minio/minio:RELEASE.2025-09-07T16-13-09Z
+    command: server /data
+    environment: &minio
+      MINIO_ROOT_USER: rehearsal
+      MINIO_ROOT_PASSWORD: local-isolated-rehearsal-only
+    volumes:
+      - minio-source-data:/data
+  minio-restored:
+    image: minio/minio:RELEASE.2025-09-07T16-13-09Z
+    command: server /data
+    environment: *minio
+    volumes:
+      - minio-restored-data:/data
+  postgres-restored:
+    image: postgres:18-bookworm
+    environment:
+      POSTGRES_DB: trade_recovery_acceptance
+      POSTGRES_USER: rehearsal
+      POSTGRES_PASSWORD: local-isolated-rehearsal-only
+    volumes:
+      - postgres-restored-data:/var/lib/postgresql
+    healthcheck:
+      test:
+        ["CMD-SHELL", "pg_isready -U rehearsal -d trade_recovery_acceptance"]
+      interval: 2s
+      timeout: 3s
+      retries: 20
+  postgres:
+    image: postgres:18-bookworm
+    environment:
+      POSTGRES_DB: trade_recovery_acceptance
+      POSTGRES_USER: rehearsal
+      POSTGRES_PASSWORD: local-isolated-rehearsal-only
+    volumes:
+      - postgres-data:/var/lib/postgresql
+    healthcheck:
+      test:
+        ["CMD-SHELL", "pg_isready -U rehearsal -d trade_recovery_acceptance"]
+      interval: 2s
+      timeout: 3s
+      retries: 20
+  redis:
+    image: redis:8.2-alpine
+    command: ["redis-server", "--appendonly", "yes"]
+    volumes:
+      - redis-data:/data
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 2s
+      timeout: 3s
+      retries: 20
+  migrate:
+    image: trade-workbench-api:local
+    command: ["alembic", "-c", "alembic.ini", "upgrade", "head"]
+    environment: &database
+      APP_ENV: acceptance
+      DATABASE_HOST: postgres
+      DATABASE_NAME: trade_recovery_acceptance
+      DATABASE_USER: rehearsal
+      DATABASE_PASSWORD: local-isolated-rehearsal-only
+    depends_on:
+      postgres:
+        condition: service_healthy
+  worker:
+    build:
+      context: .
+      dockerfile: apps/worker/Dockerfile
+    image: trade-recovery-worker:local
+    environment:
+      <<: *database
+      ACCEPTANCE_REHEARSAL: "true"
+      CELERY_BROKER_URL: redis://redis:6379/0
+    depends_on:
+      migrate:
+        condition: service_completed_successfully
+      redis:
+        condition: service_healthy
+volumes:
+  minio-source-data:
+  minio-restored-data:
+  postgres-restored-data:
+  postgres-data:
+  redis-data:

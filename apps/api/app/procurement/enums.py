@@ -1,0 +1,12 @@
+from enum import StrEnum
+
+
+class PurchaseOrderStatus(StrEnum):
+    DRAFT = "DRAFT"
+    APPROVED = "APPROVED"
+    SENT = "SENT"
+    CONFIRMED = "CONFIRMED"
+    PARTIALLY_RECEIVED = "PARTIALLY_RECEIVED"
+    RECEIVED = "RECEIVED"
+    CLOSED = "CLOSED"
+    CANCELLED = "CANCELLED"

@@ -1,0 +1,24 @@
+# Third overlay after docker-compose.yml and fresh.compose.yml.
+# Use only -p trade-fresh-acceptance; connects to the existing local Logto.
+# Supply credentials through the process environment, never this file.
+services:
+  api:
+    extra_hosts:
+      - "logto.localhost:host-gateway"
+    environment:
+      OIDC_ISSUER: http://logto.localhost:3001/oidc
+      OIDC_JWKS_URL: http://logto.localhost:3001/oidc/jwks
+      OIDC_AUDIENCE: https://api.trade-workbench.local
+      OIDC_SIGNING_ALGORITHM: ES384
+  web:
+    extra_hosts:
+      - "logto.localhost:host-gateway"
+    environment:
+      APP_BASE_URL: http://localhost:3300
+      LOGTO_ENDPOINT: http://logto.localhost:3001
+      LOGTO_APP_ID: 3h8workreqipkalzznnnq
+      LOGTO_APP_SECRET: ${ACCEPTANCE_LOGTO_APP_SECRET:?Provide the local acceptance application secret}
+      LOGTO_COOKIE_SECRET: ${ACCEPTANCE_LOGTO_COOKIE_SECRET:?Provide a separate random session secret of at least 32 characters}
+      LOCAL_AUTH_ALLOW_HTTP: "true"
+      OIDC_AUDIENCE: https://api.trade-workbench.local
+      E2E_AUTH_MODE: ""

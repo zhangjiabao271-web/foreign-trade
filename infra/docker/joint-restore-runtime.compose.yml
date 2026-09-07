@@ -1,0 +1,46 @@
+# Append to joint-restore.compose.yml only during the reversible original-origin login rehearsal.
+services:
+  redis:
+    image: redis:8.2-alpine
+  logto:
+    image: svhd/logto:1.43.0
+    entrypoint: ["sh", "-c", "npm start"]
+    environment:
+      DB_URL: ${JOINT_LOGTO_DB_URL:?Decrypt the saved runtime configuration}
+      ENDPOINT: http://logto.localhost:3001
+      ADMIN_ENDPOINT: http://localhost:3002
+    ports: ["127.0.0.1:3001:3001", "127.0.0.1:3002:3002"]
+  api:
+    image: ${JOINT_API_IMAGE:?Restore the captured API image identity}
+    extra_hosts: ["logto.localhost:host-gateway"]
+    environment:
+      APP_ENV: acceptance
+      DATABASE_HOST: postgres
+      DATABASE_PORT: 5432
+      DATABASE_NAME: trade_fresh_acceptance
+      DATABASE_USER: rehearsal
+      DATABASE_PASSWORD: local-isolated-rehearsal-only
+      REDIS_HOST: redis
+      MINIO_HOST: minio
+      MINIO_PORT: 9000
+      MINIO_ACCESS_KEY: rehearsal
+      MINIO_SECRET_KEY: local-isolated-rehearsal-only
+      MINIO_SECURE: "false"
+      OIDC_ISSUER: http://logto.localhost:3001/oidc
+      OIDC_JWKS_URL: http://logto.localhost:3001/oidc/jwks
+      OIDC_AUDIENCE: https://api.trade-workbench.local
+      OIDC_SIGNING_ALGORITHM: ES384
+  web:
+    image: ${JOINT_WEB_IMAGE:?Restore the captured Web image identity}
+    extra_hosts: ["logto.localhost:host-gateway"]
+    environment:
+      INTERNAL_API_BASE_URL: http://api:8000
+      APP_BASE_URL: http://localhost:3300
+      LOGTO_ENDPOINT: http://logto.localhost:3001
+      LOGTO_APP_ID: 3h8workreqipkalzznnnq
+      LOGTO_APP_SECRET: ${JOINT_APP_SECRET:?Decrypt the saved Web credentials}
+      LOGTO_COOKIE_SECRET: ${JOINT_COOKIE_SECRET:?Decrypt the saved Web credentials}
+      LOCAL_AUTH_ALLOW_HTTP: "true"
+      OIDC_AUDIENCE: https://api.trade-workbench.local
+      E2E_AUTH_MODE: ""
+    ports: ["127.0.0.1:3300:3000"]

@@ -1,0 +1,31 @@
+from app.auth.context import RequestContext
+from app.auth.permissions import Permission
+from app.catalog.models import Product
+from app.catalog.schemas import ProductResponse
+from app.core.content_review import release_matches, review_digest
+
+
+def content_digest(row: Product, *, version: int | None = None) -> str:
+    return review_digest(
+        "product",
+        row.organization_id,
+        row.id,
+        row.version if version is None else version,
+        {"description": row.description},
+    )
+
+
+def is_released(row: Product) -> bool:
+    return release_matches(row, content_digest(row))
+
+
+def response(context: RequestContext, row: Product) -> ProductResponse:
+    result = ProductResponse.model_validate(row)
+    result.released = is_released(row)
+    result.content_visible = Permission.PROFIT_READ in context.permissions or result.released
+    if not result.content_visible:
+        result.description = None
+    if Permission.PROFIT_READ not in context.permissions:
+        result.standard_cost = None
+        result.cost_currency = None
+    return result

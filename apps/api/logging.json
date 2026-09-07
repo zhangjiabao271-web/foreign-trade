@@ -1,0 +1,20 @@
+{
+  "version": 1,
+  "disable_existing_loggers": false,
+  "formatters": {
+    "safe": { "()": "app.core.observability.SafeJsonFormatter" }
+  },
+  "handlers": {
+    "default": {
+      "class": "logging.StreamHandler",
+      "formatter": "safe",
+      "stream": "ext://sys.stderr"
+    }
+  },
+  "root": { "handlers": ["default"], "level": "INFO" },
+  "loggers": {
+    "uvicorn": { "handlers": [], "propagate": true },
+    "uvicorn.error": { "handlers": [], "propagate": true },
+    "uvicorn.access": { "handlers": [], "propagate": true }
+  }
+}

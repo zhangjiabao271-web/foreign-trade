@@ -1,0 +1,67 @@
+name: ci
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  quality:
+    runs-on: ubuntu-latest
+    services:
+      postgres:
+        image: postgres:18-bookworm
+        env:
+          POSTGRES_DB: postgres
+          POSTGRES_USER: trade_workbench
+          POSTGRES_PASSWORD: local-dev-only-change-me
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd "pg_isready -U trade_workbench -d postgres"
+          --health-interval 5s
+          --health-timeout 5s
+          --health-retries 12
+    env:
+      TEST_DATABASE_ADMIN_URL: postgresql+psycopg://trade_workbench:local-dev-only-change-me@localhost:5432/postgres
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 11.19.0
+          run_install: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24.19.0
+          cache: pnpm
+      - uses: astral-sh/setup-uv@v6
+        with:
+          version: "0.12.3"
+          enable-cache: true
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: pnpm install --frozen-lockfile
+      - run: uv sync --frozen --all-packages
+      - run: pnpm api-client:check
+      - run: pnpm format:check
+      - run: pnpm lint
+      - run: pnpm typecheck
+      - run: pnpm test
+      - run: pnpm build
+      - run: docker compose config --quiet
+
+  container-smoke:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: cp .env.example .env
+      - run: docker compose up --build --wait --wait-timeout 180
+      - run: docker compose exec -T api alembic -c alembic.ini current
+      - run: curl --fail http://localhost:3000/api/health
+      - run: curl --fail http://localhost:8000/health/ready
+      - run: docker compose exec -T worker celery -A worker.app inspect ping --timeout 5
+      - if: always()
+        run: docker compose logs --no-color
+      - if: always()
+        run: docker compose down --volumes

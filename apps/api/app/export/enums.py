@@ -1,0 +1,20 @@
+from enum import StrEnum
+
+
+class CustomsStatus(StrEnum):
+    DRAFT = "DRAFT"
+    DOCUMENTS_PENDING = "DOCUMENTS_PENDING"
+    READY = "READY"
+    SUBMITTED = "SUBMITTED"
+    CLEARED = "CLEARED"
+    REJECTED = "REJECTED"
+
+
+class TaxRefundStatus(StrEnum):
+    NOT_READY = "NOT_READY"
+    DOCUMENTS_PENDING = "DOCUMENTS_PENDING"
+    READY = "READY"
+    SUBMITTED = "SUBMITTED"
+    PROCESSING = "PROCESSING"
+    REFUNDED = "REFUNDED"
+    REJECTED = "REJECTED"

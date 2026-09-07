@@ -1,0 +1,225 @@
+name: trade-workbench
+
+services:
+  postgres:
+    image: postgres:18-bookworm
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB:-trade_workbench}
+      POSTGRES_USER: ${POSTGRES_USER:-trade_workbench}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-local-dev-only-change-me}
+    ports:
+      - "${POSTGRES_PORT:-5432}:5432"
+    volumes:
+      - postgres-data:/var/lib/postgresql
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U $$POSTGRES_USER -d $$POSTGRES_DB"]
+      interval: 5s
+      timeout: 5s
+      retries: 12
+    restart: unless-stopped
+
+  redis:
+    image: redis:8.2-alpine
+    command: ["redis-server", "--appendonly", "yes"]
+    ports:
+      - "${REDIS_PORT:-6379}:6379"
+    volumes:
+      - redis-data:/data
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 5s
+      timeout: 3s
+      retries: 12
+    restart: unless-stopped
+
+  minio:
+    image: minio/minio:RELEASE.2025-09-07T16-13-09Z
+    command: server /data --console-address ":9001"
+    environment:
+      MINIO_ROOT_USER: ${MINIO_ROOT_USER:-localminio}
+      MINIO_ROOT_PASSWORD: ${MINIO_ROOT_PASSWORD:-local-dev-only-change-me}
+    ports:
+      - "${MINIO_API_PORT:-9000}:9000"
+      - "${MINIO_CONSOLE_PORT:-9001}:9001"
+    volumes:
+      - minio-data:/data
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:9000/minio/health/live"]
+      interval: 5s
+      timeout: 5s
+      retries: 12
+    restart: unless-stopped
+
+  migrate:
+    image: trade-workbench-api:local
+    command: ["alembic", "-c", "alembic.ini", "upgrade", "head"]
+    environment:
+      APP_ENV: local
+      DATABASE_HOST: postgres
+      DATABASE_PORT: 5432
+      DATABASE_NAME: ${POSTGRES_DB:-trade_workbench}
+      DATABASE_USER: ${POSTGRES_USER:-trade_workbench}
+      DATABASE_PASSWORD: ${POSTGRES_PASSWORD:-local-dev-only-change-me}
+    depends_on:
+      postgres:
+        condition: service_healthy
+    restart: "no"
+
+  api:
+    build:
+      context: .
+      dockerfile: apps/api/Dockerfile
+    image: trade-workbench-api:local
+    environment:
+      APP_ENV: local
+      DATABASE_HOST: postgres
+      DATABASE_PORT: 5432
+      DATABASE_NAME: ${POSTGRES_DB:-trade_workbench}
+      DATABASE_USER: ${POSTGRES_USER:-trade_workbench}
+      DATABASE_PASSWORD: ${POSTGRES_PASSWORD:-local-dev-only-change-me}
+      REDIS_HOST: redis
+      REDIS_PORT: 6379
+      MINIO_HOST: minio
+      MINIO_PORT: 9000
+      MINIO_ACCESS_KEY: ${MINIO_ROOT_USER:-localminio}
+      MINIO_SECRET_KEY: ${MINIO_ROOT_PASSWORD:-local-dev-only-change-me}
+      MINIO_BUCKET: ${MINIO_BUCKET:-trade-workbench-documents}
+      MINIO_SECURE: "false"
+      MINIO_PUBLIC_ENDPOINT: ${MINIO_PUBLIC_ENDPOINT:-localhost:9000}
+      MINIO_PUBLIC_SECURE: ${MINIO_PUBLIC_SECURE:-false}
+      MINIO_REGION: ${MINIO_REGION:-us-east-1}
+      OPENAI_MODEL: ${OPENAI_MODEL:-}
+      OIDC_ISSUER: ${OIDC_ISSUER:-https://auth.example.invalid/oidc}
+      OIDC_AUDIENCE: ${OIDC_AUDIENCE:-https://api.trade-workbench.local}
+      OIDC_JWKS_URL: ${OIDC_JWKS_URL:-https://auth.example.invalid/oidc/jwks}
+      OIDC_SIGNING_ALGORITHM: ${OIDC_SIGNING_ALGORITHM:-RS256}
+    ports:
+      - "${API_PORT:-8000}:8000"
+    depends_on:
+      migrate:
+        condition: service_completed_successfully
+      redis:
+        condition: service_healthy
+      minio:
+        condition: service_healthy
+    healthcheck:
+      test:
+        [
+          "CMD",
+          "python",
+          "-c",
+          "import urllib.request; urllib.request.urlopen('http://localhost:8000/health/ready', timeout=3)",
+        ]
+      interval: 5s
+      timeout: 5s
+      retries: 12
+    restart: unless-stopped
+
+  worker:
+    build:
+      context: .
+      dockerfile: apps/worker/Dockerfile
+    environment:
+      APP_ENV: local
+      OPENAI_MODEL: ${OPENAI_MODEL:-}
+      OPENAI_API_KEY: ${OPENAI_API_KEY:-}
+      AI_INPUT_USD_PER_MILLION: ${AI_INPUT_USD_PER_MILLION:-}
+      AI_OUTPUT_USD_PER_MILLION: ${AI_OUTPUT_USD_PER_MILLION:-}
+      CELERY_BROKER_URL: redis://redis:6379/0
+      DATABASE_HOST: postgres
+      DATABASE_PORT: 5432
+      DATABASE_NAME: ${POSTGRES_DB:-trade_workbench}
+      DATABASE_USER: ${POSTGRES_USER:-trade_workbench}
+      DATABASE_PASSWORD: ${POSTGRES_PASSWORD:-local-dev-only-change-me}
+      MINIO_HOST: minio
+      MINIO_PORT: 9000
+      MINIO_ACCESS_KEY: ${MINIO_ROOT_USER:-localminio}
+      MINIO_SECRET_KEY: ${MINIO_ROOT_PASSWORD:-local-dev-only-change-me}
+      MINIO_BUCKET: ${MINIO_BUCKET:-trade-workbench-documents}
+      MINIO_SECURE: "false"
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    healthcheck:
+      test:
+        [
+          "CMD",
+          "celery",
+          "-A",
+          "worker.app",
+          "inspect",
+          "ping",
+          "--timeout",
+          "5",
+        ]
+      interval: 15s
+      timeout: 10s
+      retries: 8
+      start_period: 10s
+    restart: unless-stopped
+
+  worker-beat:
+    build:
+      context: .
+      dockerfile: apps/worker/Dockerfile
+    command:
+      ["celery", "-A", "worker.app", "--quiet", "beat", "--loglevel=INFO"]
+    environment:
+      APP_ENV: local
+      CELERY_BROKER_URL: redis://redis:6379/0
+      DATABASE_HOST: postgres
+      DATABASE_PORT: 5432
+      DATABASE_NAME: ${POSTGRES_DB:-trade_workbench}
+      DATABASE_USER: ${POSTGRES_USER:-trade_workbench}
+      DATABASE_PASSWORD: ${POSTGRES_PASSWORD:-local-dev-only-change-me}
+      MINIO_HOST: minio
+      MINIO_PORT: 9000
+      MINIO_ACCESS_KEY: ${MINIO_ROOT_USER:-localminio}
+      MINIO_SECRET_KEY: ${MINIO_ROOT_PASSWORD:-local-dev-only-change-me}
+      MINIO_BUCKET: ${MINIO_BUCKET:-trade-workbench-documents}
+      MINIO_SECURE: "false"
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    restart: unless-stopped
+
+  web:
+    build:
+      context: .
+      dockerfile: apps/web/Dockerfile
+    environment:
+      NEXT_PUBLIC_API_BASE_URL: http://localhost:${API_PORT:-8000}
+      INTERNAL_API_BASE_URL: http://api:8000
+      APP_BASE_URL: ${APP_BASE_URL:-}
+      LOGTO_ENDPOINT: ${LOGTO_ENDPOINT:-}
+      LOGTO_APP_ID: ${LOGTO_APP_ID:-}
+      LOGTO_APP_SECRET: ${LOGTO_APP_SECRET:-}
+      LOGTO_COOKIE_SECRET: ${LOGTO_COOKIE_SECRET:-}
+      LOCAL_AUTH_ALLOW_HTTP: ${LOCAL_AUTH_ALLOW_HTTP:-false}
+      OIDC_AUDIENCE: ${OIDC_AUDIENCE:-https://api.trade-workbench.local}
+    ports:
+      - "${WEB_PORT:-3000}:3000"
+    depends_on:
+      api:
+        condition: service_healthy
+    healthcheck:
+      test:
+        [
+          "CMD",
+          "node",
+          "-e",
+          "fetch('http://localhost:3000/api/health').then(r=>{if(!r.ok)process.exit(1)}).catch(()=>process.exit(1))",
+        ]
+      interval: 5s
+      timeout: 5s
+      retries: 12
+    restart: unless-stopped
+
+volumes:
+  postgres-data:
+  redis-data:
+  minio-data:

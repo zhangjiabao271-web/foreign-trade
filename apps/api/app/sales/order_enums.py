@@ -1,0 +1,12 @@
+from enum import StrEnum
+
+
+class SalesOrderStatus(StrEnum):
+    DRAFT = "DRAFT"
+    CONFIRMED = "CONFIRMED"
+    DEPOSIT_PENDING = "DEPOSIT_PENDING"
+    EXECUTING = "EXECUTING"
+    READY_TO_SHIP = "READY_TO_SHIP"
+    SHIPPED = "SHIPPED"
+    COMPLETED = "COMPLETED"
+    CANCELLED = "CANCELLED"

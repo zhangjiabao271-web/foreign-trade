@@ -1,0 +1,14 @@
+.next
+.pytest_cache
+.test-cache
+tmp
+coverage
+**/playwright-report
+**/test-results
+node_modules
+pnpm-lock.yaml
+packages/api-client/openapi.json
+packages/api-client/src/schema.d.ts
+**/next-env.d.ts
+TRADE_WORKBENCH_IMPLEMENTATION_GUIDE.md
+docs/IMPLEMENTATION_GUIDE.md

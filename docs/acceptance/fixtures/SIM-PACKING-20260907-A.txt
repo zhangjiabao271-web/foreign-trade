@@ -1,0 +1,14 @@
+SIMULATION ONLY - NOT AN ACTUAL PACKING OR SHIPPING DOCUMENT
+Local nonproduction acceptance evidence. No physical goods have been packed.
+
+Reference: SIM-PACKING-20260907-A
+Order: SO-2026-000001
+Shipment: SHP-2026-000001
+Date: 2026-09-07
+Item: LOCAL-ROLE-20260907-A (synthetic acceptance product)
+Quantity: 10 set
+Package: 1 simulated carton containing 10 set
+Weight and dimensions: not measured; not applicable to this software simulation.
+
+Contains no internal cost or profit. Not valid for carrier or customs submission.
+For testing upload, immutable storage versioning and shipment document checks only.

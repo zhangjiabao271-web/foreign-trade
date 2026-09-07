@@ -1,0 +1,41 @@
+# Local-only identity service. Combine with the root Compose file.
+services:
+  logto-postgres:
+    image: postgres:17-alpine
+    environment:
+      POSTGRES_DB: logto
+      POSTGRES_USER: logto
+      POSTGRES_PASSWORD: ${LOGTO_DATABASE_PASSWORD:-local-auth-only-change-me}
+    volumes:
+      - logto-postgres-data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U logto -d logto"]
+      interval: 5s
+      timeout: 5s
+      retries: 12
+    restart: unless-stopped
+
+  logto:
+    image: svhd/logto:1.43.0
+    entrypoint: ["sh", "-c", "npm run cli db seed -- --swe && npm start"]
+    environment:
+      DB_URL: postgres://logto:${LOGTO_DATABASE_PASSWORD:-local-auth-only-change-me}@logto-postgres:5432/logto
+      ENDPOINT: http://logto.localhost:3001
+      ADMIN_ENDPOINT: http://localhost:3002
+    ports:
+      - "127.0.0.1:3001:3001"
+      - "127.0.0.1:3002:3002"
+    depends_on:
+      logto-postgres:
+        condition: service_healthy
+    restart: unless-stopped
+
+  api:
+    extra_hosts:
+      - "logto.localhost:host-gateway"
+  web:
+    extra_hosts:
+      - "logto.localhost:host-gateway"
+
+volumes:
+  logto-postgres-data:

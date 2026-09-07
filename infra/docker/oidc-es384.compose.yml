@@ -1,0 +1,6 @@
+# Isolated algorithm-configuration smoke only; not real Logto login acceptance.
+# Use with root + fresh.compose.yml and project trade-fresh-acceptance.
+services:
+  api:
+    environment:
+      OIDC_SIGNING_ALGORITHM: ES384

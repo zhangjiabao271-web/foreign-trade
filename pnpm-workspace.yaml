@@ -1,0 +1,7 @@
+packages:
+  - "apps/web"
+  - "packages/*"
+
+allowBuilds:
+  unrs-resolver: true
+confirmModulesPurge: false

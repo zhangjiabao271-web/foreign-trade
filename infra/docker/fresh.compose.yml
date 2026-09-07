@@ -1,0 +1,50 @@
+# Combine with the root file and use -p trade-fresh-acceptance.
+# No published infrastructure ports; web is loopback-only for smoke inspection.
+services:
+  postgres:
+    ports: !reset []
+    environment:
+      POSTGRES_DB: trade_fresh_acceptance
+      POSTGRES_USER: rehearsal
+      POSTGRES_PASSWORD: local-isolated-rehearsal-only
+  redis:
+    ports: !reset []
+  minio:
+    ports: !reset []
+    environment:
+      MINIO_ROOT_USER: rehearsal
+      MINIO_ROOT_PASSWORD: local-isolated-rehearsal-only
+  migrate:
+    environment: &database
+      APP_ENV: acceptance
+      DATABASE_NAME: trade_fresh_acceptance
+      DATABASE_USER: rehearsal
+      DATABASE_PASSWORD: local-isolated-rehearsal-only
+  api:
+    ports: !reset []
+    environment:
+      <<: *database
+      MINIO_ACCESS_KEY: rehearsal
+      MINIO_SECRET_KEY: local-isolated-rehearsal-only
+      OIDC_ISSUER: https://auth.example.invalid/oidc
+      OIDC_JWKS_URL: https://auth.example.invalid/oidc/jwks
+  worker:
+    environment:
+      <<: *database
+      MINIO_ACCESS_KEY: rehearsal
+      MINIO_SECRET_KEY: local-isolated-rehearsal-only
+      OPENAI_API_KEY: ""
+      OPENAI_MODEL: ""
+  worker-beat:
+    environment:
+      <<: *database
+      MINIO_ACCESS_KEY: rehearsal
+      MINIO_SECRET_KEY: local-isolated-rehearsal-only
+  web:
+    ports: !override ["127.0.0.1:3300:3000"]
+    environment:
+      APP_BASE_URL: ""
+      LOGTO_ENDPOINT: ""
+      LOGTO_APP_ID: ""
+      LOGTO_APP_SECRET: ""
+      LOGTO_COOKIE_SECRET: ""

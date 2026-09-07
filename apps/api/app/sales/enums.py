@@ -1,0 +1,12 @@
+from enum import StrEnum
+
+
+class QuotationVersionStatus(StrEnum):
+    DRAFT = "DRAFT"
+    INTERNAL_REVIEW = "INTERNAL_REVIEW"
+    SENT = "SENT"
+    CUSTOMER_REVIEW = "CUSTOMER_REVIEW"
+    ACCEPTED = "ACCEPTED"
+    REJECTED = "REJECTED"
+    EXPIRED = "EXPIRED"
+    SUPERSEDED = "SUPERSEDED"

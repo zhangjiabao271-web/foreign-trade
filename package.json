@@ -1,0 +1,24 @@
+{
+  "name": "trade-workbench",
+  "version": "0.1.0",
+  "private": true,
+  "packageManager": "pnpm@11.19.0",
+  "engines": {
+    "node": ">=24.0.0"
+  },
+  "scripts": {
+    "build": "pnpm --filter @trade-workbench/web build",
+    "api-client:generate": "node packages/api-client/scripts/generate-client.mjs",
+    "api-client:check": "node packages/api-client/scripts/generate-client.mjs --check",
+    "dev": "pnpm --parallel --filter @trade-workbench/web dev",
+    "format": "prettier --write . \"!**/.test-cache/**\" \"!**/.pytest_cache/**\" \"!tmp/**\" && uv --cache-dir .uv-cache run ruff format apps",
+    "format:check": "prettier --check . \"!**/.test-cache/**\" \"!**/.pytest_cache/**\" \"!tmp/**\" && uv --cache-dir .uv-cache run ruff format --check apps",
+    "lint": "pnpm -r --if-present lint && uv --cache-dir .uv-cache run ruff check apps",
+    "test": "pnpm -r --if-present test && uv --cache-dir .uv-cache run pytest apps/api/tests apps/worker/tests",
+    "typecheck": "pnpm -r --if-present typecheck && uv --cache-dir .uv-cache run mypy apps/api/app apps/worker/worker"
+  },
+  "devDependencies": {
+    "prettier": "3.9.6",
+    "prettier-plugin-tailwindcss": "0.8.1"
+  }
+}

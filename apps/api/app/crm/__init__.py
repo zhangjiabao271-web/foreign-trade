@@ -1,0 +1,1 @@
+"""Lead and opportunity domain."""
