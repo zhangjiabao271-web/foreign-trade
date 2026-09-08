@@ -1,5 +1,18 @@
 # Sales quotations
 
+0034 adds the missing composite `(organization_id, opportunity_id)` foreign key on sales orders.
+The command still copies opportunity identity from the accepted quotation; no new request field,
+state transition or business permission is added. PostgreSQL rejects missing/foreign opportunity
+references independently of the application. Migration validates all retained records, including
+archived orders, and fails rather than repairing/deleting an inconsistent snapshot. Downgrade
+removes only this added constraint. Sep8 current-source encrypted-backup rehearsal and actual
+acceptance0034 deployment preserved all45 application table fingerprints; see V1_STATUS.
+
+Quotation activities now have an owner-authorized cursor GET at quotations/{id}/activities;
+sales-order history has sales-orders/{id}/activity-history without changing the legacy limited
+activities response. Both reuse Work's protected activity projection; the version ledger is not
+a substitute for this full history. UI integration/runtime acceptance are still in progress.
+
 The Sales-owned source_lines query port supports exact bounded shipment source resolution.
 It requires order.read and scopes both active parent and active item by organization, failing
 closed if any requested ID is unavailable. It reuses the existing full-order protected projection

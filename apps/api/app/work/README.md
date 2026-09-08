@@ -10,6 +10,19 @@ task returns the same task without duplicate records. There is no generic status
 
 Activity reads are ordered projections, not a substitute for the owning business tables.
 
+Commercial timelines now expose cursor pages for quotation/shipment activities and sales-order
+activity-history. Original domain read rights and a live tenant owner are required in both HTTP
+and service paths before cursor resolution. Shared activity_page orders occurred_at/id descending
+and reuses the existing owner/activity indexes; each page returns a limit+1 sentinel, not a total.
+Detached content projections preserve default confidentiality and exact-version release. The
+legacy order activities endpoint is retained unchanged; new UI must use activity-history to
+reach records beyond100. No migration, historical backfill or additional business write occurs.
+Quotation/shipment content review now uses the same owner-before-activity lock and original
+domain read plus profit.read checks; releasing history never approves a business command.
+Shared UI is wired for all three owners; full browser32 tests pass including order paging.
+Acceptance API/Web are deployed healthy, with actual authenticated order history inspected.
+Quotation/shipment-specific live history and detailed visual checks remain separate evidence.
+
 ADR-020 migration 0025 leaves historical/new task and activity text confidential. Order Work
 query services and task completion/DONE replay return detached DTOs: unreleased title/summary
 is null and arbitrary details are omitted for readers without profit.read. Status/type/time

@@ -1,5 +1,9 @@
 # Quotation workspace
 
+The detail now mounts Work's protected, cursor-paginated CommercialTimeline in addition to the
+version ledger. Opening another version/session resets history and each business revision
+refreshes it. No historical activity backfill or automatic disclosure is performed.
+
 0032 quotation queues load50 records per explicit cursor page, retain loaded rows on errors and
 reset pages when status changes. Shared controls offer retry/restart and display loaded counts,
 not global totals. The optional inquiry picker requires inquiry.read, loads only OPEN inquiries,

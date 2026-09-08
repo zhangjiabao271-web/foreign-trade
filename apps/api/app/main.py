@@ -4,12 +4,20 @@ from time import perf_counter
 from typing import Literal
 
 from fastapi import FastAPI, Request, Response, status
+from fastapi.exceptions import RequestValidationError
 from pydantic import BaseModel
+from starlette.exceptions import HTTPException
 from starlette.middleware.base import RequestResponseEndpoint
 
 from app.ai.routers import router as ai_router
 from app.auth.dependencies import assign_request_id
-from app.auth.errors import ApiProblem, problem_response
+from app.auth.errors import (
+    PROBLEM_RESPONSES,
+    ApiProblem,
+    http_problem_response,
+    problem_response,
+    validation_problem_response,
+)
 from app.auth.routers import router as auth_router
 from app.catalog.routers import router as products_router
 from app.catalog.supplier_routers import router as supplier_links_router
@@ -32,6 +40,7 @@ from app.documents.routers import router as documents_router
 from app.export.routers import router as export_router
 from app.export.text_routers import router as export_text_router
 from app.finance.expense_routers import router as expenses_router
+from app.finance.funding_routers import router as funding_router
 from app.finance.routers import router as finance_router
 from app.finance.supplier_routers import router as supplier_finance_router
 from app.fulfillment.routers import router as shipments_router
@@ -76,6 +85,7 @@ app = FastAPI(
     docs_url="/docs",
     redoc_url=None,
     lifespan=lifespan,
+    responses=PROBLEM_RESPONSES,
 )
 app.include_router(auth_router)
 app.include_router(administration_router)
@@ -98,6 +108,7 @@ app.include_router(shipments_router)
 app.include_router(documents_router)
 app.include_router(finance_router)
 app.include_router(expenses_router)
+app.include_router(funding_router)
 app.include_router(supplier_finance_router)
 app.include_router(work_router)
 app.include_router(crm_text_router)
@@ -158,6 +169,16 @@ async def request_id_middleware(request: Request, call_next: RequestResponseEndp
 @app.exception_handler(ApiProblem)
 async def api_problem_handler(request: Request, problem: ApiProblem) -> Response:
     return problem_response(request, problem)
+
+
+@app.exception_handler(RequestValidationError)
+async def request_validation_handler(request: Request, error: RequestValidationError) -> Response:
+    return validation_problem_response(request, error)
+
+
+@app.exception_handler(HTTPException)
+async def http_exception_handler(request: Request, error: HTTPException) -> Response:
+    return http_problem_response(request, error)
 
 
 @app.get("/health/live", response_model=LivenessResponse, tags=["health"])

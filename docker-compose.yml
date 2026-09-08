@@ -89,6 +89,8 @@ services:
       MINIO_PUBLIC_SECURE: ${MINIO_PUBLIC_SECURE:-false}
       MINIO_REGION: ${MINIO_REGION:-us-east-1}
       OPENAI_MODEL: ${OPENAI_MODEL:-}
+      AI_PROVIDER: ${AI_PROVIDER:-openai}
+      DEEPSEEK_MODEL: ${DEEPSEEK_MODEL:-deepseek-v4-pro}
       OIDC_ISSUER: ${OIDC_ISSUER:-https://auth.example.invalid/oidc}
       OIDC_AUDIENCE: ${OIDC_AUDIENCE:-https://api.trade-workbench.local}
       OIDC_JWKS_URL: ${OIDC_JWKS_URL:-https://auth.example.invalid/oidc/jwks}
@@ -123,6 +125,9 @@ services:
       APP_ENV: local
       OPENAI_MODEL: ${OPENAI_MODEL:-}
       OPENAI_API_KEY: ${OPENAI_API_KEY:-}
+      AI_PROVIDER: ${AI_PROVIDER:-openai}
+      DEEPSEEK_MODEL: ${DEEPSEEK_MODEL:-deepseek-v4-pro}
+      DEEPSEEK_API_KEY: ${DEEPSEEK_API_KEY:-}
       AI_INPUT_USD_PER_MILLION: ${AI_INPUT_USD_PER_MILLION:-}
       AI_OUTPUT_USD_PER_MILLION: ${AI_OUTPUT_USD_PER_MILLION:-}
       CELERY_BROKER_URL: redis://redis:6379/0

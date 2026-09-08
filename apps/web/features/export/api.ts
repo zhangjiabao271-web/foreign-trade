@@ -10,12 +10,14 @@ export type CaseKind = "customs" | "refunds";
 export type ExportCase = Schema["CustomsResponse"] | Schema["RefundResponse"];
 export type CaseAction =
   "prepare" | "ready" | "submit" | "clear" | "process" | "receive" | "reject";
-export type ManualFact = Schema["CaseCommand"] & {
-  occurred_on: string;
-  external_reference: string;
-  refunded_amount: string;
-  reason: string;
-};
+export type ManualFact = Schema["CaseCommand"] &
+  Pick<Schema["ManualSubmission"], "occurred_on" | "external_reference"> & {
+    refunded_amount: Extract<
+      Schema["RefundReceived"]["refunded_amount"],
+      string
+    >;
+    reason: NonNullable<Schema["CaseCommand"]["reason"]>;
+  };
 
 export function useCases(scope: string, kind: CaseKind, cursor?: string) {
   return useQuery({

@@ -2,6 +2,7 @@
 import { CursorPageControls } from "../../components/cursor-page-controls";
 import { WorkTextReview } from "../finance/work-review";
 import { InquirySource } from "./inquiry-source";
+import { CommercialTimeline } from "../finance/commercial-timeline";
 
 import { ApiClientError } from "@trade-workbench/api-client";
 import Link from "next/link";
@@ -685,6 +686,11 @@ function QuoteDetail({ id, connected }: { id?: string; connected: boolean }) {
           ))}
         </ol>
       </section>
+      <CommercialTimeline
+        subject="quotation"
+        id={quote.id}
+        revision={`${current.id}:${current.version}`}
+      />
     </section>
   );
 }

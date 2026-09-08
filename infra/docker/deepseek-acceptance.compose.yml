@@ -1,0 +1,17 @@
+# Append after fresh, identity-acceptance and acceptance-storage overlays.
+# User-authorized synthetic acceptance only; the secret is worker runtime environment, not image.
+services:
+  api:
+    environment:
+      AI_PROVIDER: deepseek
+      DEEPSEEK_MODEL: deepseek-v4-pro
+      OPENAI_MODEL: ""
+  worker:
+    environment:
+      AI_PROVIDER: deepseek
+      DEEPSEEK_MODEL: deepseek-v4-pro
+      DEEPSEEK_API_KEY: ${DEEPSEEK_API_KEY:?Supply the existing DeepSeek key through environment}
+      OPENAI_API_KEY: ""
+      OPENAI_MODEL: ""
+      AI_INPUT_USD_PER_MILLION: ""
+      AI_OUTPUT_USD_PER_MILLION: ""

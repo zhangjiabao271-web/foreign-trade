@@ -218,8 +218,14 @@ export function DocumentReview({
   const allowed =
     member.data?.permissions.includes("profit.read") &&
     member.data.permissions.includes("document.read");
-  if (!allowed)
+  if (!allowed) {
+    const current = document.versions?.find(
+      (version) => version.version_number === document.latest_version_number,
+    );
+    if (current?.content_visible)
+      return <p>当前版本已按审核范围开放；其他版本仍分别受权限控制。</p>;
     return <p>未经审核的附件内容及名称保密，请联系管理员、经理或财务审核。</p>;
+  }
   return (
     <details className="document-version-history">
       <summary>审核文件开放范围</summary>

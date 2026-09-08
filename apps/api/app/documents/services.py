@@ -643,10 +643,13 @@ class DocumentCommandService:
         self, context: RequestContext, document_id: UUID, *, version_id: UUID | None = None
     ) -> tuple[str, datetime]:
         pointer = self._download_pointer(context, document_id, version_id=version_id)
-        selected_version_id, object_key, storage_version_id, _ = pointer
+        selected_version_id, object_key, storage_version_id, _, file_name = pointer
         expires_at = datetime.now(UTC) + DOWNLOAD_SESSION_LIFETIME
         url = self._storage.presign_download(
-            object_key, expires=DOWNLOAD_SESSION_LIFETIME, version_id=storage_version_id
+            object_key,
+            expires=DOWNLOAD_SESSION_LIFETIME,
+            version_id=storage_version_id,
+            file_name=file_name,
         )
         # Signing happens outside a database transaction. Recheck the exact selected version
         # before issuing the capability; a concurrent restriction must not return a fresh URL.
@@ -659,7 +662,7 @@ class DocumentCommandService:
 
     def _download_pointer(
         self, context: RequestContext, document_id: UUID, *, version_id: UUID | None
-    ) -> tuple[UUID, str, str, str]:
+    ) -> tuple[UUID, str, str, str, str]:
         context.require(Permission.DOCUMENT_READ)
         with self._session_factory() as session:
             document = DocumentRepository(session).get(
@@ -707,7 +710,13 @@ class DocumentCommandService:
                     "Verification required",
                     "Revalidate completion to pin legacy evidence before downloading.",
                 )
-            return version.id, object_key, storage_version_id, content_digest(document, version)
+            return (
+                version.id,
+                object_key,
+                storage_version_id,
+                content_digest(document, version),
+                version.file_name,
+            )
 
 
 def mark_document_available(session: Session, message: OutboxMessage) -> None:

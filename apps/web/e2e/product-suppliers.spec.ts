@@ -1,4 +1,5 @@
 import { expect, test } from "@playwright/test";
+import type { components } from "@trade-workbench/api-client";
 import fs from "node:fs";
 import path from "node:path";
 type Fixture = {
@@ -126,7 +127,8 @@ test("links and revises supplier reference terms without repricing products", as
     },
   );
   expect(product.status()).toBe(201);
-  const productData = (await product.json()) as { id: string };
+  const productData =
+    (await product.json()) as components["schemas"]["ProductResponse"];
   await page.addInitScript((session: Fixture) => {
     localStorage.setItem(
       "trade-workbench.organization-id",

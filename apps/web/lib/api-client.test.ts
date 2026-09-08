@@ -2,6 +2,24 @@ import { ApiClientError, parseApiError } from "@trade-workbench/api-client";
 import { describe, expect, it } from "vitest";
 
 describe("parseApiError", () => {
+  it("preserves sanitized request validation categories and correlation", async () => {
+    const problem = {
+      type: "https://trade-workbench.local/problems/request-validation-error",
+      title: "Invalid request",
+      status: 422,
+      code: "REQUEST_VALIDATION_ERROR",
+      detail: "Check the submitted fields.",
+      request_id: "00000000-0000-0000-0000-000000000002",
+      errors: [{ location: "body", code: "REQUIRED_VALUE" }],
+    };
+    const error = await parseApiError(
+      new Response(JSON.stringify(problem), {
+        status: 422,
+        headers: { "Content-Type": "application/problem+json" },
+      }),
+    );
+    expect(error.problem).toEqual(problem);
+  });
   it("preserves generated Problem Details returned by openapi-fetch", async () => {
     const problem = {
       type: "https://trade-workbench.local/problems/job-not-found",

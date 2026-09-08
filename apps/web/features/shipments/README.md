@@ -1,5 +1,9 @@
 # Shipment workspace
 
+The detail now mounts a protected, cursor-paginated CommercialTimeline alongside milestones and
+documents. Shipment counter/session changes reset the history view; review remains independent
+of booking and shipping authority. Pending/error history never displays cached prose.
+
 The workspace reads shipment and document facts through the generated API client. Backend
 Fulfillment owns capacity, state transitions, permissions and transactional evidence; browser
 controls are not authorization or a replacement state machine.

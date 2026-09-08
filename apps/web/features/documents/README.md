@@ -8,6 +8,11 @@ command contract. Unchanged retries preserve the key and original digest/version
 remount editors; changed backend review snapshots reset stale forms. Restricted metadata has
 explicit placeholder labels and unauthorized download controls are disabled/hidden.
 
+Non-reviewers receive a current-version visibility description from the server's content_visible
+projection; an accessible current version is not labelled unreviewed merely because the reader
+lacks review authority. Older version visibility never determines the current-version message.
+This description neither grants review controls nor changes download authorization.
+
 Shared generated-client upload operation: checksum, scoped upload session, binary PUT,
 then completion command. Callers capture their session client and handle query invalidation.
 AVAILABLE state is determined by the backend scan job, not by successful PUT alone.

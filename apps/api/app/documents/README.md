@@ -31,6 +31,12 @@ the version `AVAILABLE`; a production malware engine must replace that placehold
 untrusted external files. Downloads require organization authorization and use a five-minute
 presigned URL. Permanent public URLs are never stored.
 
+Download signatures include an attachment Content-Disposition with the authorized selected
+version's UTF-8 filename (RFC 5987 encoding and a safe ASCII fallback). Header delimiters and
+control characters are percent-encoded, not interpolated as raw header values. The exact pinned
+storage version and five-minute lifetime are unchanged. This instructs browser saving but does
+not prove a local file was saved; real-browser byte/download acceptance remains separate.
+
 The MinIO Python SDK is Apache-2.0 licensed.
 
 The internal storage client and browser signing endpoint are configured separately.

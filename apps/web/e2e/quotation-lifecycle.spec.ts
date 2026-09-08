@@ -1,4 +1,5 @@
 import { expect, test, type Page } from "@playwright/test";
+import type { components } from "@trade-workbench/api-client";
 import { execFileSync } from "node:child_process";
 import fs from "node:fs";
 import path from "node:path";
@@ -130,7 +131,8 @@ async function verifyOrderCostRoles(page: Page) {
     expect(purchases.ok()).toBeTruthy();
     for (const purchase of (await purchases.json()).items) {
       const source = originalPurchases.find(
-        (row: { id: string }) => row.id === purchase.id,
+        (row: components["schemas"]["PurchaseOrderResponse"]) =>
+          row.id === purchase.id,
       );
       expect(source).toBeTruthy();
       const detail = await page.request.get(
@@ -298,10 +300,8 @@ test("completes quotation, deposit, procurement, delivery, balance and order thr
     },
   );
   expect(leadResponse.ok()).toBeTruthy();
-  const lead = (await leadResponse.json()) as {
-    converted_company_id: string;
-    converted_opportunity_id: string;
-  };
+  const lead =
+    (await leadResponse.json()) as components["schemas"]["LeadDetailResponse"];
 
   await page.goto("/quotations");
   await expect(page.getByRole("heading", { name: "报价驾驶台" })).toBeVisible();
@@ -491,9 +491,12 @@ test("completes quotation, deposit, procurement, delivery, balance and order thr
     },
   );
   expect(sourceResponse.ok()).toBeTruthy();
-  const sourceItems = (await sourceResponse.json()).current_version.items as {
-    id: string;
-  }[];
+  const sourceQuotation =
+    (await sourceResponse.json()) as components["schemas"]["QuotationResponse"];
+  const sourceItems = sourceQuotation.current_version.items;
+  if (!sourceItems || sourceItems.length !== 2) {
+    throw new Error("Revision fixture must expose both source quotation items");
+  }
   await page.getByRole("button", { name: "生成修订版" }).click();
   await page.getByLabel("新有效期 *").fill("2026-12-31");
   await page.getByLabel("VALVE-E2E 新单价").nth(0).fill("132.5000");
@@ -519,7 +522,10 @@ test("completes quotation, deposit, procurement, delivery, balance and order thr
         route
           .request()
           .postDataJSON()
-          .items.map((item: { source_item_id: string }) => item.source_item_id),
+          .items.map(
+            (item: components["schemas"]["QuotationRevisionItemInput"]) =>
+              item.source_item_id,
+          ),
       ).toEqual(sourceItems.map((item) => item.id));
       if (revisionKeys.length === 1) {
         const response = await route.fetch();
@@ -912,6 +918,13 @@ test("completes quotation, deposit, procurement, delivery, balance and order thr
   }
 
   const expenses = page.getByRole("region", { name: "订单费用", exact: true });
+  const funding = expenses.getByRole("region", {
+    name: "垫资估算",
+    exact: true,
+  });
+  await expect(funding.getByText("垫资估算 · 非实际现金缺口")).toBeVisible();
+  await expect(funding.getByText(/额外费用净额：0.0000/)).toBeVisible();
+  await expect(funding.getByText(/估算为零也不保证无需准备资金/)).toBeVisible();
   await expenses
     .getByRole("button", { name: "登记订单费用", exact: true })
     .click();
@@ -925,6 +938,7 @@ test("completes quotation, deposit, procurement, delivery, balance and order thr
   await expenses.getByRole("button", { name: "保存订单费用" }).click();
   await expect(expenses.getByText(/费用操作已保存/)).toBeVisible();
   await expect(expenses.getByText(/额外费用净额 12.3456/)).toBeVisible();
+  await expect(funding.getByText(/额外费用净额：12.3456/)).toBeVisible();
   await expenses.getByRole("button", { name: /^冲销费用 EX/ }).click();
   await expenses.getByLabel("费用操作原因").fill("测试重复凭证全额冲销");
   await expenses.getByLabel("我确认全额冲销此费用").check();
@@ -933,6 +947,7 @@ test("completes quotation, deposit, procurement, delivery, balance and order thr
     expenses.getByRole("heading", { name: /冲销记录/ }),
   ).toBeVisible();
   await expect(expenses.getByText(/额外费用净额 0.0000/)).toBeVisible();
+  await expect(funding.getByText(/额外费用净额：0.0000/)).toBeVisible();
   for (const width of [375, 1440]) {
     await page.setViewportSize({ width, height: 1000 });
     await expect
@@ -957,11 +972,9 @@ test("completes quotation, deposit, procurement, delivery, balance and order thr
     },
   );
   expect(receivableResponse.ok()).toBeTruthy();
-  const installments = (await receivableResponse.json()).items as {
-    id: string;
-    installment_type: string;
-    amount: string;
-  }[];
+  const receivablePage =
+    (await receivableResponse.json()) as components["schemas"]["ReceivableListResponse"];
+  const installments = receivablePage.items;
   const deposit = installments.find(
     (row) => row.installment_type === "DEPOSIT",
   )!;
@@ -1010,19 +1023,26 @@ test("completes quotation, deposit, procurement, delivery, balance and order thr
         },
       },
     );
-    const receipts = (await response.json()).items as {
-      id: string;
-      reference: string;
-    }[];
+    const receiptPage =
+      (await response.json()) as components["schemas"]["PaymentListResponse"];
+    const receipts = receiptPage.items;
     const receipt = receipts.find((row) => row.reference === reference)!;
     await page.getByRole("button", { name: "下一页收款" }).click();
-    await expect(page.getByText("第 2 页", { exact: true })).toBeVisible();
+    await expect(
+      page
+        .getByRole("navigation", { name: "收款分页", exact: true })
+        .getByText("第 2 页", { exact: true }),
+    ).toBeVisible();
     await expect(
       page.getByLabel("选择收款").locator(`option[value="${receipt.id}"]`),
     ).toHaveCount(1);
     await page.getByLabel("查找当前客户收款").fill(reference);
     await page.getByRole("button", { name: "查找收款", exact: true }).click();
-    await expect(page.getByText("第 1 页", { exact: true })).toBeVisible();
+    await expect(
+      page
+        .getByRole("navigation", { name: "收款分页", exact: true })
+        .getByText("第 1 页", { exact: true }),
+    ).toBeVisible();
     await page.getByLabel("选择收款").selectOption(receipt.id);
     await page.getByLabel("选择应收").selectOption(installment.id);
     await page.getByLabel("核销金额").fill(installment.amount);
@@ -1043,6 +1063,9 @@ test("completes quotation, deposit, procurement, delivery, balance and order thr
         await expect(card).toBeVisible();
       }
       await selectRole(fixture.operations_access_token);
+      await expect(
+        page.getByRole("region", { name: "垫资估算", exact: true }),
+      ).toHaveCount(0);
       await expect(notes.getByText("收款备注待审核，当前不可见")).toBeVisible();
       await expect(
         card.getByText(`银行流水号：${reference}`, { exact: false }),
@@ -1078,6 +1101,9 @@ test("completes quotation, deposit, procurement, delivery, balance and order thr
     await page.getByRole("button", { name: "查找收款", exact: true }).click();
   }
   await settle(deposit, "E2E-DEPOSIT");
+  await expect(
+    funding.getByText(`本订单净核销收款：${deposit.amount} EUR`),
+  ).toBeVisible();
   await expect(
     orderDetail.getByText("执行中", { exact: true }).first(),
   ).toBeVisible();
@@ -1304,11 +1330,7 @@ test("completes quotation, deposit, procurement, delivery, balance and order thr
   );
   expect(purchaseListResponse.ok()).toBeTruthy();
   const replacementPurchase = (await purchaseListResponse.json()).items.find(
-    (candidate: {
-      id: string;
-      sales_order_id: string;
-      replaces_purchase_order_id: string | null;
-    }) =>
+    (candidate: components["schemas"]["PurchaseOrderResponse"]) =>
       candidate.sales_order_id === orderId &&
       candidate.replaces_purchase_order_id !== null,
   );
@@ -1876,10 +1898,17 @@ test("completes quotation, deposit, procurement, delivery, balance and order thr
       fullPage: true,
     });
   }
+  const savedEvidence = page.waitForEvent("download");
   await history.getByRole("button", { name: "下载第 1 版" }).click();
-  await expect(page.locator("body")).toHaveText(
+  const downloadedEvidence = await savedEvidence;
+  expect(downloadedEvidence.suggestedFilename()).toBe("commercial-invoice.txt");
+  expect(await downloadedEvidence.failure()).toBeNull();
+  const savedEvidencePath = await downloadedEvidence.path();
+  expect(savedEvidencePath).not.toBeNull();
+  expect(fs.readFileSync(savedEvidencePath!, "utf-8")).toBe(
     "commercial invoice e2e evidence",
   );
+  expect(page.url()).toBe(shipmentPageUrl);
   await page.goto(shipmentPageUrl);
   await page.evaluate((token) => {
     window.localStorage.setItem("trade-workbench.access-token", token);
@@ -1970,6 +1999,47 @@ test("completes quotation, deposit, procurement, delivery, balance and order thr
   await expect(
     page.getByText("订单已完成归档，交易与核销记录保留可追溯。"),
   ).toBeVisible();
+  const orderHistory = page.getByRole("region", {
+    name: "订单时间线",
+    exact: true,
+  });
+  const historyIds: string[] = [];
+  let foundCreation = false;
+  for (let historyPage = 0; historyPage < 20; historyPage += 1) {
+    await expect(orderHistory).toHaveAttribute("aria-busy", "false");
+    await expect(
+      orderHistory.locator("[data-activity-id]").first(),
+    ).toBeVisible();
+    historyIds.push(
+      ...(await orderHistory
+        .locator("[data-activity-id]")
+        .evaluateAll((rows) =>
+          rows.map((row) => row.getAttribute("data-activity-id")!),
+        )),
+    );
+    if (
+      await orderHistory
+        .getByText("sales_order.created", { exact: true })
+        .count()
+    )
+      foundCreation = true;
+    const nextHistory = orderHistory.getByRole("button", {
+      name: "下一页历史",
+    });
+    if (await nextHistory.isDisabled()) break;
+    await nextHistory.click();
+  }
+  expect(historyIds.length).toBeGreaterThan(20);
+  expect(new Set(historyIds).size).toBe(historyIds.length);
+  expect(foundCreation).toBe(true);
+  await expect(
+    orderHistory.getByRole("button", { name: "下一页历史" }),
+  ).toBeDisabled();
+  await orderHistory.getByRole("button", { name: "刷新时间线" }).click();
+  await expect(
+    orderHistory.getByRole("button", { name: "上一页历史" }),
+  ).toBeDisabled();
+  await expect(orderHistory).toHaveAttribute("aria-busy", "false");
   for (const width of [375, 768, 1024, 1440]) {
     await page.setViewportSize({ width, height: 900 });
     await expect

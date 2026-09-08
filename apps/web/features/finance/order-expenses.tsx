@@ -5,6 +5,7 @@ import { useMemberContext } from "../overview/api";
 import { useSessionScope } from "../overview/session";
 import { type Expense, useExpenses, useExpenseSummary } from "./expense-api";
 import { ExpenseForm, expenseCategories, expenseError } from "./expense-form";
+import { FundingEstimate } from "./funding-estimate";
 
 function Panel({
   scope,
@@ -28,6 +29,11 @@ function Panel({
     <section className="finance-section" aria-label="订单费用">
       <p className="section-kicker">费用凭证 · 保留原始事实</p>
       <h2>订单费用</h2>
+      <FundingEstimate
+        scope={scope}
+        orderId={order.id}
+        permissions={permissions}
+      />
       <p>登记已发生的附加成本，不代表已付款。采购本金与应付结算另行管理。</p>
       {summary.data && (
         <div className="finance-payment">

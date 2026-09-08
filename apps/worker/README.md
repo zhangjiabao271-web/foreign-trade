@@ -4,6 +4,11 @@ Celery handles retryable side effects but never owns user-visible state. `worker
 the PostgreSQL outbox relay. The relay claims rows with `FOR UPDATE SKIP LOCKED`, commits that
 short claim transaction, and only then publishes organization-scoped tasks to Celery.
 
+ADR-029 selects an explicit OpenAI or DeepSeek Responses adapter. API and worker must agree on
+AI_PROVIDER/model; mismatched stored model identities fail closed without a provider request.
+Only worker receives DEEPSEEK_API_KEY; keep it in deployment environment, never source or logs.
+There is no automatic provider fallback, expanded tool authority or changed retry policy.
+
 Every business task accepts `TenantTaskContext`. Outbox consumers insert `processed_events` in
 the same PostgreSQL transaction as their side effect, so repeated at-least-once delivery is safe.
 Failed relay attempts use bounded backoff and become `DEAD`; authorized API commands can replay

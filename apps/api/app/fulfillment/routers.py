@@ -21,6 +21,8 @@ from app.fulfillment.schemas import (
 )
 from app.fulfillment.services import ShipmentCommandService, ShipmentQueryService
 from app.sales.order_schemas import SalesOrderSourceLinesResponse
+from app.work.schemas import ActivityPageResponse
+from app.work.services import WorkQueryService
 
 router = APIRouter(prefix="/api/v1/shipments", tags=["shipments"], responses=PROBLEM_RESPONSES)
 DatabaseSession = Annotated[Session, Depends(get_database_session)]
@@ -93,6 +95,19 @@ def read_shipment(
 ) -> ShipmentResponse:
     return shipment_response(
         *ShipmentQueryService(ShipmentRepository(session)).get(context, shipment_id)
+    )
+
+
+@router.get("/{shipment_id}/activities", response_model=ActivityPageResponse)
+def list_shipment_activities(
+    shipment_id: UUID,
+    context: ShipmentReader,
+    session: DatabaseSession,
+    limit: Annotated[int, Query(ge=1, le=100)] = 20,
+    cursor: UUID | None = None,
+) -> ActivityPageResponse:
+    return WorkQueryService(session).commercial_activities(
+        context, "shipment", shipment_id, limit=limit, cursor=cursor
     )
 
 

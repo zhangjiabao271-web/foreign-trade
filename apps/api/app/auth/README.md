@@ -25,3 +25,10 @@ Cross-organization identifiers are therefore returned as `404`, not `403`.
 
 Business Celery tasks must accept a serialized `TenantTaskContext` containing at least
 `organization_id` and `request_id`. Celery headers and result state are not business facts.
+
+ADR-028 normalizes request validation and framework HTTP errors to ProblemDetails. Validation
+uses422/REQUEST_VALIDATION_ERROR and at most100 fixed source/category entries; no submitted
+values, arbitrary field keys, custom validator messages or context are reflected or logged.
+Framework HTTP errors preserve status and Allow/WWW-Authenticate/Retry-After, with standard
+phrases instead of exception details. Existing ApiProblem and authentication ordering are
+unchanged. Internal programming/response validation exceptions are not disguised as client errors.

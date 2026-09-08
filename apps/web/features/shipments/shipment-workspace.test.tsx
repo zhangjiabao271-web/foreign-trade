@@ -558,8 +558,9 @@ describe("ShipmentWorkspace", () => {
     const input = screen.getByLabelText("订舱参考号 *");
     fireEvent.change(input, { target: { value: " BK-001 " } });
     fireEvent.click(button);
-    expect(await screen.findByRole("alert")).toHaveTextContent(
-      "请刷新后核对状态",
+    expect(await screen.findByText(/请刷新后核对状态/)).toHaveAttribute(
+      "role",
+      "alert",
     );
     expect(input).toHaveValue(" BK-001 ");
     fireEvent.click(button);

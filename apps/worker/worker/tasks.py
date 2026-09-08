@@ -2,7 +2,7 @@ from collections.abc import Callable
 from typing import Any, Literal, TypedDict, TypeVar, cast
 from uuid import UUID
 
-from app.ai.provider import OpenAIResponsesProvider
+from app.ai.provider import configured_provider
 from app.ai.runner import AiRunner
 from app.core.config import get_settings
 from app.documents.services import mark_document_available
@@ -131,7 +131,7 @@ def execute_ai_run(context: TenantTaskContext, message: OutboxMessage) -> bool:
         raise ValueError("Invalid AI run event context")
     settings = get_settings()
     factory = worker_session_factory()
-    AiRunner(factory, OpenAIResponsesProvider(settings), settings).execute(
+    AiRunner(factory, configured_provider(settings), settings).execute(
         organization_id=UUID(message["organization_id"]),
         run_id=UUID(message["aggregate_id"]),
         request_id=UUID(message["correlation_id"]),

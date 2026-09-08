@@ -1,6 +1,7 @@
 "use client";
 import Link from "next/link";
 import { useState } from "react";
+import { useQueryClient } from "@tanstack/react-query";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
@@ -103,6 +104,7 @@ function ActionQueue({
   title: string;
 }) {
   const [offset, setOffset] = useState(0);
+  const cache = useQueryClient();
   const query = useActionQueue(scope, kind, offset);
   return (
     <section
@@ -115,7 +117,15 @@ function ActionQueue({
         <button
           className="secondary-button"
           disabled={query.isFetching}
-          onClick={() => void query.refetch()}
+          onClick={() => {
+            void cache.invalidateQueries({
+              queryKey: ["overview", scope, kind, 0],
+              exact: true,
+              refetchType: "none",
+            });
+            if (offset === 0) void query.refetch();
+            else setOffset(0);
+          }}
         >
           刷新
         </button>

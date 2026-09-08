@@ -35,7 +35,9 @@ class FakeObjectStorage:
             raise RuntimeError("signing unavailable")
         return f"https://storage.example.test/upload/{object_key}"
 
-    def presign_download(self, object_key: str, *, expires: timedelta, version_id: str) -> str:
+    def presign_download(
+        self, object_key: str, *, expires: timedelta, version_id: str, file_name: str
+    ) -> str:
         _ = expires
         return f"https://storage.example.test/download/{object_key}"
 

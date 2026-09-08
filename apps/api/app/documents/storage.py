@@ -3,6 +3,7 @@ from dataclasses import dataclass
 from datetime import timedelta
 from hashlib import sha256
 from typing import Protocol
+from urllib.parse import quote
 
 from minio import Minio
 from minio.commonconfig import ENABLED
@@ -25,7 +26,9 @@ class ObjectStorage(Protocol):
 
     def presign_upload(self, object_key: str, *, expires: timedelta) -> str: ...
 
-    def presign_download(self, object_key: str, *, expires: timedelta, version_id: str) -> str: ...
+    def presign_download(
+        self, object_key: str, *, expires: timedelta, version_id: str, file_name: str
+    ) -> str: ...
 
     def inspect(self, object_key: str, *, version_id: str | None = None) -> StoredObject: ...
 
@@ -63,9 +66,20 @@ class MinioObjectStorage:
     def presign_upload(self, object_key: str, *, expires: timedelta) -> str:
         return self._signer.presigned_put_object(self._bucket, object_key, expires=expires)
 
-    def presign_download(self, object_key: str, *, expires: timedelta, version_id: str) -> str:
+    def presign_download(
+        self, object_key: str, *, expires: timedelta, version_id: str, file_name: str
+    ) -> str:
         return self._signer.presigned_get_object(
-            self._bucket, object_key, expires=expires, version_id=version_id
+            self._bucket,
+            object_key,
+            expires=expires,
+            version_id=version_id,
+            response_headers={
+                "response-content-disposition": (
+                    'attachment; filename="download"; '
+                    f"filename*=UTF-8''{quote(file_name, safe='')}"
+                )
+            },
         )
 
     def inspect(self, object_key: str, *, version_id: str | None = None) -> StoredObject:

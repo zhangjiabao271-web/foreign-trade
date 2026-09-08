@@ -12,10 +12,19 @@ from app.auth.permissions import Permission
 from app.companies.models import Company
 from app.crm.models import Lead, Opportunity
 from app.export.models import CustomsDeclaration, TaxRefundCase
+from app.fulfillment.models import Shipment
 from app.procurement.models import PurchaseOrder
+from app.sales.models import Quotation
 
 ActivitySubject = Literal[
-    "lead", "company", "opportunity", "customs_declaration", "tax_refund_case", "purchase_order"
+    "lead",
+    "company",
+    "opportunity",
+    "customs_declaration",
+    "tax_refund_case",
+    "purchase_order",
+    "quotation",
+    "shipment",
 ]
 
 
@@ -34,7 +43,9 @@ def require_activity_subject(
         | type[Opportunity]
         | type[CustomsDeclaration]
         | type[TaxRefundCase]
-        | type[PurchaseOrder],
+        | type[PurchaseOrder]
+        | type[Quotation]
+        | type[Shipment],
     ] = {
         "lead": Lead,
         "company": Company,
@@ -42,6 +53,8 @@ def require_activity_subject(
         "customs_declaration": CustomsDeclaration,
         "tax_refund_case": TaxRefundCase,
         "purchase_order": PurchaseOrder,
+        "quotation": Quotation,
+        "shipment": Shipment,
     }
     permissions = {
         "lead": Permission.LEAD_READ,
@@ -50,6 +63,8 @@ def require_activity_subject(
         "customs_declaration": Permission.EXPORT_READ,
         "tax_refund_case": Permission.EXPORT_READ,
         "purchase_order": Permission.PROCUREMENT_READ,
+        "quotation": Permission.QUOTATION_READ,
+        "shipment": Permission.SHIPMENT_READ,
     }
     model = models.get(subject_type)
     if model is None:

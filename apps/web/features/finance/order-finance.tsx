@@ -608,33 +608,6 @@ export function OrderFinance({ order }: { order: SalesOrder }) {
         permissions.includes("order.complete")) && (
         <CompleteOrder order={order} />
       )}
-      <h3>订单时间线</h3>
-      <ol className="finance-timeline">
-        {data.activities.map((activity) => (
-          <li key={activity.id}>
-            <time>
-              {new Date(activity.occurred_at).toLocaleString("zh-CN")}
-            </time>
-            <p>{activity.summary ?? "正文待审核，仅授权审核人可查看。"}</p>
-            <small>{activity.activity_type}</small>
-            {activity.content_visible &&
-              Object.keys(activity.details).length > 0 && (
-                <details>
-                  <summary>活动补充信息</summary>
-                  <pre className="work-content-preview">
-                    {JSON.stringify(activity.details, null, 2)}
-                  </pre>
-                </details>
-              )}
-            <WorkTextReview
-              orderId={order.id}
-              kind="activity"
-              recordId={activity.id}
-              onChanged={() => query.refetch()}
-            />
-          </li>
-        ))}
-      </ol>
     </section>
   );
 }

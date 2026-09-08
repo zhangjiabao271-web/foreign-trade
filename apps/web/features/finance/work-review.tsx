@@ -65,6 +65,8 @@ const subjectPermission = {
   customs_declaration: "export.read",
   tax_refund_case: "export.read",
   purchase_order: "procurement.read",
+  quotation: "quotation.read",
+  shipment: "shipment.read",
 } as const;
 function targetKey(target: Target) {
   if ("sourceKind" in target)
@@ -337,7 +339,7 @@ function ReviewSession({
       >
         刷新待审核文本
       </button>
-      {query.data && (
+      {query.data && !query.isError && (
         <DecisionForm
           key={`${query.data.version}:${query.data.content_digest}`}
           target={target}

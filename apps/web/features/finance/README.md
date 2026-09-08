@@ -1,5 +1,28 @@
 # Finance UI
 
+Shared WorkTextReview permission mapping includes quotation and shipment activity subjects from
+the generated contract, each requiring its original read right plus profit.read. Existing exact
+snapshot/confirmation/retry behavior is unchanged. Failed review refresh now hides the cached
+snapshot and decision controls; the backend continues to enforce current authorization.
+
+CommercialTimeline is mounted independently on quotation, shipment and sales-order detail pages.
+It consumes generated cursor responses20 at a time, labels restricted text and supports older/
+newer pages, retry and fresh first-page refresh. Session/owner/business revision partition both
+query keys and component state. Page navigation revalidates reads; pending/error responses hide
+cached history. Permission loss unmounts it and late old-session results cannot render. Order
+history no longer depends on the receivable/task aggregate or truncates at100. Finance commands
+invalidate history separately; periodic refresh retains the current page. Styling and review
+controls are reused, not a new design system. Full browser32 tests pass including order-history
+traversal/refresh; the local acceptance API/Web are deployed healthy. Actual authenticated order
+history and funding display were inspected; detailed visual and exact-manager checks remain open.
+
+ADR-027 FundingEstimate shows server decimal strings and all formula inputs in order currency,
+with an explicit non-cash-deficit warning and a zero-is-not-a-liquidity-guarantee limitation.
+All four read permissions are required before mounting/fetching; cache keys and remounts include
+session scope and order. Refresh errors hide cached amounts. Expense changes invalidate the
+specific estimate; customer finance changes invalidate all estimates because reversal can affect
+multiple orders. No browser floating-point calculation or fabricated loading/error zero is used.
+
 The shared review form additionally supports purchase source text and purchase_order activity
 history, each using procurement.read plus profit.read. Source route permissions use an explicit
 map rather than a growing conditional; neither review grants purchasing or financial authoring.

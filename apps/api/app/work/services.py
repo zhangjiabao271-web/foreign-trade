@@ -1,4 +1,5 @@
 from collections.abc import Sequence
+from typing import Literal
 from uuid import UUID
 
 from sqlalchemy import select
@@ -10,9 +11,11 @@ from app.auth.permissions import Permission
 from app.core.unit_of_work import UnitOfWork
 from app.platform.records import AuditRecorder, DomainEvent, OutboxRecorder
 from app.sales.order_repositories import SalesOrderRepository
+from app.work.activity_access import require_activity_subject
 from app.work.content import activity_response, task_response
 from app.work.models import Activity, Task
-from app.work.schemas import ActivityResponse, TaskComplete, TaskResponse
+from app.work.schemas import ActivityPageResponse, ActivityResponse, TaskComplete, TaskResponse
+from app.work.timeline import activity_page
 
 
 def require_order(
@@ -33,6 +36,33 @@ def require_order(
 class WorkQueryService:
     def __init__(self, session: Session) -> None:
         self.session = session
+
+    def commercial_activities(
+        self,
+        context: RequestContext,
+        subject_type: Literal["quotation", "shipment", "sales_order"],
+        subject_id: UUID,
+        *,
+        cursor: UUID | None,
+        limit: int,
+    ) -> ActivityPageResponse:
+        if subject_type == "sales_order":
+            require_order(self.session, context, subject_id)
+        else:
+            require_activity_subject(self.session, context, subject_type, subject_id)
+        rows, has_more = activity_page(
+            self.session,
+            organization_id=context.organization_id,
+            subject_type=subject_type,
+            subject_id=subject_id,
+            cursor=cursor,
+            limit=limit,
+        )
+        return ActivityPageResponse(
+            items=[activity_response(context, row) for row in rows],
+            has_more=has_more,
+            next_cursor=rows[-1].id if has_more else None,
+        )
 
     def order_tasks(self, context: RequestContext, order_id: UUID) -> Sequence[TaskResponse]:
         context.require(Permission.TASK_READ)

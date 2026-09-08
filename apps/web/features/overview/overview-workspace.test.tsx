@@ -23,7 +23,7 @@ function response(body: object) {
 }
 function mount() {
   const client = new QueryClient({
-    defaultOptions: { queries: { retry: false } },
+    defaultOptions: { queries: { retry: false, staleTime: 30_000 } },
   });
   render(
     <QueryClientProvider client={client}>
@@ -92,4 +92,45 @@ it("shows real queue rows, next page, and prevents cross-session cache reuse", a
   );
   expect(keys).not.toContain("first-token");
   expect(keys).not.toContain("second-token");
+});
+
+it("manual refresh returns to fresh first-page facts after pagination", async () => {
+  connectSession("00000000-0000-4000-8000-000000000001", "fixture-token");
+  let firstPageReads = 0;
+  vi.spyOn(globalThis, "fetch").mockImplementation(async (input) => {
+    const url = new URL((input as Request).url);
+    if (url.pathname.endsWith("/me/context"))
+      return response({ permissions: ["overview.read", "lead.read"] });
+    const later = url.searchParams.get("offset") === "5";
+    if (!later) firstPageReads += 1;
+    return response({
+      queue: "leads",
+      business_date: "2026-09-08",
+      has_more: !later,
+      next_offset: later ? null : 5,
+      items: [
+        {
+          id: "lead",
+          title: later ? "旧第二页" : `第一页更新${firstPageReads}`,
+          href: "/leads/lead",
+          status: "NEW",
+          due_date: null,
+          overdue: false,
+          next_action: "跟进客户",
+          missing_document_types: [],
+        },
+      ],
+    });
+  });
+  mount();
+  await screen.findByText("第一页更新1");
+  const queue = within(screen.getByRole("region", { name: "待跟进线索" }));
+  fireEvent.click(queue.getByRole("button", { name: "下一页" }));
+  await screen.findByText("旧第二页");
+  fireEvent.click(queue.getByRole("button", { name: "刷新" }));
+  await screen.findByText("第一页更新2");
+  expect(screen.queryByText("旧第二页")).toBeNull();
+  expect(queue.getByRole("button", { name: "上一页" })).toBeDisabled();
+  fireEvent.click(queue.getByRole("button", { name: "刷新" }));
+  await screen.findByText("第一页更新3");
 });

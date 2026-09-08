@@ -21,6 +21,8 @@ from app.sales.schemas import (
     QuotationVersionResponse,
 )
 from app.sales.services import QuotationCommandService, QuotationQueryService
+from app.work.schemas import ActivityPageResponse
+from app.work.services import WorkQueryService
 
 router = APIRouter(prefix="/api/v1/quotations", tags=["quotations"], responses=PROBLEM_RESPONSES)
 DatabaseSession = Annotated[Session, Depends(get_database_session)]
@@ -83,6 +85,19 @@ def read_quotation(
     quotation_id: UUID, context: QuotationReader, session: DatabaseSession
 ) -> QuotationResponse:
     return QuotationQueryService(QuotationRepository(session)).get(context, quotation_id)
+
+
+@router.get("/{quotation_id}/activities", response_model=ActivityPageResponse)
+def list_quotation_activities(
+    quotation_id: UUID,
+    context: QuotationReader,
+    session: DatabaseSession,
+    limit: Annotated[int, Query(ge=1, le=100)] = 20,
+    cursor: UUID | None = None,
+) -> ActivityPageResponse:
+    return WorkQueryService(session).commercial_activities(
+        context, "quotation", quotation_id, limit=limit, cursor=cursor
+    )
 
 
 @router.post("/{quotation_id}/revisions", response_model=QuotationVersionResponse, status_code=201)

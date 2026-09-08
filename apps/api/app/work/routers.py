@@ -16,6 +16,7 @@ from app.work.review import (
 )
 from app.work.schemas import (
     ActivityListResponse,
+    ActivityPageResponse,
     TaskComplete,
     TaskListResponse,
     TaskResponse,
@@ -44,6 +45,19 @@ def list_order_activities(
 ) -> ActivityListResponse:
     rows = WorkQueryService(session).order_activities(context, order_id, limit)
     return ActivityListResponse(items=list(rows), count=len(rows))
+
+
+@router.get("/{order_id}/activity-history", response_model=ActivityPageResponse)
+def page_order_activities(
+    order_id: UUID,
+    context: Reader,
+    session: DatabaseSession,
+    limit: Annotated[int, Query(ge=1, le=100)] = 20,
+    cursor: UUID | None = None,
+) -> ActivityPageResponse:
+    return WorkQueryService(session).commercial_activities(
+        context, "sales_order", order_id, limit=limit, cursor=cursor
+    )
 
 
 @router.post("/{order_id}/tasks/{task_id}/complete", response_model=TaskResponse)

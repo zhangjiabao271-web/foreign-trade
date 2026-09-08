@@ -30,25 +30,19 @@ export function useOrderFinance(orderId: string) {
     queryKey: ["order-finance", organization(), orderId],
     queryFn: async () => {
       const client = api();
-      const [ar, tasks, activities] = await Promise.all([
+      const [ar, tasks] = await Promise.all([
         client.GET("/api/v1/receivables", {
           params: { query: { sales_order_id: orderId, limit: 100 } },
         }),
         client.GET("/api/v1/sales-orders/{order_id}/tasks", {
           params: { path: { order_id: orderId } },
         }),
-        client.GET("/api/v1/sales-orders/{order_id}/activities", {
-          params: { path: { order_id: orderId }, query: { limit: 100 } },
-        }),
       ]);
       if (!ar.data) throw await parseApiError(ar.response, ar.error);
       if (!tasks.data) throw await parseApiError(tasks.response, tasks.error);
-      if (!activities.data)
-        throw await parseApiError(activities.response, activities.error);
       return {
         receivables: ar.data.items,
         tasks: tasks.data.items,
-        activities: activities.data.items,
       };
     },
   });
@@ -160,6 +154,8 @@ export function useFinanceCommand(orderId: string) {
     onSuccess: async () => {
       await Promise.all([
         cache.invalidateQueries({ queryKey: ["order-finance"] }),
+        cache.invalidateQueries({ queryKey: ["commercial-timeline"] }),
+        cache.invalidateQueries({ queryKey: ["funding-estimate"] }),
         cache.invalidateQueries({ queryKey: ["customer-payments"] }),
         cache.invalidateQueries({ queryKey: ["sales-order", orderId] }),
         cache.invalidateQueries({ queryKey: ["sales-orders"] }),

@@ -119,13 +119,21 @@ def test_real_storage_replacement_preserves_pinned_evidence(quotation_fixture: Q
                 f"/api/v1/documents/{document_id}/download-session", headers=headers
             )
             assert download.status_code == 200, download.text
-            assert client.get(download.json()["download_url"]).content == original
+            downloaded = client.get(download.json()["download_url"])
+            assert downloaded.content == original
+            assert downloaded.headers["content-disposition"] == (
+                "attachment; filename=\"download\"; filename*=UTF-8''invoice.txt"
+            )
             # Retrying completion must inspect the pinned version, not the tampered latest object.
             complete_and_scan(upload)
             document = fixture.client.get(
                 f"/api/v1/documents/{document_id}", headers=headers
             ).json()
-            replacement_body = {**metadata(b"Replacement"), "expected_version": document["version"]}
+            replacement_body = {
+                **metadata(b"Replacement"),
+                "file_name": "replacement.txt",
+                "expected_version": document["version"],
+            }
             endpoint = f"/api/v1/documents/{document_id}/version-upload-sessions"
             for subject, organization, expected in (
                 ("quotation-other", fixture.organization_b, 404),
@@ -184,12 +192,16 @@ def test_real_storage_replacement_preserves_pinned_evidence(quotation_fixture: Q
             )
             historical = fixture.client.post(historical_endpoint, headers=headers)
             assert historical.status_code == 200
-            assert client.get(historical.json()["download_url"]).content == original
+            historical_file = client.get(historical.json()["download_url"])
+            assert historical_file.content == original
+            assert historical_file.headers["content-disposition"].endswith("''invoice.txt")
             latest = fixture.client.post(
                 f"/api/v1/documents/{document_id}/download-session",
                 headers=headers,
             )
-            assert client.get(latest.json()["download_url"]).content == b"Replacement"
+            latest_file = client.get(latest.json()["download_url"])
+            assert latest_file.content == b"Replacement"
+            assert latest_file.headers["content-disposition"].endswith("''replacement.txt")
             assert (
                 fixture.client.post(
                     historical_endpoint,

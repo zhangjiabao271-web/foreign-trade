@@ -80,6 +80,9 @@ export function useExpenseWrite(scope: string, orderId: string) {
       await Promise.all([
         cache.invalidateQueries({ queryKey: ["expenses", scope, orderId] }),
         cache.invalidateQueries({
+          queryKey: ["funding-estimate", scope, orderId],
+        }),
+        cache.invalidateQueries({
           queryKey: ["expense-summary", scope, orderId],
         }),
         cache.invalidateQueries({ queryKey: ["order-finance"] }),

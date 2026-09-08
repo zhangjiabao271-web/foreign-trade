@@ -138,7 +138,7 @@ class AiCommandService:
                 subject_id=request.subject_id,
                 input_summary=request.model_dump(mode="json"),
                 required_permissions=sorted(permission.value for permission in required),
-                model=self.settings.openai_model or "unconfigured",
+                model=self.settings.ai_model_identity,
                 prompt_version=PROMPT_VERSION,
             )
             session.add(run)

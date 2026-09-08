@@ -330,7 +330,7 @@ def test_download_does_not_return_url_if_release_is_revoked_during_signing(quota
     reviewed_version_id = version_id
 
     class RevokingStorage(FakeObjectStorage):
-        def presign_download(self, object_key, *, expires, version_id):
+        def presign_download(self, object_key, *, expires, version_id, file_name):
             assert f.engine.pool.checkedout() == 0
             service.decide(
                 context,
@@ -339,7 +339,9 @@ def test_download_does_not_return_url_if_release_is_revoked_during_signing(quota
                 decision(opened, False),
                 key="revoke-in-flight",
             )
-            return super().presign_download(object_key, expires=expires, version_id=version_id)
+            return super().presign_download(
+                object_key, expires=expires, version_id=version_id, file_name=file_name
+            )
 
     with pytest.raises(ApiProblem) as revoked:
         DocumentCommandService(f.session_factory, RevokingStorage()).download(
@@ -355,14 +357,16 @@ def test_privileged_download_rechecks_exact_content_after_signing(quotation_fixt
     _, context = reviewer(f)
 
     class ChangingStorage(FakeObjectStorage):
-        def presign_download(self, object_key, *, expires, version_id):
+        def presign_download(self, object_key, *, expires, version_id, file_name):
             assert f.engine.pool.checkedout() == 0
             with f.session_factory.begin() as session:
                 if change == "title":
                     session.get(Document, document_id).title = "Changed during signing"
                 else:
                     session.get(DocumentVersion, reviewed_version_id).storage_version_id = "v2"
-            return super().presign_download(object_key, expires=expires, version_id=version_id)
+            return super().presign_download(
+                object_key, expires=expires, version_id=version_id, file_name=file_name
+            )
 
     with pytest.raises(ApiProblem) as changed:
         DocumentCommandService(f.session_factory, ChangingStorage()).download(

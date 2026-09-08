@@ -247,6 +247,12 @@ class SalesOrder(ContentReleaseMixin, TenantRecordMixin, Base):
             name="fk_sales_orders_org_company",
             ondelete="RESTRICT",
         ),
+        ForeignKeyConstraint(
+            ["organization_id", "opportunity_id"],
+            ["opportunities.organization_id", "opportunities.id"],
+            name="fk_sales_orders_org_opportunity",
+            ondelete="RESTRICT",
+        ),
         membership_actor_foreign_key("sales_orders", "created_by"),
         membership_actor_foreign_key("sales_orders", "updated_by"),
         membership_actor_foreign_key("sales_orders", "reviewed_by"),

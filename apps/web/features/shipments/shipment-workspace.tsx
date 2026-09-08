@@ -1,5 +1,6 @@
 "use client";
 import { CursorPageControls } from "../../components/cursor-page-controls";
+import { CommercialTimeline } from "../finance/commercial-timeline";
 
 import { ApiClientError } from "@trade-workbench/api-client";
 import Link from "next/link";
@@ -974,6 +975,11 @@ function ShipmentDetail({
         )}
       </div>
       <ShipmentDocuments shipment={shipment} connected={connected} />
+      <CommercialTimeline
+        subject="shipment"
+        id={shipment.id}
+        revision={shipment.version}
+      />
     </section>
   );
 }

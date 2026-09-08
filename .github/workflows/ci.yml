@@ -44,12 +44,19 @@ jobs:
       - run: pnpm install --frozen-lockfile
       - run: uv sync --frozen --all-packages
       - run: pnpm api-client:check
+      - run: pnpm --filter @trade-workbench/api-client test:drift
       - run: pnpm format:check
       - run: pnpm lint
       - run: pnpm typecheck
+      # Backend immutable-version tests and browser uploads use real object storage.
+      - run: docker compose up -d --wait --wait-timeout 120 minio
       - run: pnpm test
+      - run: pnpm --filter @trade-workbench/web exec playwright install --with-deps chromium
+      - run: pnpm --filter @trade-workbench/web test:e2e
       - run: pnpm build
       - run: docker compose config --quiet
+      - if: always()
+        run: docker compose stop minio
 
   container-smoke:
     runs-on: ubuntu-latest

@@ -41,7 +41,7 @@ const snapshot = {
   released: false,
 };
 
-function setup() {
+function setup(evidence = document) {
   mocks.get.mockResolvedValue({ data: snapshot });
   const changed = vi.fn().mockResolvedValue(undefined);
   const view = render(
@@ -50,7 +50,7 @@ function setup() {
         new QueryClient({ defaultOptions: { queries: { retry: false } } })
       }
     >
-      <DocumentReview document={document} onChanged={changed} />
+      <DocumentReview document={evidence} onChanged={changed} />
     </QueryClientProvider>,
   );
   return { ...view, changed };
@@ -63,6 +63,39 @@ it("does not fetch review facts or expose approval controls without cost authori
   expect(mocks.get).not.toHaveBeenCalled();
   expect(screen.getByText(/未经审核的附件/)).toBeInTheDocument();
 });
+
+it.each([true, false])(
+  "describes current version visibility %s without granting review access",
+  (visible) => {
+    mocks.permissions = ["document.read"];
+    setup({
+      ...document,
+      latest_version_number: 2,
+      versions: [
+        {
+          ...document.versions![0]!,
+          version_number: 1,
+          content_visible: !visible,
+          released: !visible,
+        },
+        {
+          ...document.versions![0]!,
+          id: "version-2",
+          version_number: 2,
+          content_visible: visible,
+          released: visible,
+        },
+      ],
+    });
+    expect(Boolean(screen.queryByText(/当前版本已按审核范围开放/))).toBe(
+      visible,
+    );
+    expect(Boolean(screen.queryByText(/未经审核的附件/))).toBe(!visible);
+    expect(screen.queryByText("审核文件开放范围")).toBeNull();
+    expect(mocks.get).not.toHaveBeenCalled();
+    expect(mocks.post).not.toHaveBeenCalled();
+  },
+);
 
 it("requires an explicit decision and preserves the exact request key after a failed submission", async () => {
   const { changed } = setup();

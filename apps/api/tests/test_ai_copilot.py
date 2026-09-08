@@ -463,6 +463,116 @@ def test_provider_runs_without_checked_out_database_connection(quotation_fixture
     assert result["status"] == "SUCCEEDED"
 
 
+@pytest.mark.parametrize("corrects", [True, False])
+def test_parallel_requests_are_denied_before_bounded_model_correction(quotation_fixture, corrects):
+    fixture = quotation_fixture
+    order = executing_order(fixture)
+    run_id = create_run(fixture, order["id"], "TASK_DRAFT").json()["id"]
+    serial = ScriptedProvider(order["id"])
+
+    class ParallelProvider:
+        calls = 0
+
+        def next_turn(self, **kwargs):
+            self.calls += 1
+            if corrects and self.calls > 1:
+                if self.calls == 2:
+                    errors = kwargs["inputs"][-2:]
+                    assert all(item["type"] == "function_call_output" for item in errors)
+                    assert all(
+                        json.loads(item["output"])["error"] == "AI_TOOL_LIMIT_EXCEEDED"
+                        for item in errors
+                    )
+                return serial.next_turn(**kwargs)
+            return ProviderTurn(
+                [
+                    {
+                        "type": "function_call",
+                        "call_id": f"parallel-{index}",
+                        "name": "read_order",
+                        "arguments": json.dumps({"order_id": order["id"]}),
+                    }
+                    for index in range(2)
+                ],
+                10,
+                5,
+            )
+
+    provider = ParallelProvider()
+    execute(fixture, run_id, provider)
+    with fixture.session_factory() as session:
+        run = session.scalar(
+            select(AiRun).where(
+                AiRun.organization_id == fixture.organization_a, AiRun.id == UUID(run_id)
+            )
+        )
+        calls = list(
+            session.scalars(
+                select(AiToolCall).where(
+                    AiToolCall.organization_id == fixture.organization_a,
+                    AiToolCall.run_id == run.id,
+                )
+            )
+        )
+        denied = [call for call in calls if call.status == "DENIED"]
+        assert all(call.error_code == "AI_TOOL_LIMIT_EXCEEDED" for call in denied)
+        assert all(call.result_summary == {"references": []} for call in denied)
+        if corrects:
+            assert provider.calls == 3 and len(denied) == 2 and len(calls) == 3
+            assert run.status == "SUCCEEDED" and run.output["executed_actions"] == []
+        else:
+            assert provider.calls == 4 and len(denied) == len(calls) == 8
+            assert run.status == "FAILED" and run.error_code == "AI_TURN_LIMIT_EXCEEDED"
+            assert run.output is None
+
+
+@pytest.mark.parametrize("call_ids", [("same", "same"), (None, "valid"), ("", "valid")])
+def test_invalid_parallel_ids_cannot_enter_correction_loop(quotation_fixture, call_ids):
+    fixture = quotation_fixture
+    order = executing_order(fixture)
+    run_id = create_run(fixture, order["id"], "TASK_DRAFT").json()["id"]
+
+    class InvalidProvider:
+        calls = 0
+
+        def next_turn(self, **kwargs):
+            self.calls += 1
+            return ProviderTurn(
+                [
+                    {
+                        "type": "function_call",
+                        "call_id": call_id,
+                        "name": "read_order",
+                        "arguments": json.dumps({"order_id": order["id"]}),
+                    }
+                    for call_id in call_ids
+                ],
+                1,
+                1,
+            )
+
+    provider = InvalidProvider()
+    execute(fixture, run_id, provider)
+    assert provider.calls == 1
+    with fixture.session_factory() as session:
+        run = session.scalar(
+            select(AiRun).where(
+                AiRun.organization_id == fixture.organization_a, AiRun.id == UUID(run_id)
+            )
+        )
+        assert run.status == "FAILED" and run.error_code == "AI_TOOL_LIMIT_EXCEEDED"
+        assert run.output is None
+        calls = list(
+            session.scalars(
+                select(AiToolCall).where(
+                    AiToolCall.organization_id == fixture.organization_a,
+                    AiToolCall.run_id == run.id,
+                )
+            )
+        )
+        assert len(calls) == 2 and all(call.status == "DENIED" for call in calls)
+
+
 def test_unconfigured_provider_persists_failed_job_without_retry(quotation_fixture):
     fixture = quotation_fixture
     order = executing_order(fixture)

@@ -1,5 +1,10 @@
 # Fulfillment
 
+Shipment activities now have an owner-authorized cursor GET at shipments/{id}/activities,
+using Work's existing protected activity projection and content-review workflow. The current
+milestone display is not a substitute for full activity history. No business event backfill or
+state change occurs; UI integration/runtime acceptance are still in progress.
+
 GET shipments/{shipment_id}/source-lines resolves only the current shipment's active source
 lines, independent of order-list cursors. Router and query service require shipment.read plus
 order.read. Sales owns the scoped parent/line lookup and existing whole-order text projection;

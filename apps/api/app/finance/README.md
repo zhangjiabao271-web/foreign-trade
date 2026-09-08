@@ -1,5 +1,14 @@
 # Finance
 
+ADR-027 adds GET sales-orders/{order_id}/funding-estimate: the greater of zero and
+immutable quoted cost + net additional expenses - net customer allocations to this order.
+One tenant-scoped PostgreSQL statement reads all inputs in order currency with stored FX
+snapshots. Reversals subtract; included expenses and unallocated receipts are excluded.
+HTTP and service both require order.read, expense.read, receivable.read and profit.read.
+This read does not write business facts, audit or outbox and needs no migration. It is not
+actual cash deficit or peak funding: supplier timing, outgoing payments and unrecorded costs
+are not modeled; zero does not certify no liquidity is needed. See acceptance ledger for checks.
+
 ADR-020 / 0028 protects original customer Payment.notes in detached query/create/allocation/
 reversal/replay responses. Receipt amount/currency, payment number and bank reference remain
 visible under payment.read; references are identifiers and must not contain costs/profits.

@@ -147,7 +147,31 @@ class AiRunner:
                         subject_id=subject_id,
                         error_code="AI_TOOL_LIMIT_EXCEEDED",
                     )
-                    raise ProviderError("AI_TOOL_LIMIT_EXCEEDED")
+                    call_ids = [call.get("call_id") for call in calls]
+                    if not all(
+                        isinstance(value, str) and 0 < len(value) <= 160 for value in call_ids
+                    ):
+                        raise ProviderError("AI_TOOL_LIMIT_EXCEEDED")
+                    valid_ids = cast(list[str], call_ids)
+                    if len(set(valid_ids)) != len(valid_ids):
+                        raise ProviderError("AI_TOOL_LIMIT_EXCEEDED")
+                    for denied_id in valid_ids:
+                        inputs.append(
+                            {
+                                "type": "function_call_output",
+                                "call_id": denied_id,
+                                "output": json.dumps(
+                                    {
+                                        "error": "AI_TOOL_LIMIT_EXCEEDED",
+                                        "detail": (
+                                            "No calls in this response were executed. "
+                                            "Request one tool per response."
+                                        ),
+                                    }
+                                ),
+                            }
+                        )
+                    continue
                 call = calls[0]
                 name, call_id, raw_arguments = (
                     call.get("name"),

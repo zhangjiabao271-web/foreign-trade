@@ -48,6 +48,14 @@ uv run pytest apps/api/tests/test_migrations.py
 
 ## Forward and rollback strategy
 
+`20260908_0034` adds and validates the missing sales-order opportunity composite tenant foreign
+key. It does not add/backfill columns or mutate historical values. Existing invalid references
+cause a transactional upgrade failure; they must be investigated, never silently relinked.
+Downgrade removes only this constraint; re-upgrade validates it again. Verification includes
+0033 populated-copy upgrade/down/re-upgrade, all-table snapshot equality, foreign/missing target
+rejection and invalid legacy data leaving the revision and all evidence unchanged. No new read
+query is introduced; the referenced `(organization_id,id)` unique key already exists.
+
 `20260907_0033` adds organization-scoped `ai_disclosures`, explicit preserved candidate versions,
 run/candidate digests, decisions and reviewer metadata. No run/output/history is backfilled,
 rewritten or implicitly submitted. Empty schema downgrade is supported; any disclosure evidence

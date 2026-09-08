@@ -3,6 +3,69 @@
 Evidence inspected 2026-09-06. This list does not narrow the implementation guide or authorize
 silent deferral. Existing green tests demonstrate their tested slices, not all V1 requirements.
 
+## Current checkpoint: 2026-09-08 (supersedes matching historical gaps below)
+
+Latest AI/timeline supplement: full browser32 and timeline Web260 pass; commercial history and
+funding are deployed. User selected DeepSeek V4 Pro; official model access and worker-only key
+routing verified. Real manager IAB/queue/provider summary succeeded. Final promptv4 five-intent
+live synthetic matrix passed5/66.89s after documented failures/corrections, with scripted68+later3
+security regressions. See V1_STATUS for current images/deployment, sample-quality scope and all
+remaining full-guide work. Historical "no live provider" and old running-test notes below are
+superseded only by their named evidence, not a blanket V1 or production acceptance certificate.
+
+Latest17:54: download baseline76375 is terminal994 passed; do not poll/restart it. Funding and
+ADR028 safe request errors are now deployed and separately tested (see V1_STATUS). A new full
+API/Worker regression is live under session30215, including funding/error code collected at start.
+The subsequently added CRM acceptance matrix is outside that collection and must be reported
+separately. No manager login or real AI-provider acceptance has occurred in this continuation.
+
+The chronological findings below are preserved, not a list of all still-current defects.
+REAL_IDENTITY, JOINT_LOCAL_RECOVERY and the latest V1_STATUS checkpoints establish that local
+Logto setup/login and CurrentUser encrypted joint recovery were performed; do not request a
+repeat bootstrap or restore. The real-session synthetic commercial chain now reaches completed
+order, customs clearance and refund receipt; this is not actual banking/government submission.
+ADR-026 records the accepted creator-submitted draft policy, so that policy question is settled.
+
+Concrete open verification work:
+
+- Sep8 CI audit: quality job lacked MinIO required by real-storage tests and omitted Playwright.
+  Workflow now starts healthy MinIO and installs/runs Chromium browser tests. YAML/order/format
+  and client drift checks pass locally; remote GitHub execution is unverified, not claimed green.
+  API/Worker full regression for the download patch is running under live session76375;
+  resume/poll that handle before deciding it ended, never duplicate based on an old checkpoint.
+
+- Update16:56 Sep8: the released BOL now has a real sales-session browser download event and
+  saved644-byte file in Windows Downloads, with SHA256 matching exact organization-bound DB
+  version. Attachment filename/signing fix deployed to healthy acceptance API; current-version
+  hint fixed and live verified. Full browser31 passed after finance/hint/download changes.
+  These supersede the download, hint, sales-login-wait and browser-rerun gaps immediately below.
+  Do not repeat those as current blockers. Full backend rerun after download signing change,
+  wider role/disclosure scenarios and requirement-by-requirement guide/ADR audit remain open.
+
+- Sep8 sales post-review UI is now verified: only the released BOL filename/download control
+  is available; invoice/source/history remain protected. Binary download is NOT verified:
+  signing POST200 and MinIO healthy do not establish browser object retrieval or saved bytes.
+  No matching file located in default Downloads; user has not located the file. Investigate
+  browser download behavior without privileged-token substitution or copying the source fixture.
+  Shared DocumentReview also misleadingly displays its unreviewed warning for released versions
+  whenever the reader lacks review authority; this presentation defect is identified, not fixed.
+
+- Real sales post-review access to the single released synthetic BOL version, with unreleased
+  invoice/source/history still protected. Manager UI and DB release evidence are complete;
+  version-scoped audit/activity/outbox were reconciled 1/1/1 on Sep8. Sales login is awaited.
+- Wider real-role business coverage and exact-content disclosure/revocation evidence. Existing
+  six-role automated/service tests must not be presented as all six real-login demonstrations.
+- Full browser regression after the Sep7 OrderFinance command-visibility fix: frontend237,
+  static checks, image deployment and real sales UI passed, but the full browser suite predates
+  this fix. Backend rules were unchanged.
+- Requirement-by-requirement full implementation-guide and ADR reconciliation, including named
+  artifacts and test invariants, beyond the section18 summary. Do not infer this from test totals.
+- Real AI-provider quality/integration remains unverified; the scan/parse framework remains a
+  placeholder for production malware scanning. Production destination/secrets and cross-machine
+  disaster recovery remain separate configuration choices, not claims of local acceptance.
+
+This checkpoint is evidence routing, not a new complete implementation audit or release approval.
+
 ## Confirmed implementation gaps
 
 - Latest update2026-09-07: user approved creator-submitted AI candidate review. ADR-026/0033

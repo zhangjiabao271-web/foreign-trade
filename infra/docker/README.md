@@ -1,5 +1,16 @@
 # Docker
 
+## DeepSeek synthetic acceptance (ADR-029)
+
+After the four fresh/identity/storage files, append deepseek-acceptance.compose.yml to keep
+API and worker on the explicitly selected deepseek-v4-pro. DEEPSEEK_API_KEY must already be
+in the invoking environment; never echo it, write it to files, or dump interpolated config.
+Use config --quiet. Check no PENDING/RUNNING AI runs before switching/restarting, and update
+only api worker with --no-deps. Preserve all existing identity secrets and volumes.
+No secret goes to Web/API. Variable peak/off-peak/cache pricing stays unknown in the static
+estimate until separately configured. Future acceptance-stack updates must retain this fifth
+overlay; dropping it would select the base default provider. This is not production deployment.
+
 ## Joint encrypted recovery targets
 
 `joint-restore.compose.yml` 为独立项目 `trade-joint-restore-v2`，以原 rehearsal/logto

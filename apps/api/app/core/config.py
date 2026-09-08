@@ -33,6 +33,9 @@ class Settings(BaseSettings):
     minio_region: str = "us-east-1"
     openai_api_key: SecretStr | None = None
     openai_model: str | None = Field(default=None, max_length=100)
+    ai_provider: Literal["openai", "deepseek"] = "openai"
+    deepseek_api_key: SecretStr | None = None
+    deepseek_model: Literal["deepseek-v4-pro"] = "deepseek-v4-pro"
     ai_input_usd_per_million: Decimal | None = Field(default=None, ge=0)
     ai_output_usd_per_million: Decimal | None = Field(default=None, ge=0)
     dependency_timeout_seconds: float = 1.0
@@ -40,6 +43,12 @@ class Settings(BaseSettings):
     oidc_audience: str = "https://api.trade-workbench.local"
     oidc_jwks_url: str = "https://auth.example.invalid/oidc/jwks"
     oidc_signing_algorithm: Literal["RS256", "ES384"] = "RS256"
+
+    @property
+    def ai_model_identity(self) -> str:
+        if self.ai_provider == "deepseek":
+            return f"deepseek/{self.deepseek_model}"
+        return self.openai_model or "unconfigured"
 
     @property
     def database_url(self) -> str:

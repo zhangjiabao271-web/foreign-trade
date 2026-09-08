@@ -19,6 +19,7 @@ import {
 
 import { sessionKeys } from "../leads/api";
 import { OrderFinance } from "../finance/order-finance";
+import { CommercialTimeline } from "../finance/commercial-timeline";
 import { OrderContracts } from "../contracts/order-contracts";
 import { OrderExpenses } from "../finance/order-expenses";
 import { PurchaseReceiving } from "./purchase-receiving";
@@ -823,6 +824,11 @@ function OrderDetail({ id, connected }: { id?: string; connected: boolean }) {
         canReadCosts={canReadCosts}
       />
       <OrderFinance order={order} />
+      <CommercialTimeline
+        subject="sales_order"
+        id={order.id}
+        revision={order.version}
+      />
       <OrderExpenses order={order} />
       <OrderContracts order={order} />
       <section aria-label="订单文本审核">

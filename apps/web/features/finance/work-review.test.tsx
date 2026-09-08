@@ -70,12 +70,25 @@ it("does not fetch review facts or expose approval controls without cost authori
   expect(mocks.get).not.toHaveBeenCalled();
 });
 
+it("hides the cached review snapshot after a failed authority refresh", async () => {
+  setup();
+  fireEvent.click(screen.getByText("审核文本开放范围"));
+  await screen.findByText("Review this exact note");
+  mocks.get.mockRejectedValue(new Error("Forbidden"));
+  fireEvent.click(screen.getByRole("button", { name: "刷新待审核文本" }));
+  await screen.findByText("无法读取文本，请检查权限或重试。");
+  expect(screen.queryByText("Review this exact note")).toBeNull();
+  expect(screen.queryByRole("button", { name: "确认文本审核" })).toBeNull();
+});
+
 it.each([
   ["lead", "lead.read"],
   ["company", "company.read"],
   ["opportunity", "opportunity.read"],
   ["customs_declaration", "export.read"],
   ["tax_refund_case", "export.read"],
+  ["quotation", "quotation.read"],
+  ["shipment", "shipment.read"],
 ] as const)(
   "reviews %s through its own authority and exact activity route",
   async (subjectType, permission) => {

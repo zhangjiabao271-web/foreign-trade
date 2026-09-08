@@ -1,5 +1,9 @@
 # Orders and procurement workspace
 
+Order history now mounts independently of OrderFinance and uses the cursor activity-history
+endpoint through CommercialTimeline, reaching older records beyond100. Original order.read and
+content-review restrictions remain; a finance fetch failure no longer hides the whole timeline.
+
 Order navigation explicitly loads50 records per cursor page and shows an accumulated loaded
 count, not a global total. Shared infinite-query pages deduplicate IDs and remain inside the
 identity/organization QueryClient boundary. Failed subsequent pages retain loaded records;
