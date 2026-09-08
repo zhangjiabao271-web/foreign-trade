@@ -1,5 +1,14 @@
 # Platform event administration
 
+ADR-033: domain_jobs owns AI_COPILOT and DOCUMENT_SCAN job persistence for caller-owned
+transactions. Creation checks originating ai.run/document.write, returns IDs and preserves
+the original flush; no independent audit/outbox or commit. AI binding requires ai.run.
+Worker lifecycle functions validate tenant/type and return immutable results. They are internal
+trusted-event ports, not HTTP commands, and deliberately do not require the initiating user's
+current permissions so revoked-authority failure can be recorded. AI owns its lease and retry
+classification; Platform applies its persisted attempt limit. Documents retains version locks
+and replay, and uses the scan port with original progress/reference semantics.
+
 Outbox remains the PostgreSQL durable delivery record. DEAD listing is tenant-scoped,
 bounded and ordered by creation time/id. HTTP lists accept limit 1–100 and offset;
 offset pagination matches the current Overview convention and is not a stable snapshot

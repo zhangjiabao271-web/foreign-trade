@@ -14,4 +14,11 @@ cannot masquerade as a successful negative test. Canonical disk bytes are compar
 the probe never edits source or generated files. This proves mismatch detection, not a complete
 audit that every Web type comes from the generated schema. CI runs both clean and negative checks.
 
+A third negative case copies the Python app into an isolated temporary directory, adds a
+Pydantic LeadResponse field in that copy, verifies the field in exported OpenAPI, then runs
+the unchanged generation check with the copied app on PYTHONPATH. It requires the exact
+canonical OpenAPI drift failure and verifies repository source/artifact bytes stayed unchanged.
+Only the temporary copy is removed. This proves a real response-source change is detected;
+local success does not imply a remote GitHub run passed.
+
 依赖许可证：`openapi-typescript` 与 `openapi-fetch` 均为 MIT。

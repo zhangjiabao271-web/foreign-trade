@@ -487,18 +487,12 @@ export function LeadWorkspace({ initialLeadId }: { initialLeadId?: string }) {
     loadSessionSnapshot,
     () => "",
   );
-  const session = useMemo(
-    () =>
-      sessionSnapshot
-        ? (JSON.parse(sessionSnapshot) as SessionValues)
-        : undefined,
-    [sessionSnapshot],
-  );
+  const connected = Boolean(sessionSnapshot);
   const filters = useMemo(
     () => ({ status: status || undefined, query: query.trim() || undefined }),
     [query, status],
   );
-  const leads = useLeads(filters, Boolean(session));
+  const leads = useLeads(filters, connected);
   const connect = (values: SessionValues) => {
     window.localStorage.setItem(
       sessionKeys.organizationId,
@@ -512,7 +506,7 @@ export function LeadWorkspace({ initialLeadId }: { initialLeadId?: string }) {
     window.localStorage.removeItem(sessionKeys.accessToken);
     window.dispatchEvent(new Event(sessionEvent));
   };
-  if (!session)
+  if (!connected)
     return (
       <main id="main-content" className="connection-shell">
         <ConnectionPanel onConnected={connect} />
@@ -650,7 +644,7 @@ export function LeadWorkspace({ initialLeadId }: { initialLeadId?: string }) {
         </section>
         <DetailPanel
           leadId={initialLeadId}
-          connected={Boolean(session)}
+          connected={connected}
           writable={writable}
           convertible={convertible}
         />

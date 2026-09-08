@@ -11,7 +11,7 @@ from app.fulfillment.order_queries import milestone_quantities
 from app.platform.records import AuditRecorder, DomainEvent, OutboxRecorder
 from app.sales.models import SalesOrder, SalesOrderItem
 from app.sales.order_enums import SalesOrderStatus
-from app.work.models import Activity
+from app.work.records import record_activity
 
 
 def refresh_shipping_progress(
@@ -78,18 +78,14 @@ def refresh_shipping_progress(
         order.status = target
         order.updated_by = context.user_id
         action = f"sales_order.{target.value.lower()}"
-        session.add(
-            Activity(
-                organization_id=context.organization_id,
-                created_by=context.user_id,
-                updated_by=context.user_id,
-                subject_type="sales_order",
-                subject_id=order.id,
-                activity_type=action,
-                summary=f"Sales order {order.order_number} reached {target.value}",
-                details={"status": target},
-                correlation_id=context.request_id,
-            )
+        record_activity(
+            session,
+            context,
+            subject_type="sales_order",
+            subject_id=order.id,
+            activity_type=action,
+            summary=f"Sales order {order.order_number} reached {target.value}",
+            details={"status": target},
         )
         audit_recorder.record(
             session,

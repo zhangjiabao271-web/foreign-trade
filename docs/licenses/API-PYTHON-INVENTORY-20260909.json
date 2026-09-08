@@ -1,0 +1,343 @@
+{
+  "checked_on": "2026-09-09",
+  "api_image": "sha256:1da4ade3822607f541a5fea3e716b5a35151cb2eed7b68902f699b69343920d5",
+  "scope": "Installed Python distribution metadata and notice path existence, not full license-text or bundled native-library audit",
+  "distributions": [
+    {
+      "name": "alembic",
+      "version": "1.19.1",
+      "license": "MIT",
+      "license_classifiers": [],
+      "notice_files": ["alembic-1.19.1.dist-info/licenses/LICENSE"],
+      "all_notice_files_exist": true
+    },
+    {
+      "name": "annotated-doc",
+      "version": "0.0.5",
+      "license": "MIT",
+      "license_classifiers": [],
+      "notice_files": ["annotated_doc-0.0.5.dist-info/licenses/LICENSE"],
+      "all_notice_files_exist": true
+    },
+    {
+      "name": "annotated-types",
+      "version": "0.8.0",
+      "license": "MIT",
+      "license_classifiers": ["License :: OSI Approved :: MIT License"],
+      "notice_files": ["annotated_types-0.8.0.dist-info/licenses/LICENSE"],
+      "all_notice_files_exist": true
+    },
+    {
+      "name": "anyio",
+      "version": "4.14.2",
+      "license": "MIT",
+      "license_classifiers": [],
+      "notice_files": ["anyio-4.14.2.dist-info/licenses/LICENSE"],
+      "all_notice_files_exist": true
+    },
+    {
+      "name": "argon2-cffi",
+      "version": "25.1.0",
+      "license": "MIT",
+      "license_classifiers": [],
+      "notice_files": ["argon2_cffi-25.1.0.dist-info/licenses/LICENSE"],
+      "all_notice_files_exist": true
+    },
+    {
+      "name": "argon2-cffi-bindings",
+      "version": "26.1.0",
+      "license": "MIT",
+      "license_classifiers": [],
+      "notice_files": [
+        "argon2_cffi_bindings-26.1.0.dist-info/licenses/LICENSE"
+      ],
+      "all_notice_files_exist": true
+    },
+    {
+      "name": "certifi",
+      "version": "2026.7.22",
+      "license": "MPL-2.0",
+      "license_classifiers": [
+        "License :: OSI Approved :: Mozilla Public License 2.0 (MPL 2.0)"
+      ],
+      "notice_files": ["certifi-2026.7.22.dist-info/licenses/LICENSE"],
+      "all_notice_files_exist": true
+    },
+    {
+      "name": "cffi",
+      "version": "2.1.1",
+      "license": "MIT-0",
+      "license_classifiers": [],
+      "notice_files": ["cffi-2.1.1.dist-info/licenses/LICENSE"],
+      "all_notice_files_exist": true
+    },
+    {
+      "name": "click",
+      "version": "8.5.0",
+      "license": "BSD-3-Clause",
+      "license_classifiers": [],
+      "notice_files": ["click-8.5.0.dist-info/licenses/LICENSE.txt"],
+      "all_notice_files_exist": true
+    },
+    {
+      "name": "cryptography",
+      "version": "50.0.1",
+      "license": "Apache-2.0 OR BSD-3-Clause",
+      "license_classifiers": [],
+      "notice_files": [
+        "cryptography-50.0.1.dist-info/licenses/LICENSE",
+        "cryptography-50.0.1.dist-info/licenses/LICENSE.APACHE",
+        "cryptography-50.0.1.dist-info/licenses/LICENSE.BSD"
+      ],
+      "all_notice_files_exist": true
+    },
+    {
+      "name": "fastapi",
+      "version": "0.141.1",
+      "license": "MIT",
+      "license_classifiers": [],
+      "notice_files": ["fastapi-0.141.1.dist-info/licenses/LICENSE"],
+      "all_notice_files_exist": true
+    },
+    {
+      "name": "greenlet",
+      "version": "3.5.5",
+      "license": "MIT AND PSF-2.0",
+      "license_classifiers": [],
+      "notice_files": [
+        "greenlet-3.5.5.dist-info/licenses/LICENSE",
+        "greenlet-3.5.5.dist-info/licenses/LICENSE.PSF"
+      ],
+      "all_notice_files_exist": true
+    },
+    {
+      "name": "h11",
+      "version": "0.16.0",
+      "license": "MIT",
+      "license_classifiers": ["License :: OSI Approved :: MIT License"],
+      "notice_files": ["h11-0.16.0.dist-info/licenses/LICENSE.txt"],
+      "all_notice_files_exist": true
+    },
+    {
+      "name": "httptools",
+      "version": "0.8.0",
+      "license": "MIT",
+      "license_classifiers": [],
+      "notice_files": [
+        "httptools-0.8.0.dist-info/licenses/LICENSE",
+        "httptools-0.8.0.dist-info/licenses/vendor/http-parser/LICENSE-MIT",
+        "httptools-0.8.0.dist-info/licenses/vendor/llhttp/LICENSE"
+      ],
+      "all_notice_files_exist": true
+    },
+    {
+      "name": "idna",
+      "version": "3.19",
+      "license": "BSD-3-Clause",
+      "license_classifiers": [],
+      "notice_files": ["idna-3.19.dist-info/licenses/LICENSE.md"],
+      "all_notice_files_exist": true
+    },
+    {
+      "name": "Mako",
+      "version": "1.4.1",
+      "license": "MIT",
+      "license_classifiers": [],
+      "notice_files": ["mako-1.4.1.dist-info/licenses/LICENSE"],
+      "all_notice_files_exist": true
+    },
+    {
+      "name": "MarkupSafe",
+      "version": "3.0.3",
+      "license": "BSD-3-Clause",
+      "license_classifiers": [],
+      "notice_files": ["markupsafe-3.0.3.dist-info/licenses/LICENSE.txt"],
+      "all_notice_files_exist": true
+    },
+    {
+      "name": "minio",
+      "version": "7.2.20",
+      "license": "Apache-2.0",
+      "license_classifiers": [
+        "License :: OSI Approved :: Apache Software License"
+      ],
+      "notice_files": [
+        "minio-7.2.20.dist-info/LICENSE",
+        "minio-7.2.20.dist-info/NOTICE"
+      ],
+      "all_notice_files_exist": true
+    },
+    {
+      "name": "psycopg",
+      "version": "3.3.5",
+      "license": "LGPL-3.0-only",
+      "license_classifiers": [],
+      "notice_files": ["psycopg-3.3.5.dist-info/licenses/LICENSE.txt"],
+      "all_notice_files_exist": true
+    },
+    {
+      "name": "psycopg-binary",
+      "version": "3.3.5",
+      "license": "LGPL-3.0-only",
+      "license_classifiers": [],
+      "notice_files": ["psycopg_binary-3.3.5.dist-info/licenses/LICENSE.txt"],
+      "all_notice_files_exist": true
+    },
+    {
+      "name": "pycparser",
+      "version": "3.0",
+      "license": "BSD-3-Clause",
+      "license_classifiers": [],
+      "notice_files": ["pycparser-3.0.dist-info/licenses/LICENSE"],
+      "all_notice_files_exist": true
+    },
+    {
+      "name": "pycryptodome",
+      "version": "3.23.0",
+      "license": "BSD, Public Domain",
+      "license_classifiers": [
+        "License :: OSI Approved :: BSD License",
+        "License :: Public Domain"
+      ],
+      "notice_files": ["pycryptodome-3.23.0.dist-info/LICENSE.rst"],
+      "all_notice_files_exist": true
+    },
+    {
+      "name": "pydantic",
+      "version": "2.13.5",
+      "license": "MIT",
+      "license_classifiers": [],
+      "notice_files": ["pydantic-2.13.5.dist-info/licenses/LICENSE"],
+      "all_notice_files_exist": true
+    },
+    {
+      "name": "pydantic-settings",
+      "version": "2.15.0",
+      "license": "MIT",
+      "license_classifiers": ["License :: OSI Approved :: MIT License"],
+      "notice_files": ["pydantic_settings-2.15.0.dist-info/licenses/LICENSE"],
+      "all_notice_files_exist": true
+    },
+    {
+      "name": "pydantic_core",
+      "version": "2.46.5",
+      "license": "MIT",
+      "license_classifiers": [],
+      "notice_files": ["pydantic_core-2.46.5.dist-info/licenses/LICENSE"],
+      "all_notice_files_exist": true
+    },
+    {
+      "name": "PyJWT",
+      "version": "2.13.0",
+      "license": "MIT",
+      "license_classifiers": [],
+      "notice_files": [
+        "pyjwt-2.13.0.dist-info/licenses/AUTHORS.rst",
+        "pyjwt-2.13.0.dist-info/licenses/LICENSE"
+      ],
+      "all_notice_files_exist": true
+    },
+    {
+      "name": "python-dotenv",
+      "version": "1.2.3",
+      "license": "BSD-3-Clause",
+      "license_classifiers": [],
+      "notice_files": ["python_dotenv-1.2.3.dist-info/licenses/LICENSE"],
+      "all_notice_files_exist": true
+    },
+    {
+      "name": "PyYAML",
+      "version": "6.0.3",
+      "license": "MIT",
+      "license_classifiers": ["License :: OSI Approved :: MIT License"],
+      "notice_files": ["pyyaml-6.0.3.dist-info/licenses/LICENSE"],
+      "all_notice_files_exist": true
+    },
+    {
+      "name": "SQLAlchemy",
+      "version": "2.0.52",
+      "license": "MIT",
+      "license_classifiers": [],
+      "notice_files": ["sqlalchemy-2.0.52.dist-info/licenses/LICENSE"],
+      "all_notice_files_exist": true
+    },
+    {
+      "name": "starlette",
+      "version": "1.6.0",
+      "license": "BSD-3-Clause",
+      "license_classifiers": [],
+      "notice_files": ["starlette-1.6.0.dist-info/licenses/LICENSE.md"],
+      "all_notice_files_exist": true
+    },
+    {
+      "name": "trade-workbench-api",
+      "version": "0.1.0",
+      "license": null,
+      "license_classifiers": [],
+      "notice_files": [],
+      "all_notice_files_exist": true
+    },
+    {
+      "name": "typing-inspection",
+      "version": "0.4.4",
+      "license": "MIT",
+      "license_classifiers": [],
+      "notice_files": ["typing_inspection-0.4.4.dist-info/licenses/LICENSE"],
+      "all_notice_files_exist": true
+    },
+    {
+      "name": "typing_extensions",
+      "version": "4.16.0",
+      "license": "PSF-2.0",
+      "license_classifiers": [],
+      "notice_files": ["typing_extensions-4.16.0.dist-info/licenses/LICENSE"],
+      "all_notice_files_exist": true
+    },
+    {
+      "name": "urllib3",
+      "version": "2.7.0",
+      "license": "MIT",
+      "license_classifiers": [],
+      "notice_files": ["urllib3-2.7.0.dist-info/licenses/LICENSE.txt"],
+      "all_notice_files_exist": true
+    },
+    {
+      "name": "uvicorn",
+      "version": "0.52.4",
+      "license": "BSD-3-Clause",
+      "license_classifiers": [],
+      "notice_files": ["uvicorn-0.52.4.dist-info/licenses/LICENSE.md"],
+      "all_notice_files_exist": true
+    },
+    {
+      "name": "uvloop",
+      "version": "0.22.1",
+      "license": "MIT License",
+      "license_classifiers": [
+        "License :: OSI Approved :: Apache Software License",
+        "License :: OSI Approved :: MIT License"
+      ],
+      "notice_files": [
+        "uvloop-0.22.1.dist-info/licenses/LICENSE-APACHE",
+        "uvloop-0.22.1.dist-info/licenses/LICENSE-MIT"
+      ],
+      "all_notice_files_exist": true
+    },
+    {
+      "name": "watchfiles",
+      "version": "1.2.0",
+      "license": "MIT",
+      "license_classifiers": ["License :: OSI Approved :: MIT License"],
+      "notice_files": ["watchfiles-1.2.0.dist-info/licenses/LICENSE"],
+      "all_notice_files_exist": true
+    },
+    {
+      "name": "websockets",
+      "version": "17.1",
+      "license": "BSD-3-Clause",
+      "license_classifiers": [],
+      "notice_files": ["websockets-17.1.dist-info/licenses/LICENSE"],
+      "all_notice_files_exist": true
+    }
+  ]
+}

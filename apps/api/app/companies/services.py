@@ -10,7 +10,7 @@ from app.companies.models import CompanyRole
 from app.companies.repositories import CompanyRepository
 from app.core.unit_of_work import UnitOfWork
 from app.platform.records import AuditRecorder, DomainEvent, OutboxRecorder
-from app.work.models import Activity
+from app.work.records import record_activity
 
 
 class CompanyCommandService:
@@ -65,18 +65,14 @@ class CompanyCommandService:
             unit.session.add(role)
             unit.session.flush()
             event_type = "company.role-added.v1"
-            unit.session.add(
-                Activity(
-                    organization_id=context.organization_id,
-                    created_by=context.user_id,
-                    updated_by=context.user_id,
-                    subject_type="company",
-                    subject_id=company.id,
-                    activity_type=event_type,
-                    summary=f"Company role {role_type.value} added",
-                    details={"role": role_type.value},
-                    correlation_id=context.request_id,
-                )
+            record_activity(
+                unit.session,
+                context,
+                subject_type="company",
+                subject_id=company.id,
+                activity_type=event_type,
+                summary=f"Company role {role_type.value} added",
+                details={"role": role_type.value},
             )
             self._audit.record(
                 unit.session,

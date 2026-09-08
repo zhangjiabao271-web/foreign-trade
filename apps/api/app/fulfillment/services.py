@@ -31,7 +31,7 @@ from app.sales.order_repositories import SalesOrderRepository
 from app.sales.order_schemas import SalesOrderSourceLinesResponse
 from app.sales.order_services import SalesOrderQueryService
 from app.sales.shipping_progress import refresh_shipping_progress
-from app.work.models import Activity
+from app.work.records import record_activity
 
 
 def shipment_not_found() -> ApiProblem:
@@ -715,18 +715,14 @@ class ShipmentCommandService:
         before: dict[str, object] | None,
         after: dict[str, object],
     ) -> None:
-        session.add(
-            Activity(
-                organization_id=context.organization_id,
-                created_by=context.user_id,
-                updated_by=context.user_id,
-                subject_type="shipment",
-                subject_id=shipment.id,
-                activity_type=action,
-                summary=f"Shipment {shipment.shipment_number}: {action}",
-                details={"shipment_number": shipment.shipment_number},
-                correlation_id=context.request_id,
-            )
+        record_activity(
+            session,
+            context,
+            subject_type="shipment",
+            subject_id=shipment.id,
+            activity_type=action,
+            summary=f"Shipment {shipment.shipment_number}: {action}",
+            details={"shipment_number": shipment.shipment_number},
         )
         self._audit_recorder.record(
             session,

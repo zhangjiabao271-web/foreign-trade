@@ -18,7 +18,7 @@ from app.auth.context import RequestContext
 from app.auth.errors import ApiProblem
 from app.auth.live_context import live_context
 from app.core.config import Settings
-from app.platform.models import AsyncJob
+from app.platform.domain_jobs import finish_ai_attempt, start_ai_attempt
 
 
 class RunBusy(Exception):
@@ -91,10 +91,13 @@ class AiRunner:
                 run.input_summary,
                 run.model,
             )
-            job = self._job(session, run)
-            job.status = "RUNNING"
-            job.attempt_count = run.attempt_count
-            exhausted = run.attempt_count > job.max_attempts
+            max_attempts = start_ai_attempt(
+                session,
+                organization_id=organization_id,
+                job_id=run.job_id,
+                attempt_count=run.attempt_count,
+            )
+            exhausted = run.attempt_count > max_attempts
         inputs: list[dict[str, object]] = [{"role": "user", "content": json.dumps(summary)}]
         facts: list[dict[str, object]] = []
         input_tokens = output_tokens = 0
@@ -245,23 +248,22 @@ class AiRunner:
                     Decimal(current.input_tokens) * self.settings.ai_input_usd_per_million
                     + Decimal(current.output_tokens) * self.settings.ai_output_usd_per_million
                 ) / Decimal(1_000_000)
-            job = self._job(session, current)
-            retry = (
-                error_code == "AI_PROVIDER_UNAVAILABLE" and current.attempt_count < job.max_attempts
+            outcome = finish_ai_attempt(
+                session,
+                organization_id=organization_id,
+                job_id=current.job_id,
+                attempt_count=current.attempt_count,
+                error_code=error_code,
+                retryable=error_code == "AI_PROVIDER_UNAVAILABLE",
             )
-            if retry:
-                current.status = "PENDING"
-            else:
-                current.status = "FAILED" if error_code else "SUCCEEDED"
+            retry = outcome.retry
+            current.status = outcome.status
             current.error_code = error_code
             current.completed_at = None if retry else datetime.now(UTC)
             current.lease_id = None
             if not error_code:
                 current.output = {"facts": facts, "artifact": artifact, "executed_actions": []}
                 current.references = source_references(facts)
-            job.status = current.status
-            job.progress = Decimal(0 if retry else 100)
-            job.error_code = error_code
             record_ai_event(
                 session,
                 RequestContext(user_id, organization_id, frozenset(), request_id),
@@ -383,14 +385,3 @@ class AiRunner:
         if error_code:
             raise ProviderError(error_code)
         return result
-
-    @staticmethod
-    def _job(session: Session, run: AiRun) -> AsyncJob:
-        job = session.scalar(
-            select(AsyncJob)
-            .where(AsyncJob.organization_id == run.organization_id, AsyncJob.id == run.job_id)
-            .with_for_update()
-        )
-        if job is None:
-            raise ValueError("AI job not found in the run organization")
-        return job

@@ -1,5 +1,42 @@
 # Remaining V1 scope audit
 
+## Current gate navigation: 2026-09-09 consolidated follow-up
+
+This section supersedes matching historical counts and runtime questions below, not the
+full implementation-guide requirements. The completed consolidated run is 1476 backend/worker
+passes and five explicitly skipped paid-provider cases; Web262, browser32, build, static checks
+and three negative client-drift cases have separate successful evidence in V1_STATUS.
+Overview supplements bring measured selected operations to24, not every endpoint.
+
+Read-only runtime follow-up verified the four application image IDs against the recorded
+owner-ports/session-presence images and observed healthy API/Web/Worker and infrastructure;
+beat was running without a health-check claim. Alembic current returned20260908_0035 (head).
+No deployment, restart, model request or commercial mutation was performed.
+Eight-overlay `config --quiet` failed in this inspection process because the required
+ACCEPTANCE_LOGTO_APP_SECRET and ACCEPTANCE_LOGTO_COOKIE_SECRET were not loaded. This is not a
+successful fresh configuration check and does not demonstrate a running-service failure.
+Do not extract existing credentials or rebuild services just to erase this result.
+
+Real TASK_DRAFT remains unlaunched pending explicit consent for the exact synthetic order
+fields sent to DeepSeek. After consent, candidate submission/review/revision/release and
+independent task execution approval still require actual evidence. Automatic goal continuations
+are not consent. Full guide/ADR requirement reconciliation remains open; remote GitHub CI has
+no configured repository remote. Production malware scanning/hosting and cross-machine recovery
+are separate configuration boundaries, not local passes. Do not repeat completed login,
+attachment-download or CurrentUser joint-recovery handoffs from historical sections below.
+
+## Sep9 superseding navigation note
+
+Current runtime uses owner-ports API/Worker/beat and session-presence Web (all eight overlays).
+Full backend1292pass/5paid-skips,full browser32pass,and subsequent Web262pass/targeted browser6
+are separate identified runs in V1_STATUS. All are terminal; no earlier session number below
+should be polled without live-handle evidence. Finance performance supplement independently
+passed with populated facts. Real SALES login survived both deployments and loaded source data.
+Historical pending initialization/upload/restore/provider-configuration statements below are
+not current user handoffs. Unfinished work remains requirement-led audit and remaining real
+TASK_DRAFT disclosure/execution journey pending exact-data-to-DeepSeek consent. Performance
+now has18selected operations,not every endpoint. No blanket V1 acceptance is asserted.
+
 Evidence inspected 2026-09-06. This list does not narrow the implementation guide or authorize
 silent deferral. Existing green tests demonstrate their tested slices, not all V1 requirements.
 

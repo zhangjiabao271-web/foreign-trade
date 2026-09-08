@@ -12,11 +12,11 @@ from app.auth.errors import ApiProblem
 from app.auth.permissions import Permission
 from app.core.config import Settings
 from app.core.unit_of_work import UnitOfWork
+from app.platform.domain_jobs import bind_ai_run, create_ai_job
 from app.platform.idempotency import begin_command, complete_command
-from app.platform.models import AsyncJob
 from app.platform.records import AuditRecorder, DomainEvent, OutboxRecorder
 from app.sales.assistant_queries import OrderAssistantQueries
-from app.work.models import Activity
+from app.work.records import record_activity
 
 
 def required_permissions(intent: AiIntent) -> frozenset[Permission]:
@@ -64,18 +64,14 @@ def record_ai_event(
     details: dict[str, object],
     reason: str | None = None,
 ) -> None:
-    session.add(
-        Activity(
-            organization_id=context.organization_id,
-            created_by=context.user_id,
-            updated_by=context.user_id,
-            subject_type="ai_run",
-            subject_id=target_id,
-            activity_type=action,
-            summary=action,
-            details=details,
-            correlation_id=context.request_id,
-        )
+    record_activity(
+        session,
+        context,
+        subject_type="ai_run",
+        subject_id=target_id,
+        activity_type=action,
+        summary=action,
+        details=details,
     )
     AuditRecorder().record(
         session,
@@ -119,21 +115,12 @@ class AiCommandService:
                 OrderAssistantQueries(session).snapshot(
                     context, request.subject_id, profit=request.intent == AiIntent.PROFIT
                 )
-            job = AsyncJob(
-                organization_id=context.organization_id,
-                created_by=context.user_id,
-                updated_by=context.user_id,
-                job_type="AI_COPILOT",
-                correlation_id=context.request_id,
-                max_attempts=3,
-            )
-            session.add(job)
-            session.flush()
+            job_id = create_ai_job(session, context)
             run = AiRun(
                 organization_id=context.organization_id,
                 created_by=context.user_id,
                 updated_by=context.user_id,
-                job_id=job.id,
+                job_id=job_id,
                 intent=request.intent,
                 subject_id=request.subject_id,
                 input_summary=request.model_dump(mode="json"),
@@ -143,14 +130,14 @@ class AiCommandService:
             )
             session.add(run)
             session.flush()
-            job.result_reference = f"ai-run:{run.id}"
+            bind_ai_run(session, context, job_id=job_id, run_id=run.id)
             complete_command(command, run.id, "ai_run")
             record_ai_event(
                 session,
                 context,
                 target_id=run.id,
                 action="ai.run_requested",
-                details={"intent": run.intent, "job_id": str(job.id)},
+                details={"intent": run.intent, "job_id": str(job_id)},
             )
             result = run_response(session, context, run)
             unit.commit()

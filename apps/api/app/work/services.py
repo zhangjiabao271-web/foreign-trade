@@ -14,6 +14,7 @@ from app.sales.order_repositories import SalesOrderRepository
 from app.work.activity_access import require_activity_subject
 from app.work.content import activity_response, task_response
 from app.work.models import Activity, Task
+from app.work.records import record_activity
 from app.work.schemas import ActivityPageResponse, ActivityResponse, TaskComplete, TaskResponse
 from app.work.timeline import activity_page
 
@@ -142,18 +143,14 @@ class TaskCommandService:
             task.status = "DONE"
             task.updated_by = context.user_id
             task.details = {**task.details, "resolution": request.resolution}
-            session.add(
-                Activity(
-                    organization_id=context.organization_id,
-                    created_by=context.user_id,
-                    updated_by=context.user_id,
-                    subject_type="sales_order",
-                    subject_id=order_id,
-                    activity_type="task.completed",
-                    summary=f"Completed: {task.title}",
-                    details={"task_id": str(task.id), "resolution": request.resolution},
-                    correlation_id=context.request_id,
-                )
+            record_activity(
+                session,
+                context,
+                subject_type="sales_order",
+                subject_id=order_id,
+                activity_type="task.completed",
+                summary=f"Completed: {task.title}",
+                details={"task_id": str(task.id), "resolution": request.resolution},
             )
             self.audit.record(
                 session,

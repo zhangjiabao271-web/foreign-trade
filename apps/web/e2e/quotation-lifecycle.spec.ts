@@ -2334,6 +2334,14 @@ for (const viewport of [
     await expect(
       page.getByRole("heading", { name: "报价驾驶台" }),
     ).toBeVisible();
+    await page.locator('a[href^="/quotations/"]').first().click();
+    await expect(page.getByRole("table", { name: /商业快照/ })).toBeVisible();
+    const timeline = page.getByRole("region", {
+      name: "报价时间线",
+      exact: true,
+    });
+    await expect(timeline.getByRole("listitem").first()).toBeVisible();
+    await expect(timeline).toHaveAttribute("aria-busy", "false");
     const dimensions = await page.evaluate(() => ({
       scrollWidth: document.documentElement.scrollWidth,
       clientWidth: document.documentElement.clientWidth,
@@ -2360,6 +2368,17 @@ for (const viewport of [
     await expect(
       page.getByRole("heading", { name: "出运航控台" }),
     ).toBeVisible();
+    await page.locator('a[href^="/shipments/"]').first().click();
+    await expect(page.getByRole("heading", { name: "本次货物" })).toBeVisible();
+    await expect(page.getByText("订单快照读取中", { exact: true })).toHaveCount(
+      0,
+    );
+    const timeline = page.getByRole("region", {
+      name: "出货时间线",
+      exact: true,
+    });
+    await expect(timeline.getByRole("listitem").first()).toBeVisible();
+    await expect(timeline).toHaveAttribute("aria-busy", "false");
     const dimensions = await page.evaluate(() => ({
       scrollWidth: document.documentElement.scrollWidth,
       clientWidth: document.documentElement.clientWidth,
@@ -2386,6 +2405,16 @@ for (const viewport of [
     await expect(
       page.getByRole("heading", { name: "订单承诺舱" }),
     ).toBeVisible();
+    await page.locator('a[href^="/orders/"]').first().click();
+    await expect(
+      page.getByRole("table", { name: "接受版本冻结的销售订单行" }),
+    ).toBeVisible();
+    const timeline = page.getByRole("region", {
+      name: "订单时间线",
+      exact: true,
+    });
+    await expect(timeline.getByRole("listitem").first()).toBeVisible();
+    await expect(timeline).toHaveAttribute("aria-busy", "false");
     const dimensions = await page.evaluate(() => ({
       scrollWidth: document.documentElement.scrollWidth,
       clientWidth: document.documentElement.clientWidth,

@@ -17,6 +17,20 @@ Lead status changes are commands, never generic field updates. Conversion is ide
 atomically creates or links a customer company, contact and opportunity while preserving the
 lead source. Every transition also writes activity, audit and outbox records.
 
+ADR-031 delegates company/customer-role/contact writes to the Companies-owned conversion port
+using immutable source fields and returned IDs. CRM keeps the lead lock, state/replay checks,
+opportunity creation and original evidence in its own transaction; no foreign ORM writes remain
+in conversion. The port independently requires lead.convert and does not commit.
+
+Concurrent conversions of distinct same-name leads now arbitrate company creation through the
+existing tenant/normalized-active-name unique index and CUSTOMER creation through the existing
+tenant/company/role key. Conflict means reuse, never overwrite another company's attributes.
+Each lead retains its own contact/opportunity and atomic evidence. An inactive conflicting role
+fails closed with COMPANY_ROLE_INACTIVE instead of being resurrected. An unavailable company
+after conflict returns COMPANY_CHANGED for explicit retry. No automatic transaction replay,
+schema migration, merge API or new permission is introduced. Source tests are separate from
+runtime deployment; see V1_STATUS for actual verification and remaining coverage.
+
 ## Opportunity lifecycle (ADR-014)
 
 Tenant-scoped list/detail/history use opportunity.read; start-negotiation and mark-lost use

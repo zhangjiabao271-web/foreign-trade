@@ -1,5 +1,11 @@
 # Controlled Copilot
 
+ADR-033 moves job creation, reference binding and RUNNING/result persistence to Platform-owned
+domain_jobs ports. AI retains run/lease ownership, live authority, retry classification, provider
+calls outside transactions and original atomic evidence. The worker result port is internal and
+can record permission-loss failure without requiring now-revoked ai.run. No provider call or
+public contract is added. Current-source tests and deployed images are tracked in V1_STATUS.
+
 Follow guide section 13 and ADR-011. PostgreSQL owns runs, tool-call receipts and approvals.
 ADR-029 adds explicit AI_PROVIDER=deepseek and deepseek-v4-pro via the official Responses endpoint.
 Run model identities use deepseek/deepseek-v4-pro; worker provider mismatches fail before network.

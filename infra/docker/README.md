@@ -1,5 +1,33 @@
 # Docker
 
+## Latest Web image selection (Sep9)
+
+Append session-presence.compose.yml as the eighth image-only overlay after owner-ports and
+all six earlier files. Web now uses session-presence-20260909; API/Worker retain owner-ports.
+The guarded Web-only script has already run; exact old-image guards intentionally refuse reruns.
+
+## Latest owner-port image selection (Sep9)
+
+Append owner-ports.compose.yml AFTER release-0035.compose.yml and all five behavioral overlays
+listed below. The seventh image-only overlay is now deployed for API/Worker/beat; Web remains
+ui-baseline-20260908. Omitting it selects superseded images. Guarded deploy-owner-ports.ps1
+has already run and refuses changed source images. Do not rerun old migration/deployment scripts.
+Current exact image IDs, tests, environment/data preservation and health are in V1_STATUS.
+
+## Current local acceptance images (0035)
+
+After all five overlays below, release-0035.compose.yml selects the separately built and
+verified API/Worker/Web images. This image-only sixth overlay changes no identity,provider,
+storage or database settings. Applied2026-09-08 with the one-time guarded deployment script;
+do not rerun the migration script. Future updates must retain all five behavioral overlays
+and deliberately update image selection rather than reverting to an older default tag.
+The Web image includes shared-ui source/dependency notices under /app/licenses/ui.
+The latest image selection uses Worker queues-20260908 for both worker and beat; it reserves
+the six guide queue names but continues consuming default only. Operational environment copying
+must split KEY=value at the first equals sign (or use the verified prefix length helper),never
+hardcode secret-prefix character offsets. Preserve exact credential equality before accepting
+an update; current V1_STATUS records the caught-and-corrected transfer error and final health.
+
 ## DeepSeek synthetic acceptance (ADR-029)
 
 After the four fresh/identity/storage files, append deepseek-acceptance.compose.yml to keep

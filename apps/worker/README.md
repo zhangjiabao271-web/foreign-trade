@@ -4,6 +4,13 @@ Celery handles retryable side effects but never owns user-visible state. `worker
 the PostgreSQL outbox relay. The relay claims rows with `FOR UPDATE SKIP LOCKED`, commits that
 short claim transaction, and only then publishes organization-scoped tasks to Celery.
 
+Guide11.3 reserves default,email,documents,ai,acquisition,exports in Celery's explicit
+queue registry, each durable with its own direct exchange/routing key. Existing outbox
+publication and Docker consumption deliberately remain on default; declaring names does
+not move queued messages,create new business actions or claim dedicated consumers run.
+Split routing only with a tested matching consumer rollout. Database facts,tenant context,
+receipts,timeouts and retry behavior are unchanged. No dependency or migration is added.
+
 ADR-029 selects an explicit OpenAI or DeepSeek Responses adapter. API and worker must agree on
 AI_PROVIDER/model; mismatched stored model identities fail closed without a provider request.
 Only worker receives DEEPSEEK_API_KEY; keep it in deployment environment, never source or logs.

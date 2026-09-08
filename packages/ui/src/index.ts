@@ -1,3 +1,5 @@
+export { Button } from "./button";
+
 export const surfaceTokens = {
   paper: "#f5f7f6",
   ink: "#102a43",

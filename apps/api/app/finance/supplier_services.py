@@ -24,7 +24,7 @@ from app.platform.numbering import next_document_number
 from app.platform.records import AuditRecorder, DomainEvent, OutboxRecorder
 from app.procurement.models import PurchaseOrder
 from app.sales.models import SalesOrder
-from app.work.models import Activity
+from app.work.records import record_activity
 
 
 def conflict(code: str, detail: str) -> ApiProblem:
@@ -83,18 +83,14 @@ class SupplierFinanceService:
             subject_id = row.supplier_company_id
         if subject_id is None:
             raise RuntimeError("Financial evidence needs an explicit business subject")
-        session.add(
-            Activity(
-                organization_id=context.organization_id,
-                created_by=context.user_id,
-                updated_by=context.user_id,
-                subject_type=subject_type,
-                subject_id=subject_id,
-                activity_type=action,
-                summary=action,
-                details={f"{kind}_id": str(row.id)},
-                correlation_id=context.request_id,
-            )
+        record_activity(
+            session,
+            context,
+            subject_type=subject_type,
+            subject_id=subject_id,
+            activity_type=action,
+            summary=action,
+            details={f"{kind}_id": str(row.id)},
         )
         self.audit.record(
             session,

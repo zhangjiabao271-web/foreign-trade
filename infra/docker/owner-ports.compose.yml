@@ -1,0 +1,8 @@
+# Image-only seventh overlay; retain all six preceding acceptance overlays.
+services:
+  api:
+    image: trade-fresh-acceptance-api:owner-ports-20260909
+  worker:
+    image: trade-fresh-acceptance-worker:owner-ports-20260909
+  worker-beat:
+    image: trade-fresh-acceptance-worker:owner-ports-20260909

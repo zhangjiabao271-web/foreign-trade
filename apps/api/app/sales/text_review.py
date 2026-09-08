@@ -24,7 +24,7 @@ from app.sales.text_content import (
     is_released,
     text_fields,
 )
-from app.work.models import Activity
+from app.work.records import record_activity
 
 CommercialTextKind = Literal["quotation_version", "sales_order", "sales_contract"]
 READ_PERMISSION = {
@@ -168,18 +168,14 @@ class CommercialTextReviewService:
             row.updated_by = context.user_id
             details = {"record_id": str(row.id), "kind": kind, "released": request.release}
             action = "commercial.text_reviewed"
-            session.add(
-                Activity(
-                    organization_id=context.organization_id,
-                    created_by=context.user_id,
-                    updated_by=context.user_id,
-                    subject_type=subject_type,
-                    subject_id=subject_id,
-                    activity_type=action,
-                    summary="Commercial source text visibility reviewed",
-                    details=details,
-                    correlation_id=context.request_id,
-                )
+            record_activity(
+                session,
+                context,
+                subject_type=subject_type,
+                subject_id=subject_id,
+                activity_type=action,
+                summary="Commercial source text visibility reviewed",
+                details=details,
             )
             AuditRecorder().record(
                 session,

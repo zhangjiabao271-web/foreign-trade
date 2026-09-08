@@ -35,7 +35,7 @@ from app.sales.models import SalesOrder
 from app.sales.order_enums import SalesOrderStatus
 from app.sales.order_repositories import SalesOrderRepository
 from app.sales.services import quantize_money, quantize_rate
-from app.work.models import Activity
+from app.work.records import record_activity
 from app.work.schemas import ActivityResponse
 
 
@@ -965,22 +965,18 @@ class PurchaseOrderCommandService:
         after: dict[str, object],
         reason: str | None = None,
     ) -> None:
-        session.add(
-            Activity(
-                organization_id=context.organization_id,
-                created_by=context.user_id,
-                updated_by=context.user_id,
-                subject_type="purchase_order",
-                subject_id=order.id,
-                activity_type=action,
-                summary=summary,
-                details={
-                    "purchase_order_number": order.purchase_order_number,
-                    "sales_order_id": str(order.sales_order_id),
-                    "command_result": after,
-                },
-                correlation_id=context.request_id,
-            )
+        record_activity(
+            session,
+            context,
+            subject_type="purchase_order",
+            subject_id=order.id,
+            activity_type=action,
+            summary=summary,
+            details={
+                "purchase_order_number": order.purchase_order_number,
+                "sales_order_id": str(order.sales_order_id),
+                "command_result": after,
+            },
         )
         self._audit_recorder.record(
             session,

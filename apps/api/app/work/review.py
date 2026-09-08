@@ -16,6 +16,7 @@ from app.platform.records import AuditRecorder, DomainEvent, OutboxRecorder
 from app.work.activity_access import ActivitySubject, require_activity_subject
 from app.work.content import content_digest, is_released
 from app.work.models import Activity, Task
+from app.work.records import record_activity
 from app.work.services import require_order
 
 WorkContentKind = Literal["task", "activity"]
@@ -197,18 +198,14 @@ class WorkReviewService:
             row.updated_by = context.user_id
             details = {"record_id": str(row.id), "kind": kind, "released": request.release}
             action = "work.content_reviewed"
-            session.add(
-                Activity(
-                    organization_id=context.organization_id,
-                    created_by=context.user_id,
-                    updated_by=context.user_id,
-                    subject_type=subject_type,
-                    subject_id=order_id,
-                    activity_type=action,
-                    summary="Work content visibility reviewed",
-                    details=details,
-                    correlation_id=context.request_id,
-                )
+            record_activity(
+                session,
+                context,
+                subject_type=subject_type,
+                subject_id=order_id,
+                activity_type=action,
+                summary="Work content visibility reviewed",
+                details=details,
             )
             self.audit.record(
                 session,

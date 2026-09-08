@@ -39,7 +39,7 @@ from app.sales.order_enums import SalesOrderStatus
 from app.sales.order_repositories import SalesOrderRepository
 from app.sales.services import quantize_money
 from app.sales.settlement import OrderSettlementPort
-from app.work.models import Activity
+from app.work.records import record_activity
 
 ReceivableAggregate = tuple[Receivable, Decimal]
 PaymentAggregate = tuple[PaymentRecordSnapshot, Decimal, Sequence[PaymentAllocation]]
@@ -226,18 +226,14 @@ class ReceivableCommandService:
                     },
                 )
                 receivables.append(receivable)
-            session.add(
-                Activity(
-                    organization_id=context.organization_id,
-                    created_by=context.user_id,
-                    updated_by=context.user_id,
-                    subject_type="sales_order",
-                    subject_id=order.id,
-                    activity_type="receivables.generated",
-                    summary=f"Generated {len(receivables)} receivables for {order.order_number}",
-                    details={"receivable_ids": [str(item.id) for item in receivables]},
-                    correlation_id=context.request_id,
-                )
+            record_activity(
+                session,
+                context,
+                subject_type="sales_order",
+                subject_id=order.id,
+                activity_type="receivables.generated",
+                summary=f"Generated {len(receivables)} receivables for {order.order_number}",
+                details={"receivable_ids": [str(item.id) for item in receivables]},
             )
             unit_of_work.commit()
             return [(item, Decimal("0")) for item in receivables]
@@ -303,18 +299,14 @@ class ReceivableCommandService:
         before: dict[str, object] | None,
         after: dict[str, object],
     ) -> None:
-        session.add(
-            Activity(
-                organization_id=context.organization_id,
-                created_by=context.user_id,
-                updated_by=context.user_id,
-                subject_type="receivable",
-                subject_id=receivable.id,
-                activity_type=action,
-                summary=f"{receivable.receivable_number} changed to {receivable.status}",
-                details={"sales_order_id": str(receivable.sales_order_id)},
-                correlation_id=context.request_id,
-            )
+        record_activity(
+            session,
+            context,
+            subject_type="receivable",
+            subject_id=receivable.id,
+            activity_type=action,
+            summary=f"{receivable.receivable_number} changed to {receivable.status}",
+            details={"sales_order_id": str(receivable.sales_order_id)},
         )
         self._audit_recorder.record(
             session,
@@ -854,18 +846,14 @@ class PaymentCommandService:
         after: dict[str, object],
         reason: str | None = None,
     ) -> None:
-        session.add(
-            Activity(
-                organization_id=context.organization_id,
-                created_by=context.user_id,
-                updated_by=context.user_id,
-                subject_type="receivable",
-                subject_id=receivable.id,
-                activity_type="receivable.allocation_changed",
-                summary=f"Allocation changed for {receivable.receivable_number}",
-                details={"sales_order_id": str(receivable.sales_order_id)},
-                correlation_id=context.request_id,
-            )
+        record_activity(
+            session,
+            context,
+            subject_type="receivable",
+            subject_id=receivable.id,
+            activity_type="receivable.allocation_changed",
+            summary=f"Allocation changed for {receivable.receivable_number}",
+            details={"sales_order_id": str(receivable.sales_order_id)},
         )
         self._audit_recorder.record(
             session,
@@ -899,18 +887,14 @@ class PaymentCommandService:
         after: dict[str, object],
         reason: str | None = None,
     ) -> None:
-        session.add(
-            Activity(
-                organization_id=context.organization_id,
-                created_by=context.user_id,
-                updated_by=context.user_id,
-                subject_type="payment",
-                subject_id=payment.id,
-                activity_type=action,
-                summary=f"Payment fact {payment.payment_number}: {action}",
-                details={"company_id": str(payment.company_id)},
-                correlation_id=context.request_id,
-            )
+        record_activity(
+            session,
+            context,
+            subject_type="payment",
+            subject_id=payment.id,
+            activity_type=action,
+            summary=f"Payment fact {payment.payment_number}: {action}",
+            details={"company_id": str(payment.company_id)},
         )
         self._audit_recorder.record(
             session,

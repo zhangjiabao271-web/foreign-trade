@@ -1,7 +1,6 @@
 from collections import defaultdict
 from collections.abc import Sequence
 from datetime import UTC, datetime, timedelta
-from decimal import Decimal
 from uuid import UUID, uuid4
 
 from sqlalchemy import select
@@ -26,12 +25,15 @@ from app.documents.schemas import (
     DocumentVersionResponse,
 )
 from app.documents.storage import ObjectStorage
-from app.platform.enums import AsyncJobStatus
+from app.platform.domain_jobs import (
+    complete_document_scan_job,
+    create_document_scan_job,
+    lock_document_scan_job,
+)
 from app.platform.idempotency import begin_command, complete_command
-from app.platform.models import AsyncJob
 from app.platform.outbox import OutboxMessage
 from app.platform.records import AuditRecorder, DomainEvent, OutboxRecorder
-from app.work.models import Activity
+from app.work.records import record_activity, record_system_activity
 
 UPLOAD_SESSION_LIFETIME = timedelta(minutes=15)
 DOWNLOAD_SESSION_LIFETIME = timedelta(minutes=5)
@@ -282,21 +284,17 @@ class DocumentCommandService:
                 expected_sha256=str(data["sha256"]),
             )
             session.add_all([document, version, *links])
-            session.add(
-                Activity(
-                    organization_id=context.organization_id,
-                    created_by=context.user_id,
-                    updated_by=context.user_id,
-                    subject_type="document",
-                    subject_id=document.id,
-                    activity_type="document.upload_initiated",
-                    summary=f"Upload started for {document.title}",
-                    details={
-                        "document_type": document.document_type,
-                        "version_number": version.version_number,
-                    },
-                    correlation_id=context.request_id,
-                )
+            record_activity(
+                session,
+                context,
+                subject_type="document",
+                subject_id=document.id,
+                activity_type="document.upload_initiated",
+                summary=f"Upload started for {document.title}",
+                details={
+                    "document_type": document.document_type,
+                    "version_number": version.version_number,
+                },
             )
             self._audit_recorder.record(
                 session,
@@ -533,18 +531,14 @@ class DocumentCommandService:
                         },
                         reason="Legacy evidence checksum revalidated",
                     )
-                    session.add(
-                        Activity(
-                            organization_id=context.organization_id,
-                            created_by=context.user_id,
-                            updated_by=context.user_id,
-                            subject_type="document",
-                            subject_id=document.id,
-                            activity_type="document.storage_version_pinned",
-                            summary="Legacy evidence checksum revalidated",
-                            details={"version_id": str(version.id)},
-                            correlation_id=context.request_id,
-                        )
+                    record_activity(
+                        session,
+                        context,
+                        subject_type="document",
+                        subject_id=document.id,
+                        activity_type="document.storage_version_pinned",
+                        summary="Legacy evidence checksum revalidated",
+                        details={"version_id": str(version.id)},
                     )
                     self._outbox_recorder.record(
                         session,
@@ -581,30 +575,15 @@ class DocumentCommandService:
             version.storage_version_id = stored.version_id
             version.uploaded_at = now
             version.updated_by = context.user_id
-            job = AsyncJob(
-                organization_id=context.organization_id,
-                created_by=context.user_id,
-                updated_by=context.user_id,
-                job_type="DOCUMENT_SCAN",
-                status=AsyncJobStatus.PENDING,
-                progress=0,
-                max_attempts=3,
-                correlation_id=context.request_id,
-            )
-            session.add(job)
-            session.flush()
-            session.add(
-                Activity(
-                    organization_id=context.organization_id,
-                    created_by=context.user_id,
-                    updated_by=context.user_id,
-                    subject_type="document",
-                    subject_id=document.id,
-                    activity_type="document.uploaded",
-                    summary=f"Upload completed for {document.title}; scan queued",
-                    details={"version_id": str(version.id), "job_id": str(job.id)},
-                    correlation_id=context.request_id,
-                )
+            job_id = create_document_scan_job(session, context)
+            record_activity(
+                session,
+                context,
+                subject_type="document",
+                subject_id=document.id,
+                activity_type="document.uploaded",
+                summary=f"Upload completed for {document.title}; scan queued",
+                details={"version_id": str(version.id), "job_id": str(job_id)},
             )
             self._audit_recorder.record(
                 session,
@@ -613,7 +592,7 @@ class DocumentCommandService:
                 target_type="document",
                 target_id=document.id,
                 before={"status": DocumentVersionStatus.PENDING_UPLOAD},
-                after={"status": DocumentVersionStatus.UPLOADED, "job_id": str(job.id)},
+                after={"status": DocumentVersionStatus.UPLOADED, "job_id": str(job_id)},
             )
             self._outbox_recorder.record(
                 session,
@@ -625,7 +604,7 @@ class DocumentCommandService:
                     {
                         "document_id": str(document.id),
                         "version_id": str(version.id),
-                        "job_id": str(job.id),
+                        "job_id": str(job_id),
                     },
                 ),
             )
@@ -731,12 +710,8 @@ def mark_document_available(session: Session, message: OutboxMessage) -> None:
         )
         .with_for_update()
     )
-    job = session.scalar(
-        select(AsyncJob)
-        .where(AsyncJob.organization_id == organization_id, AsyncJob.id == job_id)
-        .with_for_update()
-    )
-    if version is None or job is None:
+    lock_document_scan_job(session, organization_id=organization_id, job_id=job_id)
+    if version is None:
         raise ValueError("Document scan aggregate was not found in the event organization")
     if version.status == DocumentVersionStatus.AVAILABLE:
         return
@@ -745,17 +720,16 @@ def mark_document_available(session: Session, message: OutboxMessage) -> None:
     now = datetime.now(UTC)
     version.status = DocumentVersionStatus.AVAILABLE
     version.available_at = now
-    job.status = AsyncJobStatus.SUCCEEDED
-    job.progress = Decimal("100")
-    job.result_reference = f"document-version:{version.id}"
-    session.add(
-        Activity(
-            organization_id=organization_id,
-            subject_type="document",
-            subject_id=version.document_id,
-            activity_type="document.available",
-            summary="Document scan completed and version is available",
-            details={"version_id": str(version.id), "job_id": str(job.id)},
-            correlation_id=UUID(message["correlation_id"]),
-        )
+    complete_document_scan_job(
+        session, organization_id=organization_id, job_id=job_id, version_id=version.id
+    )
+    record_system_activity(
+        session,
+        organization_id=organization_id,
+        subject_type="document",
+        subject_id=version.document_id,
+        activity_type="document.available",
+        summary="Document scan completed and version is available",
+        details={"version_id": str(version.id), "job_id": str(job_id)},
+        correlation_id=UUID(message["correlation_id"]),
     )

@@ -1,5 +1,21 @@
 # Sales quotations
 
+ADR-032: order confirmation delegates procurement task staging to Work. Sales confirmation_facts
+provides an immutable tenant-checked confirmed-order snapshot under order.confirm; no_autoflush
+preserves the caller's pending confirmation and original evidence flush order. Work does not
+commit or emit separate evidence. Sales retains commercial/state/key/replay ownership; task
+fields and permissions remain unchanged. Runtime acceptance is tracked separately in V1_STATUS.
+
+The Sales-owned settlement port independently requires payment.allocate or payment.reverse
+according to the originating action, before any order mutation or evidence insertion. Finance
+retains its existing entry checks, locked-order/amount validation and caller-owned transaction.
+This is defense in depth under guide3, not a new role, public endpoint or financial transition.
+
+ADR030: quotation creation delegates inquiry progression to the Inquiries-owned transaction
+port rather than assigning foreign ORM fields. Existing key/inquiry/opportunity lock ordering,
+quotation evidence and replay remain; a fresh quotation on CLOSED inquiry now fails atomically.
+No schema/API shape change; runtime deployment and expanded acceptance are tracked in V1_STATUS.
+
 0034 adds the missing composite `(organization_id, opportunity_id)` foreign key on sales orders.
 The command still copies opportunity identity from the accepted quotation; no new request field,
 state transition or business permission is added. PostgreSQL rejects missing/foreign opportunity

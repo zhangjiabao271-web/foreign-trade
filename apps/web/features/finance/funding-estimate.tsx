@@ -2,6 +2,7 @@
 
 import { useQuery } from "@tanstack/react-query";
 import { parseApiError } from "@trade-workbench/api-client";
+import { Button } from "@trade-workbench/ui";
 import { sessionClient } from "../overview/session";
 import { expenseError } from "./expense-form";
 
@@ -47,13 +48,13 @@ function Estimate({ scope, orderId }: { scope: string; orderId: string }) {
       <p>
         未考虑供应商付款日程、账期和未登记费用；不代表资金峰值。估算为零也不保证无需准备资金。
       </p>
-      <button
-        className="quiet-button"
+      <Button
+        variant="quiet"
         disabled={query.isFetching}
         onClick={() => void query.refetch()}
       >
         {query.isError ? "重试垫资估算" : "刷新垫资估算"}
-      </button>
+      </Button>
     </section>
   );
 }

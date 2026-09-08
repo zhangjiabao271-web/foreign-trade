@@ -2,7 +2,1402 @@
 
 This is a progress record, not a release certificate. The implementation guide remains authoritative.
 
+## Consolidated backend completed: 2026-09-09
+
+Session93662 terminated0 after2536.54s:1476passed,5paid-provider skips,one existing
+Starlette/httpx deprecation warning. Independently parsed tmp/full-reconciled-20260909.xml:
+1481total,0failures,0errors,5skips. All skips are the explicit opt-in DeepSeek five-intent file.
+The report includes quotation roles36,decision states49,review/revision matrix96,company
+archive10 and overview scaling/performance1; these are not numbers added to an older run.
+Source/test files were unchanged while running; only acceptance documentation was updated.
+All handles in the preceding consolidated checkpoints are now terminal. Do not resume or
+restart93662. Browser32,Web262,build,typecheck,lint,format and client checks have their separate
+successful runs recorded below. Early browser artifact-permission failure remains visible.
+No deployment or real AI call was part of this verification. Full guide/ADR final reconciliation,
+real TASK_DRAFT disclosure/execution acceptance and remote-CI boundary remain explicitly open;
+this full test result alone is not a V1 release certificate.
+
+## Consolidated client checks: 2026-09-09
+
+Session84780 terminated0: normal generated-client comparison passed,followed by3negative
+drift cases/25.870s,including literal copied-Pydantic mutation. Canonical files remained
+unchanged. Backend93662 continues (latest printed38% with subsequent progress); this is not
+a new full-suite result. Browser73442 remains terminal32passed and must not be restarted.
+
+## Consolidated browser completed: 2026-09-09
+
+Replacement73442 terminated0:32passed/4.4minutes,including expanded lead search/filter and
+full commercial/disclosure/scripted-task journey. .last-run.json independently says passed
+with no failedTests. Postflight confirms trade_workbench_e2e count0,3100/8010no listeners and
+all three fixture/process receipts absent. Teardown removed only the synthetic test database
+and owned services; MinIO test bucket and business/recovery volumes were not manually removed.
+This is fixture authentication/scripted AI,not final real-provider task approval acceptance.
+Initial42364 artifact-permission failure remains recorded below. Backend93662 still runs;
+last displayed checkpoint29% plus continuing dots,no final result. Do not restart that handle.
+
+## Browser artifact permission recovery: 2026-09-09
+
+Initial full-browser42364 encountered EPERM cleaning old screenshot and writing report/last-run,
+before fixture/server startup; no tests executed. Read-only checks found no3100/8010listeners or
+fixture/ownership receipts. After explicit interruption the handle terminated1. Scoped execution
+escalation launched replacement73442 with the same isolated environment and paid/model-key
+restrictions. It has now migrated the dedicated test database to0035,seeded fixtures and started
+32tests. This is an active run,not a pass. Backend93662 remains active,latest output24% with five
+expected paid-provider skips. Resume73442/93662 only;42364 is terminal and must not be polled.
+No source changes or application deployment occurred during this recovery.
+
+## Consolidated build/browser checkpoint: 2026-09-09
+
+Production Web build6900 terminated0: compilation,TypeScript and19 static pages completed.
+No deployment followed. Full browser42364 is newly running; preflight independently confirmed
+trade_workbench_e2e absent,3100/8010unused and all three fixture/ownership receipts absent.
+Tests use local5432,MinIO9000 bucket trade-e2e-reconciled-20260909,fixture bearer authentication,
+scripted AI,blank provider keys and paid opt-in0. No user3300 action is part of this suite.
+Initial read-only database preflight had a PowerShell quoting error; corrected command returned
+count0 before launch. Backend93662 remains running (last progress14%). Both handles must be
+resumed,not duplicated; neither has a final result yet. Concurrent suites share the local test
+server,so fresh full-run timing artifacts must not be called isolated-load benchmarks. Earlier
+separately measured performance reports retain their own scope.
+
+## Consolidated static/Web checks: 2026-09-09
+
+While backend93662 continues (last live output passed9% with no terminal result), full Web
+unit run43189 finished262passed/45files/25.14s,exit0. Whole workspace typecheck passed,
+including strict Python219source files; whole lint passed (session77063 terminal0).
+Initial full format check2675 failed on seven Markdown files. Mechanical Prettier formatting
+changed only those documents (Task003-006,V1_STATUS,ADR029,BASELINE_AUDIT); no runtime/test
+source changed during the running backend suite. Full format recheck48112 finished0:
+Prettier all matched files and Ruff418files passed. Git remote listing returned no entries;
+there is no configured remote against which to claim a GitHub CI result. No remote was added.
+Backend93662 remains the sole current full backend handle; do not restart based on this note.
+
+## Consolidated backend regression started: 2026-09-09
+
+Session93662 is the newly launched full apps/api/tests + apps/worker/tests run,including the
+new quotation role/state/review/revision matrices,company isolation and overview performance
+checks. Last live poll returned progress; no terminal result or pass total yet. Resume this
+handle instead of starting a duplicate. Requested report:tmp/full-reconciled-20260909.xml.
+ALLOW_PAID_DEEPSEEK_ACCEPTANCE=0; both model keys blank in this test process; AI_PROVIDER=openai.
+Random disposable PostgreSQL databases use local5432; actual versioned storage tests use
+local9000 and generated per-test buckets. No deployment/restart or main acceptance DB change.
+Read-only container inspection confirmed existing services healthy after initial sandbox
+Docker-pipe denial was resolved by scoped read-only escalation. Backend/Worker Ruff check and
+five recently changed Python test format checks passed; targeted diff check passed.
+This checkpoint is not completion. Do not use an unfinished JUnit path as a successful result.
+
+## Commercial-history policy inventory refresh: 2026-09-09
+
+Reconciled the stale shipment-history statement in TEXT_POLICY_SCOPE with current router,
+Work owner access,cursor and detached content projection bodies. Read full commercial history
+test and reran all3owner cases:3passed/7.38s,existingwarning,exit0;
+tmp/commercial-timeline-final-20260909.xml. Covers six-role visibility,105-event pagination,
+cross-owner/tenant denial and exact-text release invalidation. Documentation-only update;
+not a new real-login/browser/model acceptance or whole-system confidentiality certificate.
+
+## Task006 related-company isolation closure: 2026-09-09
+
+Extended archive isolation with foreign company role addition and name/role/combined search,
+exact empty pagination and preserved company/role/version/evidence. Read owner-port tests in
+full and reran archive+port:17passed/19.48s,exit0,existingwarning. Report:
+tmp/company-final-20260909.xml. Ruff check/format,diff and focused code-simplifier review passed.
+TASK006_ACCEPTANCE now reconciles its specifically identified related-company gap with earlier
+lead/contact/conversion/browser evidence. Test-only change; whole V1 remains unaccepted.
+
+## Eight populated overview queues performance: 2026-09-09
+
+Extended existing query-scaling test with HTTP latency measurements and exact returned-ID
+assertions for all eight queues:3warmups+30samples each,21 matching records (42receivables),
+page20. p95 range12.112–20.536ms,all below500ms. Existing1/20/100 business-query counts remain
+constant2/3 and read-only/foreign/offset assertions passed. Targeted1passed/15.05s,exit0,
+existingwarning; tmp/overview-performance-20260909.xml and test-results/overview-performance.json.
+Ruff check/format,diff check and focused code-simplifier review passed. No production code or
+runtime changes. GUIDE_18_GATES records exact numbers/exclusions;24 distinct selected operations
+now measured across reports,not every API or a production concurrency guarantee.
+
+## Task005 full runtime type inventory reconciled: 2026-09-09
+
+TypeScript AST traversal covered106 runtime files,276 inline type literals,101 aliases and
+zero parse errors; no interface/class/mapped-type declarations. Inspected emitted declarations
+and Zod input schemas: no handwritten business response DTO found. Generated API-boundary
+body review and local query tracing supply data-origin evidence. TASK005_ACCEPTANCE now maps
+all named local contract/type gates, while keeping remote CI and whole-V1 acceptance separate.
+Read-only source audit/documentation only; no deployment or provider call.
+
+## Task005 component/transport type provenance: 2026-09-09
+
+Read seven additional component/hook/proxy bodies and traced generated entity aliases,
+typed command unions and inferred query results; no mirrored business DTO found in that scope.
+Whole-Web typecheck passed. TASK005_ACCEPTANCE records exact files,remaining106-file inventory
+boundary and an unreferenced legacy jobs hook whose cache key must be scoped before future use.
+Read-only audit plus documentation; no application/runtime/provider/business-data changes.
+
+## Task005 literal Pydantic drift gate: 2026-09-09
+
+Extended existing CI-invoked drift.test.mjs with a copied-source Pydantic response mutation.
+Verified the added field in exported OpenAPI before requiring the unchanged generator's exact
+drift rejection. Repository source/canonical bytes retained, temporary copy cleaned.
+Three negative tests passed/21.533s; subsequent clean generation,Prettier and diff checks passed.
+Focused code-simplifier review complete. TASK005_ACCEPTANCE details the scope; whole-Web DTO
+review remains open. No real model call, deployment, business write or remote CI claim.
+
+## Customer-review/revision role-state matrix: 2026-09-09
+
+New test_quotation_review_revision_matrix.py enumerates six roles x eight enum states x two
+commands:96 passed/130.94s,exit0,existing Starlette/httpx warning. JUnit:
+tmp/quotation-review-revision-20260909.xml. Allowed roles are ADMIN/MANAGER/SALES; customer
+review requires SENT and revision rejects ACCEPTED. Both HTTP and direct-service denials check
+stable codes and complete quotation/version/item/opportunity snapshots and evidence/key counts.
+Allowed commands check actor, target/current flags, revision linkage/number, evidence increments
+and unchanged replay. ACCEPTED fixtures are reached through normal commands; other enum states
+are disposable-only guard seeds, including artificial current SUPERSEDED. This does not assert
+reachability of those seeds or replace the real version lifecycle/browser journey.
+Read complete customer-review, revision-idempotency and revision-snapshot test bodies and reran
+all three files:20 passed/33.99s,exit0,existingwarning; tmp/quotation-related-20260909.xml.
+These cover source-copy fields after catalog changes, archived product copy, source mismatch,
+foreign source, stale/conflicting/concurrent retries and individual evidence-failure rollback.
+Ruff check/format, diff check and focused code-simplifier review passed. No production code,
+runtime, model call or live commercial data changed. Full V1 audit and real AI journey remain.
+
+## Quotation decision state matrix: 2026-09-09
+
+Added test_quotation_decision_states.py: all eight enum states across the six ADR021 decisions
+(48 cases) plus explicit unapproved-review send rejection. Fresh real PostgreSQL run:49 passed,
+64.08s,exit0,one existing Starlette/httpx deprecation warning. Report:
+tmp/quotation-states-20260909.xml. Ruff check/format and focused code-simplifier review passed.
+Independent expected state sets assert stable INVALID_STATE_TRANSITION and complete commercial
+table snapshots/evidence/key counts on rejection; allowed decisions assert persisted target and
+exact evidence increments. Already-approved and already-accepted new-key no-ops retain all
+commercial snapshots while recording only the command receipt. Accepted fixtures use normal
+send/accept commands, including the accepted pointer and WON opportunity. Other states are
+prepared directly in disposable databases to isolate guards; this is not an end-to-end claim
+that every seeded state is reachable, especially a current SUPERSEDED version.
+No production/runtime/provider changes. Existing six-role matrix covers fresh approval;
+this matrix covers approval no-op. Customer-review and revision commands are outside these six
+and still need their complete state/role coverage reconciled. Neither Phase3 nor V1 is closed.
+
+## Quotation decision six-role matrix: 2026-09-09
+
+Added test_quotation_decision_roles.py: six roles across submit/approve/send/accept/reject/expire,
+36 isolated PostgreSQL cases. ADMIN/MANAGER may execute all six; SALES all except approve;
+OPERATIONS/FINANCE/VIEWER are denied. Denials check both HTTP and service boundaries and retain
+complete quotation/version/item/opportunity snapshots plus activity/audit/outbox/key counts.
+Allowed commands check status, actor, exact evidence increments and unchanged facts on replay.
+Final report tmp/quotation-roles-final-20260909.xml: 36 passed, zero failures/errors/skips,
+45.109s, existing Starlette/httpx warning. Ruff check/format passed. Focused code-simplifier
+review retained independent parametrized cases and the early denial return; no further edits.
+Initial run failed during fixed-SKU fixture setup before permission assertions; independent
+action parametrization corrected test isolation, without relaxing production constraints.
+Test-only change: no runtime deployment, business-data mutation or provider call. This covers
+valid command entry states, not the complete legal/illegal quotation state matrix. V1 remains open.
+
+## Lead browser search/filter acceptance: 2026-09-09
+
+Extended the existing complete conversion journey with case-insensitive company/contact
+search,NEW/CONVERTED combined filter,empty result and restored match,scoped list assertions
+and retained five-event detail. Targeted browser6passed/28.3s,exit0. Types passed; initial
+Prettier warning corrected with whitespace-only formatting and recheck passed. Test-only
+change,fixture authentication,no provider call. Pre/post E2E database count0,ports3100/8010
+closed and three fixture/process receipts absent. Temporary synthetic database/services were
+cleaned; business/recovery data preserved. TASK006_ACCEPTANCE records exact boundaries.
+
+## Exact contact tenant regression: 2026-09-09
+
+Added real-parent foreign contact detail/update and foreign contact cursor tests under both
+foreign and own company. Exact original response/version,evidence counts and single-contact
+fact are preserved. Full company archive10passed/13.77s,existingwarning; Ruff check/format and
+focused code-simplifier review passed. Report tmp/company-contact-scope-20260909.xml.
+Test-only addition; no production business/deployment/provider change. Task006 browser filter
+interaction and final requirement reconciliation remain open.
+
+## Task006 related archive verification: 2026-09-09
+
+Read base0004migration,current CRM/Companies models and related archive test bodies; CRM
+schemas/router were read in the preceding search pass. Newly executed9archive+2opportunity
+tests:11passed/7deselected/15.24s,existingwarning. Includes tenant detail/list/history/cursor,
+wrong-parent contacts, rollback and legacy0014 upgrade/model check with preserved company
+output. Report tmp/crm-related-20260909.xml. Browser filter and remaining exact tenant paths
+remain in TASK006_ACCEPTANCE; no live business/migration/provider change or blanket completion.
+
+## CRM search/filter verification: 2026-09-09
+
+Added combined lead company/contact search,status-filter and tenant-isolation regression,
+including exact ID/count and unchanged database facts. Initial test assumed an organization_id
+response field absent from the actual schema; corrected to persisted ownership checks without
+changing the API. Final complete CRM matrix+vertical slice33passed/35.70s,existingwarning;
+Ruff check/format and focused code-simplifier review complete. Report tmp/crm-search-final-20260909.xml.
+Test-only change; no deployment/provider/business write. Full1292pass predates this new case.
+
+## Task006 core evidence mapping: 2026-09-09
+
+TASK006_ACCEPTANCE.md maps inspected CRM service/repository/conversion and test bodies to
+existing full-owner JUnit:4vertical+28matrix cases,32without failure/error/skip. Covers complete
+conversion, replay/concurrency, multi-role company, six-role lead commands and independent
+evidence rollback. This is report/source review,not a fresh browser/backend run. Migration,
+search/filter and related-archive path mapping remain; neither Task006 nor V1 is closed.
+
+## Task005 generation checkpoint: 2026-09-09
+
+Component-hook supplement: read full document-review, work-review, commercial-timeline and
+funding-estimate sources plus the export download hook. No mirrored business DTO found;
+generated aliases/path types/client inference retained. Newly executed those four component
+test files:45passed/3.60s,exit0. Mocked interfaces only; no live command or model call.
+
+Subsequent source review completed all18feature API module bodies. Their business DTOs
+are generated aliases/inferred client results, not handwritten mirrors. Reviewed generic
+cursor containers, upload retry state and Next-owned health/login wrappers separately.
+Component-local hooks/inline types remain the explicit next scope in TASK005_ACCEPTANCE;
+no application changes or new test execution in that additional read-only review.
+
+TASK005_ACCEPTANCE.md records newly successful clean generation,2negative artifact-drift
+tests and3shared-error parser tests;183operation IDs are unique in the current snapshot.
+The parser's initial sandbox run failed at Vite cache creation; scoped escalation passed
+unchanged tests. No source/runtime/business mutation. Whole-Web DTO body review remains
+open; local checks are not a claim of a remote CI run or completed Task005/V1 acceptance.
+
+## Task004 foundation evidence mapping: 2026-09-09
+
+Added TASK004_ACCEPTANCE.md after reading transaction, recorder, relay, replay and Worker
+source/test bodies. Extracted existing full-owner JUnit: platform transactions16 and
+Worker tasks9, total25 without failure/error/skip. The four named Task004 outcomes have
+direct PostgreSQL evidence; Celery adapter tests use intercepted publication. No new
+test run, broker fault, replay, provider call or business mutation occurred in this review.
+Historical Redis recovery evidence remains separately scoped in GUIDE_18_GATES section18.9.
+Whole V1 is not accepted; exact-data consent for real AI task acceptance remains pending.
+
+## Populated finance performance supplement: 2026-09-09
+
+Added test_finance_read_performance.py; no application/runtime change. Setup uses normal
+commands in a disposable PostgreSQL database:1confirmed order,2installments,101receipts,
+1partial deposit allocation. Six reads each have3warmups/30samples with exact stable payload
+comparison and populated-page/search/allocation/funding amount assertions. Receipt-create
+measurement adds33distinct real test commands (3warmups/30samples),not idempotent replays.
+Final targeted43255 exited0:1passed/10.27s,existing warning. Ruff check/format passed;
+code-simplifier review retained explicit fixture and measurement boundaries without changing
+thresholds. JUnit tmp/finance-performance-20260909.xml; measured artifact
+test-results/finance-api-performance.json at2026-09-08T19:29:01.198177Z:
+payment detail13.093,page15.567,search18.486,order receivables14.256,order detail13.748,
+funding15.322 and payment create40.860ms p95. Reads<500ms,command<800ms all pass.
+Scope:single-concurrency ASGI/real local PG,not network/Logto/browser/provider or production
+large-volume load. This expands selected operation evidence,not allordinary endpoint coverage.
+Earlier full1292pass predates this new test only; no deployment is required for a test addition.
+
+## Web session-presence deployed: 2026-09-09
+
+After262unit tests,types/lint/format,production build,isolated startup and6targeted browser tests,
+deploy-session-presence.ps1 default preflight and -Apply completed exit0. Web exact image is
+sha256:759d0e2aff4dc8d7de5ab92263afe834f73bfecf39f29ecb8ee6bc54f9de7bfe.
+Append session-presence.compose.yml after all seven previous overlays. All Web environment
+values matched, six unrelated container IDs and22bounded commercial/file fingerprints matched;
+schema0035/idle AI preserved. Restored orphan containers and all old images/volumes retained.
+Web /api/health and /api/platform-health200 with API ready, and Docker healthy confirmed.
+A fresh real-browser /leads tab loaded both original converted leads using existing SALES
+login without requiring a new login/token. Initial loading state settled to2rows and normal
+sales creation control; no business command was clicked. This is live list/read evidence,
+not a fresh real-user write or confidential-detail inspection. Earlier undeployed references
+are historical. No backend application changes; broader audit and AI consent remain outstanding.
+
+## Frontend session assertion review: 2026-09-09 (not deployed)
+
+Read-side contract audit found LeadWorkspace parsed its internally serialized connection snapshot
+as SessionValues even though real marker-only login has a null accessToken. No parsed field was
+used: only object truthiness enabled list/detail and connection UI. Replaced that parse/assertion
+with Boolean(snapshot) at those three consumers. Serialization/subscription, credentials,
+server authorization and UI behavior are unchanged. Code-simplifier review removes unnecessary
+parsing instead of inventing a second DTO/runtime contract. Types,whole-Web ESLint and targeted
+format passed; lead+export10tests passed separately2.46s.
+
+An attempted filtered package test passed its filter after a literal -- and actually ran all
+262tests:261passed,1export read-only heading timeout during loading,exit1. Its separate unchanged
+recheck passed; cause is not yet established. Direct runner first hit dependency-cache EPERM,
+then passed with scoped execution access. A normal whole-Web rerun is now running separately
+after lint/type processes ended; session16197 subsequently terminated exit0:45files,
+262tests passed in22.51s with no skipped/relaxed assertion. Earlier timeout did not recur;
+its root cause is not established by the green rerun alone. Do not poll terminal16197 again.
+The prior browser32pass predates this frontend-only simplification; Web image is unchanged.
+
+Candidate Web build10249 terminated exit0, including production compilation,TypeScript and
+page generation. trade-fresh-acceptance-web:session-presence-20260909 exact inspected image:
+sha256:759d0e2aff4dc8d7de5ab92263afe834f73bfecf39f29ecb8ee6bc54f9de7bfe.
+Its real standalone Node server returned /api/health200 in a network-none/no-volume/no-secret
+temporary container; probe exited0 and container auto-removed. Candidate is NOT deployed.
+Current-source browser follow-up and guarded Web-only update remain; API/Worker unchanged.
+
+Subsequent targeted current-source browser43295 exited0:6passed/27.5s. It covers full lead
+creation/conversion, opportunity loss/review with role changes, keyboard skip link, and four
+lead-page overflow checks. These overflow cases wait for the page heading, not all detail
+content; do not call them full visual QA. Default isolated E2E DB was verified absent before
+setup and absent after teardown;3100/8010closed and fixture/owned-process receipts absent.
+Provider credentials were empty and no AI processing was requested. Candidate Web remains
+undeployed; the previous full32browser pass predates the small connection-presence change.
+
+## Owner-port deployment complete: 2026-09-09
+
+After current-source1292passed/5paid-skipped and browser32passed, deploy-owner-ports.ps1
+default preflight passed and explicit -Apply completed exit0. New seventh image-only overlay
+infra/docker/owner-ports.compose.yml follows ALL six prior overlays; do not omit it in future
+updates. API now uses owner-ports-20260909 image1988a4285fce; Worker and beat use
+owner-ports-20260909 image04bcd3993524 (full IDs below). Exact before/after runtime environment
+arrays matched for all three. Web/Postgres/Redis/MinIO container IDs stayed unchanged;22named
+commercial/file-table fingerprints matched. Schema remains20260908_0035, active AI remains0.
+Postdeploy API actual live/ready both200; Redis-backed Celery inspect returned one node pong.
+API/Worker report healthy, beat running. Web and infrastructure remain healthy. Existing
+commercial restored orphan containers were deliberately retained, as were all volumes/images.
+
+Initial default preflight failed safely on absent Redis environment property; optional-property
+handling corrected before deployment, then preflight passed. Parser/overlay formatting passed;
+code-simplifier review kept explicit image maps and narrow nonprinting secret comparisons.
+No application code changed after the passing regressions. No migration, browser session reset,
+provider call or historical business mutation was issued. The script requires exact old image
+IDs and is now one-time terminal: do not rerun or silently weaken its guards. The22-table hash
+is bounded preservation evidence, not all-table backup. Real-user owner-port business acceptance,
+pending TASK_DRAFT consent/workflow and broader full-guide audit remain separate and unfinished.
+
+Postdeploy real-browser read checkpoint: the existing user-confirmed SALES session could load
+a fresh order-detail tab for d7069f19-2191-4637-9bac-f0c30b76319c without reauthentication.
+After loading settled, UI showed SO-2026-000002 DEPOSIT_PENDING,125CNY,37.50 contractual deposit,
+30percent condition and1unit at125. Costs/profit were absent with the restricted-role notice;
+task title/details, both original activity bodies and order terms stayed review-pending/hidden.
+The list still showed SO-2026-000001 completed at1250CNY. This is observed live read/render
+evidence, not network-body inspection or a new real-user write/approval test. No command was
+clicked and no provider request was submitted. Existing login tabs remain available.
+
+## Work activity owner and isolated candidate checks: 2026-09-09
+
+ADR-034 routes 38 activity staging sites in 32 application files through Work records.
+The implementation checkpoint compared all original constructor field expressions with the
+migrated calls using AST, including user/system origin and correlation. The recorder does not
+query, flush, commit or release content. The document scan retains null actors. Historical
+records and public contracts are unchanged. This is scoped evidence, not a whole-program
+ownership proof. Targeted JUnit tmp/activity-owner-20260909.xml was re-read:54 tests,0 failures,
+0 errors,0 skipped,62.822s. Prior checkpoint strict types219/client/Ruff checks passed.
+
+Both candidate image builds succeeded and their exact local IDs were independently inspected:
+
+- API owner-ports-20260909:sha256:1988a4285fce5779d97791c474101b459bcba809648935f65a90b8a64c06f684.
+- Worker owner-ports-20260909:sha256:04bcd3993524e7bd9bdc1b196e6fedbcb10632e846cd3096dc46604bc641eeab.
+
+Post-regression image/source preflight matched sorted relative Python paths and normalized
+CRLF-to-LF byte hashes (no other normalization). API app212files aggregate:
+4164e6b1fab582dbbf30d1032dc2be6f9395e6ac670c0c096cd0a8799d93a959;
+Worker image API+Worker219files aggregate:
+ccc23b39838dad109e25477d5dfe0d58a9efb3c8b599a3ffda3ad9d2fe517035.
+Both equal the tested workspace. This checks Python application content, not every packaged
+asset/dependency. Read-only live preflight found active AI0 and schema20260908_0035; recheck
+immediately before any deployment. Existing one-time API-only scripts must not be rerun or
+repurposed silently for coordinated API/Worker/beat deployment. No deployment occurred here.
+
+API actual uvicorn startup returned /health/live HTTP200 alive in a network-none container.
+Worker registry import and eager health.ping returned ready; all six reserved queues matched.
+Both commands exited0; temporary containers used no volumes, credentials or live broker and
+were automatically removed. Worker eager execution is NOT broker consumption/worker-process
+readiness evidence. Neither candidate has been deployed; live API/Worker/beat remain unchanged.
+
+Subsequent candidate Worker probe also exited0: an actual Celery solo consumer started in a
+network-none/no-volume container, received health.ping through memory transport, emitted SUCCESS
+with the exact ready payload and shut down with its thread joined. This is not eager execution.
+It proves isolated consumer startup/delivery only, not Redis connectivity, business outbox,
+prefork behavior or deployed acceptance. No beat scheduler or business task was started.
+
+Full current-source API/Worker regression session93777 is now terminal,exit0:
+1292passed,5paid-AI-skipped,1existing Starlette/httpx deprecation warning,2084.88s.
+JUnit tmp/full-owner-20260909.xml was independently re-read:1297total,0failures,0errors,5skips.
+Source remained frozen throughout. Do not poll/restart terminal93777. This supersedes the
+earlier settlement checkpoint's Windows setup error with a single successful current-source
+run; skipped paid-provider cases are not counted as passed or as live provider acceptance.
+Real TASK_DRAFT still awaits explicit consent for the listed synthetic order fields to DeepSeek;
+sales login and automatic goal continuation do not supply that consent. No full V1 acceptance.
+
+Subsequent full browser run40431 has started after read-only preflight confirmed zero databases
+named trade_workbench_e2e. It uses dedicated API8010/Web3100, E2E_COMMERCIAL_RECOVERY=0,
+the new trade-e2e-owner-20260909 object bucket on local regression MinIO9000, and explicitly
+empty model credentials. Fixture AI is scripted; no live provider claim. Browser40431 is now
+terminal exit0:32passed in4.1minutes. apps/web/test-results/.last-run.json independently says
+passed with no failed tests. Read-only cleanup checks confirm test database absent,3100/8010
+closed, and fixture/API/Web ownership receipts absent. The dedicated synthetic object bucket
+is retained, not deleted. Never poll completed backend93777 or browser40431 again.
+This verifies current-source browser paths, not deployed owner-port images or fresh visual
+inspection of every screenshot. Real TASK_DRAFT and broader guide requirements remain open.
+
+## Work confirmation task and Platform domain jobs: 2026-09-09
+
+ADR-032 and ADR-033 were recorded before their implementations. Work now owns confirmation
+task staging; Sales exposes only immutable confirmed-order source facts. The source validates
+order.confirm and tenant/state/time under no_autoflush, preserving the caller's pending mutation.
+Original HIGH priority, confirmation+2days, details, defaults, replay and evidence remain.
+Confirmation/port/procurement run:27passed,1existing warning,44.21s,exit0; session49632 terminal;
+JUnit:tmp/confirmation-port-20260909.xml. Includes direct authority/source guards, both deposit
+branches, exact fields, no-autoflush SQL check, rollback after staging/flush and old concurrency.
+
+Platform domain_jobs now owns AI/scan job creation and lifecycle writes. Creation/binding checks
+originating permissions; worker ports check tenant/type without requiring now-revoked actor rights.
+AI retains leases, live permission checks, provider/network boundaries and retry classification;
+Platform applies existing persisted attempt limits and returns immutable status/retry. Documents
+retains version-first locking, AVAILABLE replay and its null-actor correlated activity. No generic
+job event or separate commit was introduced. Job-type mismatch now fails closed per ADR-033.
+Current source search finds no AsyncJob constructors/field writes in AI or Documents, and no Task
+constructor in Sales. This is scoped ownership evidence, not proof of all module boundaries.
+
+Job-port/AI/document runs:62passed,1existing warning,99.22s,exit0; session74835 terminal;
+JUnit:tmp/domain-jobs-20260909.xml. Explicit fake AI provider only. This group includes the
+existing real local MinIO replacement/pinned-download test in its random test bucket with
+scoped cleanup, alongside fake-storage cases; no existing business attachment was changed.
+Additional integrated fault/revocation run:4passed,1warning,8.62s,exit0; session1924 terminal;
+JUnit:tmp/domain-job-atomicity-20260909.xml. Start flush failure rolls back run/job before any
+provider call. Finish flush failure retains the separately committed RUNNING lease/tool receipt
+and recovers after simulated lease expiry. Real fixture membership revocation produces matching
+FAILED run/job and final evidence. Scan owner failure rolls back document/job/activity/consumer
+receipt, then valid redelivery succeeds exactly once with original null actor/correlation.
+
+Ruff/format passed for affected code/tests. Strict API+Worker mypy218files and actual generated
+OpenAPI/client drift passed. code-simplifier review retained narrow explicit ports and original
+flush boundaries; no broad generic status API added. Built candidate
+trade-fresh-acceptance-api:domain-jobs-20260909,
+sha256:652a6fce86bb658bdf6347d337d1fa963e803d87586b0c48455df5ee6d2df55a.
+Real uvicorn network-none/no-volume ephemeral startup /health/live200 alive,exit0. This candidate
+also contains ADR-031. Not deployed; no readiness, live browser or full-current regression claim.
+The 27-test run preceded the async-job edit; the62+4 runs cover the later source. Existing deployed
+settlement-permission API and previous images/volumes/backups remain unchanged.
+
+Remaining owner issue: cross-domain Work Activity construction. Then run expanded current-source
+regression, build both API and Worker (runner is packaged in Worker), guarded coordinated runtime
+verification and the still-unlaunched real AI TASK_DRAFT disclosure/execution acceptance. Await
+the user's exact-data-to-DeepSeek consent; automatic goal continuation does not grant it.
+
+## Companies conversion owner port: 2026-09-09
+
+ADR-031 recorded before implementation. CRM now passes immutable source fields to Companies'
+resolve_conversion_parties and receives IDs only. Companies owns company/customer-role/contact
+persistence in the original caller transaction. The existing active-name and role conflict
+arbitration was moved intact; CRM retains lead locking, state/replay, opportunity and evidence.
+No schema/API/frontend change or extra permission requirement. The owner independently checks
+lead.convert; no commit or separate evidence stream. Unused CRM conversion read helpers removed
+after caller search; concurrent race tests now patch the actual Companies repository.
+
+Current-source CRM/Companies run:72passed,1existing httpx deprecation warning,96.10s,exit0.
+JUnit:tmp/company-port-20260909.xml; session8522 terminal. Includes7 new port tests (one
+parametrized into two cases): permission denial before database access, tenant separation,
+caller rollback with/without existing company, original company/contact/source retention and
+replay, integrated CRM-to-owner failure after flush, and contact-name fallback. Existing state,
+six-role, synchronized company/role race and evidence-insertion-failure matrices also passed.
+Ruff check/format passed; strict API+Worker mypy215files passed; actual OpenAPI/client drift
+check passed. code-simplifier review retained explicit conflict branches and the narrow immutable
+contract; no broad abstraction or business behavior change was introduced.
+
+Built candidate trade-fresh-acceptance-api:company-port-20260909,
+image sha256:b1c2bad732de45f7a1f02308e0776e4ba090b55a0df590457bf7fa94a36ae118.
+Network-none, no-volume ephemeral container ran real uvicorn: /health/live200 alive,exit0.
+This does NOT establish dependency readiness or deployed authenticated acceptance. No main
+container was replaced, no migration ran, no business data/backup/session was changed. Runtime
+remains the settlement-permission checkpoint; candidate deployment awaits the remaining owner
+batch. Full1253+separate1 evidence below predates this source change, not a current full green run.
+
+Remaining: Work-owned confirmation task, Platform-owned AsyncJob lifecycle, Work activity
+recording, expanded current-source regression and guarded runtime verification. Real DeepSeek
+TASK_DRAFT remains unlaunched pending explicit exact-data disclosure consent; latest user
+session confirmation is SALES logged in. Do not request login again or infer consent.
+
+## Full regression terminal result and isolated recheck: 2026-09-09 01:19 CST
+
+Session31821 is terminalexit1:1253passed,5paid-opt-in skipped,1warning,1setup error in2042.78s.
+Do not poll/restart that session. JUnit:tmp/full-settlement-20260909.xml. The sole error is
+test_e2e_process_ownership setup:PermissionError accessing Windows default pytest-of-24392
+temporary root, before the test body ran. No business assertion failed in this execution.
+The existing httpx deprecation warning remains; paid DeepSeek opt-in was explicitly disabled.
+
+Read the entire affected test. Re-ran that file with a fresh UUID-named --basetemp verified
+under the workspace tmp directory and absent before invocation. It passed1 in0.10s,exit0;
+JUnit:tmp/process-ownership-recheck-20260909.xml. The original temp directory/ACL was untouched.
+The test rejects a stale ownership receipt, terminates only its correctly identified synthetic
+process, and leaves the unrelated synthetic process alive until its own finally cleanup.
+This is1253 full-run passes plus a separate1-test recheck, NOT a single1254-pass green full run.
+Next final-current full run should use a freshly verified workspace basetemp, never an existing
+directory because pytest clears its specified base. No application/testsource changed during
+the run. MODULE_OWNERSHIP still lists concrete implementation work; V1 is not accepted.
+
+ActualAPI Python license inventory now records38distributions/37third-party packages, each with
+declared license and existing notice files. Full-text/native-library audit is not implied.
+
+## Runtime license supplement and live regression checkpoint: 2026-09-09
+
+Read actual Redis8.2.9/MinIO2025-09-07/PostgreSQL18.6 version outputs and matching official
+repository license texts. Saved texts indocs/licenses exactly match retrieved content; local
+SHA256 and scope/redistribution limits recorded there. This advances server-license evidence,
+not all transitive/system-library obligations or production distribution approval.
+Fullregression31821 is still live, last output beyond34%; one E observed around28% and five
+explicitpaid-test skips. No final traceback yet. Do not infer cause, restart or claim success.
+Application/testsource unchanged; only audit/license documentation added during this run.
+
+## Full current API/Worker regression started: 2026-09-09
+
+Live execution session31821 runs all apps/api/tests and apps/worker/tests after settlement
+permission correction/deployment. Paid DeepSeek opt-in explicitly0; PostgreSQL points to local
+development127.0.0.1:5432 and each integration fixture manages its own random test database.
+JUnit targettmp/full-settlement-20260909.xml; cache isolated intmp/pytest-full-settlement-20260909.
+At this checkpoint handle31821 is confirmed running with test progress, not a terminal result.
+Resume that handle; do not start another full run or infer success from this start record.
+Application source must remain unchanged during this collection/execution for a coherent result.
+
+## Settlement permission deployed: 2026-09-09 00:43 CST
+
+deploy-settlement-permission.ps1 completedexit0 after validating exact source/candidate images
+and zero active AI runs. Only API recreated tosha256:1da4ade3822607f541a5fea3e716b5a35151cb2eed7b68902f699b69343920d5.
+Allfivebehavioral overlays retained; fullAPIenv equality and22commercial/filetablefingerprints
+passed. SixothercontainerIDs unchanged; retainedrestoreorphans/volumes untouched. No migration.
+ActualrunningAPI live/ready200,Postgres/Redis/MinIOtrue. Both missing-originating-permission
+probes return403 before any order attribute access, using an unbound session and no DB writes.
+DB remains0035; preparedorder AiRuns0. API/Web/Worker/infrastructurehealthy. This supersedes
+source-only deploymentpending,not fullcurrentregression orrealAIapprovalacceptance.
+Scriptparse,overlayformat,diffcheck pass. Code-simplifier review preserves explicit fixedtarget,
+before/afterchecks and originalscript history; no generalized deployment framework introduced.
+
+## Settlement port permission defense: source/image checkpoint, 2026-09-09
+
+Guide3/8 audit inspected Sales settlement/shipping ports and Finance allocation/reversal callers.
+Finance already checks originating permissions; the Sales settlement port only checked tenant.
+Two direct-port denial regressions reproduced missing authorization (DID NOT RAISE); two tenant/
+caller-rollback checks already passed. Added the corresponding payment.allocate/payment.reverse
+check before any order/evidence write, without changing public permissions, money or transitions.
+This is existing guide3 defense in depth, not evidence of a public HTTP authorization bypass.
+
+New four tests plus existing Finance vertical suite:18passed30.34s,session22084 exit0.
+Denied contexts retain the opposite permission; authorized rollback contexts hold only the
+required permission. Tests check no pending session writes on denial, foreign404, post-flush
+caller rollback and complete order/line/finance/evidence/key snapshots. Synthetic direct-port
+payment IDs do not prove originating payment existence; Finance remains responsible for it.
+Ruff/format pass; code-simplifier retains one explicit permission selection and existing require.
+Actual OpenAPI/client drift check and strict API/Worker mypy213files pass (session87497 exit0).
+The test run has the existing httpx deprecation warning and cache_dir warning from disabling
+pytest's cache plugin. Initial red run also reported denied cache writes; not a business failure.
+
+Candidate API build25563 exit0:trade-fresh-acceptance-api:settlement-permission-20260909,
+imageIDsha256:1da4ade3822607f541a5fea3e716b5a35151cb2eed7b68902f699b69343920d5.
+Network-none temporary container started actualuvicorn, live200, without business/model secrets;
+--rm removed only that smoke container. Actual acceptance still runs inquiry-port image7f55625e.
+Deployment/environment preservation/postdeployment readiness remain pending for this correction.
+Prior32-browser pass predates this permission addition; do not claim full-current regression.
+Real DeepSeek TASK_DRAFT remains gated on unanswered exact-data consent; no provider call made.
+
+## Post-inquiry-port browser regression: 2026-09-09
+
+Playwright session83527 finished with 32 passed (4.0m), exit0, against current source.
+The isolated local development database trade_workbench_e2e was absent before setup;
+all migrations through0035 ran, and teardown removed that synthetic database and fixture.
+Ports3100/8010 have no remaining listeners. Existing3300 acceptance session was not operated;
+acceptance API/Web/Worker/PostgreSQL/Redis/MinIO remain healthy.
+Coverage is the existing browser suite, including commercial lifecycle, role-sensitive cost
+redaction, pagination and responsive layouts. AI uses an explicitly scripted local provider;
+document processing uses the fixture handler, not a production malware scanner. This is not
+a fresh real-Logto/DeepSeek acceptance, an explicit CLOSED-inquiry UI test, or full V1 sign-off.
+Exact-data consent for the prepared live TASK_DRAFT workflow remains unanswered.
+
+## Inquiry-owner API deployed: 2026-09-09 00:21 CST
+
+Guarded deploy-inquiry-port.ps1 completedexit0:onlyAPI recreated with
+sha256:7f55625e034bab39ac16e2862c7de6319416828015b667c9a013c26b949b8c53.
+Allfivebehavioral overlays retained;requiredexistingsecrets copiedonlyinprocessmemory using
+split-at-first-equals,neverprinted orreplaced. CompleteAPIenv equality and22namedcommercial/
+filetable fingerprints passed. Web/Worker/beat/Postgres/Redis/MinIOcontainer IDs unchanged.
+Compose reported retained commercial restore containers asorphans;none removed. No migration,
+backup/restorevolume changes,externalcall ornewbusinesscommand performed.
+Postdeploy live/ready200 withPostgres/Redis/MinIOtrue;actualimage importsInquiries-ownedport.
+API/Web/Workerhealthy;schema remains20260908_0035 andpreparedorder has0AiRuns. Salesbrowser
+session notoperated. This supersedespendingAPIdeployment,not liveclosed-inquiryUIexecution,
+alltablepreservation,Workerimage rebuild,fullcurrentregression orrealAIapprovalacceptance.
+Scriptparse/diffcheck pass;code-simplifier review keepsfixedtargets andexplicitchecks without
+fallbacksecret/default handling. Fullgoal andexact-data DeepSeekconsent remainopen.
+
+## Inquiry-port expanded regression and image smoke: 2026-09-09
+
+Session76746 completed184passed247.66s,exit0,oneexistinghttpxdeprecationwarning. Scope:
+new inquiry port,inquiry creation replay,quotation vertical/validity/state/revision snapshots/
+revision replay/creation replay/cost permissions,commercial text review andorder-procurement.
+This supersedes targeted7-only evidence,not fullbackend/Worker orbrowser regression.
+API imagebuild29510 exit0:trade-fresh-acceptance-api:inquiry-port-20260909,
+imageIDsha256:7f55625e034bab39ac16e2862c7de6319416828015b667c9a013c26b949b8c53.
+Network-none temporary container started actualuvicorn andreturned/health/live200;it hadno
+business/modelcredentials andwasremovedby--rm onexit. No database/readiness/business-route
+claim fromthisisolatedsmoke. Existingruntime containers/volumes/session remaineduntouched.
+Initial full-overlay configcheck failedmissingprocessLogtosecrets. Subsequent config--quiet
+usedexplicitinvalidsyntax-onlyplaceholders andpassed;neverusedup/recreate withthosevalues.
+This checksconfiguration structure,notrealcredentialavailability oractualdeployment.
+Acceptanceruntime stillpriorAPIimage;deployment andpostdeploymentchecks remainpending.
+
+## Inquiry quotation ownership correction, source checkpoint: 2026-09-09
+
+Read guide/AGENTS/Sales/Inquiries references. Added Inquiries-owned quotation_progress port and
+replaced Sales direct status/actor writes. Port checks originating permission/live tenant scope,
+reuses held inquiry lock and rejects CLOSED; ADR030 explicitly records this behavior correction.
+No schema/API shape/evidence stream changes. Caller retains transaction, pricing and replay.
+New port tests plus quotation vertical suite7passed10.19s(17162),strictmypy213files andcurrent
+OpenAPI/clientdriftcheck pass. Initial Ruff long lines/importorder corrected byformat/importsort;
+final targetedRuff passes. Code-simplifier keeps a narrow named port without new service framework.
+Tests prove denied/foreign/callerflushrollback,closed-source noquotation/key/evidence remnants,
+actualSales invocation rollback andnormal source-description preservation.
+Expandedregression,containerbuild/start andactualacceptancedeployment remain pending;runtime
+still uses prior0035image. No realbusiness/modelcall orbrowser/session change this checkpoint.
+
+## Cross-module ownership audit finding: 2026-09-09
+
+Read architecture pointer,Platform services,Inquiries README/service andSales quotationcreate
+scope;searched application/Worker transaction calls andcross-module ORM imports. Confirmed
+Sales directly mutates Inquiry.status/updated_by,contrary to guide8's owner-port boundary.
+Quotation already locks tenant inquiry thenopportunity andshares one transaction;CRM progress
+uses its owned port. Inquiries lacks the equivalent quotation-progression port. Recorded exact
+gap inFULL_GUIDE_AUDIT;no speculative broaderrefactor orruntimechange. Next correction must
+preserve current lock/transaction/replay/error andhistorical facts,with regression evidence.
+No new tests/deployment/modelcall this checkpoint;fullgoal remains open.
+
+## CRM evidence-port matrix: 2026-09-09
+
+Added test_opportunity_evidence_matrix.py: three originating events across six states
+with independently declared allowed states and targets. Each case checks removal of the
+specific originating permission returns403, foreign organization returns404, and full row
+plus three evidence counts remain unchanged. Illegal states return409/INVALID_STATE_TRANSITION.
+Allowed transitions rolled back after a deliberate caller failure preserve the original row
+and receipts; successful caller commit increments version/actor/evidence exactly once.
+Same-stage inquiry/quotation evidence is a no-op with identical row and no extra receipts.
+Synthetic evidence UUIDs test this internal port,not existence checks owned by its callers.
+Initial combined matrix15 passed25.92s (36094); Ruff identified unbound loop variables in
+a local helper. Explicit default binding fixed that test-only warning. Final new-file3 passed
+6.77s with Ruff/format passing. Code-simplifier review retained one narrow call helper.
+No runtime code/schema/deployment or real provider/business data change. This closes the
+inspected port state/authority/caller-rollback seam,not all caller fault injections or full V1.
+
+## Explicit Opportunity role/state matrix: 2026-09-09
+
+Read ADR014,CRM lifecycle service andexisting lifecycle tests. Added independent expected
+allowsets forboth explicit commands acrossall6roles/all6states (72HTTPcombinations in12tests).
+OnlyADMIN/MANAGER/SALES maywrite;negotiation onlyfromQUOTING,loss fromfournonterminalstates.
+Deniedcases preservecompleteOpportunityrow,activity/audit/outbox counts andidempotencycount;
+illegalstates returnstableINVALID_STATE_TRANSITION. Allowedcases verifytarget,version+1,
+actualactor,exact1/1/1evidence andonekey;identicalreplay writesnothing. Loss reason retained
+inDB andredacted forSALES. Eachstate usesfreshsyntheticrecord,not alegaltransition claim.
+Combinedwithoriginal lifecycle suite21passed36.26s,session99372 exit0,one existinghttpxwarning.
+Ruff/formatpass. Code-simplifierreview keepsoneexplicit snapshot helper andindependentallowsets.
+No runtimecode,schema,realidentity/provider/businessdata change. This closesexplicitcommand
+role/state coverage,not CRM evidence-port matrix,allreadpaths orsixrealLogtoidentityacceptance.
+
+## Document checklist metadata matrix: 2026-09-09
+
+Added test_document_checklist_matrix.py for all4DocumentLinkTargetType values andall5version
+states. Explicit currentAVAILABLE plusimmutablepointer succeeds;None/empty/literalnull pointers,
+foreignorganization,otherlinktype/target andsoftdeleted document/version/link do not satisfy
+requirements. Duplicated requiredtypes deduplicate deterministically. Emptyrequirements use0SQL;
+nonemptyreads use1SELECT inside PostgreSQL READ ONLY transactions.
+Pendingv2 keeps a gap despite retainedAVAILABLEv1;availablepinnedv2 fillsit,andoriginal
+v1status/pointer/checksum remain unchanged. Synthetic metadata uses disposablefixture DB;
+no realbinary uploaded,storagecalled,scannerexecuted orbusinessowner lifecycle claimed.
+Combined new4cases plusOverview scaling1 passed5/15.04s,session67404 exit0,one existing
+httpxwarning. Ruff/format pass. Code-simplifier review keeps explicit state expectations and
+one boundedread helper;no production abstraction,runtimecode,migration ordeployment change.
+This proves shared checklist projection,not allhomepage UI/file lifecycle races ormalware
+acceptance. RealAI exact-data consent andbroader fullguide requirements remain open.
+
+## Current frontend full regression after type corrections: 2026-09-08 23:58 CST
+
+Session25363 finishedexit0:45Vitestfiles/262tests passed23.60s,followed bywholeWebTypeScript
+--noEmit --incremental false andwholeWebESLint;command sequence stops onearlierfailure.
+Separate actualgenerator --check session27885 finishedexit0,noOpenAPI/clientdrift.
+This validates current company-role/generatedrequest andshipment upload type corrections
+across the fullfrontend unit suite. No new tests added to262;do not inflate historical totals.
+No runtimebusiness/API/migration changes,productionrebuild,modelcall orlogin-switch occurred.
+Browser32/fullbackend1218 remain prior results withpreviously documented scopes;this run
+does not re-certify them,nor complete realAI review/execution orwholeguide acceptance.
+
+## Task005 shipment upload type boundary: 2026-09-08 23:56 CST
+
+Inspected Shipment README,upload schema,actual create/replacement form callsites andtransfer
+hook. useUploadShipmentDocument previously accepted documentType:string then cast it to
+generatedDocumentType. It now accepts generatedDocumentType directly andpasses it unchanged.
+Both existing sources (validated form enum andgeneratedDocumentResponse.document_type) typecheck.
+No runtimevalidation removed;backend remains authority. Code-simplifier review removed the
+unnecessary assertion without adding wrappers orchanging request/transfer behavior.
+WholeWeb noincrementalTypeScript,targetedESLint,andShipment3files/35tests pass6.42s,
+session58863 exit0;Prettier check passes. No provider call,businesswrite,migration,dependency,
+APIcontract orruntime deployment change. WholeWeb declaration/dataflowaudit remains separate.
+
+## Task005 concrete request mirror removed: 2026-09-08 23:54 CST
+
+Read-only TypeScript AST inventory traversed106non-test files under Webapp/components/
+features/lib andlocated277type literals (including UIprops,nested types andrequest wrappers).
+This inventory is a review aid,not automated proof ofwhole-Web DTO correctness. Follow-up
+source inspection found companies/api.ts add-role body manually reconstructed as{role:CompanyRole}
+although generatedCompanyRoleRequest exists. Replaced only that body annotation with the
+generatedschema reference;runtime request,permissions,cache andbusinessbehavior unchanged.
+Code-simplifier review kept the direct generatedreference without an extra wrapper/abstraction.
+First localvalidation encounteredEPERMwritingTS/Vitecache,not an assertedbusinessfailure.
+Authorized rerun36783 exited0:wholeWeb TypeScript(noincremental),targetedESLint,andcompany
+form6tests/2.42s pass;Prettier check passes. No dependency/API/schema/productionruntime change,
+so no deployment orcontainer rebuild required for this type-only correction.
+Remaining declaration/cast/dataflow audit is not closed bythissinglefix;AI consentstillpending.
+
+## Task005 contract and type-origin checkpoint: 2026-09-08
+
+Read APIclient README,generator,error parser,AuthSession producer/consumer,platform health
+consumer,document transfer andselected business API/type definitions. Located aliases across
+Webfeatures/lib/components/app andshared-types. Do not misclassify local session/retry/form
+state as duplicated backend DTOs;AuthSession organizations andbusiness objects remain linked
+to generated components. This is a scoped inspection,not complete whole-Web type-origin proof.
+Actual generator --check succeeded;twoactual stale-artifact rejection tests passed in10.011s,
+session76294 exit0. Canonical contracts remain unchanged;no production code/dependencies,
+runtime/session changes,paidprovider call orhostedCI execution. Fullguide goal remains open.
+
+## Eight populated Overview queue query bounds: 2026-09-08
+
+Added test_overview_query_scaling.py using21normal created/confirmed orders and42normally
+generated receivables,with explicit disposable-only state preparation and21shipment/export
+fixtures. Every queue has actual nonempty1/20/full-page assertions. Fresh PostgreSQL READ ONLY
+transactions prohibit business/evidence writes; fivequeues retain2SELECTs,threechecklist
+queues retain3SELECTs at limits1/20/100. Page prefixes,uniqueIDs,offset20remainder,has_more,
+next_offset,exact missing-file lists andall8foreign-organization emptiness pass.
+Initial14450 failed because confirmation does not implicitly generate receivables; corrected
+the test setup using the existing explicit generation command andasserted2installments/order.
+Final3663 completed11passed27.85s,exit0,one existing httpx deprecationwarning,covering new
+scaling test andoriginal overview/state-selection suites. Ruff andformatcheck pass.
+Code-simplifier review retained direct fixture construction andexistingcommand helpers;
+no production abstraction,businesscode,migration,dependency,deployment orrealmodel call.
+This closes the all8nonempty query-count seam,not allAPIperformance,concurrent pagination,
+allfile availability/replacement permutations orsyntheticstate lifecycle legality.
+Real sales session untouched;exact-data DeepSeek consent remains pending.
+
+## Local performance scope refreshed: 2026-09-08 23:43 CST
+
+Re-read the complete implementation guide and relevant Work/CRM/AI module READMEs;
+inspected the four benchmark test bodies and disposable-database/local-issuer setup.
+Targeted pytest session60571 completed7passed/103.92s,exit0,one existing httpx warning:
+test_acceptance_performance.py,test_commercial_cursor_pages.py,test_order_list_queries.py,
+test_shipment_source_lines.py. No application code,dependencies,migration,deployment,
+acceptance business data or browser session changed;no real provider/Worker invocation.
+GUIDE_18_GATES now records all11measured operation samples and exact data-volume limits.
+Current p95 maxima: basic read19.822ms,commercial cursor25.319ms,lead create24.507ms,
+AI job acceptance37.429ms;single-shipment source22.200ms,order cursor23.004ms.
+Passing selected samples is not complete endpoint/command performance coverage.
+Full-guide goal stays open;DeepSeek exact-data consent and real private-task approval
+journey remain pending. This test-only run does not augment the earlier full1218 count.
+
+## Guide11.3 queue reservations implemented and deployed: 2026-09-08 23:37 CST
+
+First new test demonstrated task_queues=None (1failed,8passed). Worker app now explicitly
+registers default,email,documents,ai,acquisition,exports through Celery's supported mapping,
+each durable/direct and bound to its own routing key. Existing dispatcher and --queues=default
+remain unchanged. Three event-class tests verify exact original task name,tenant/request
+context and default destination. This meets name reservation,not dedicated workers or new
+email/acquisition/export capabilities. No new dependency,migration,API or Web change.
+
+Current Worker+platformtransaction+monitor regression34passed20.92s;Ruff/format and strict
+mypy212files pass. Code-simplifier review keeps a single explicit queue mapping and native
+Celery normalization without custom routing wrappers. Snapshot/client contract unchanged.
+Separate Worker image build9167 exit0. The later probe script is host-mounted read-only,
+not part of that image's application payload; application config is included in the image.
+
+Isolated Redis was network-none with no published ports; probe and Worker shared only that
+network namespace,with no business credentials or model keys. First two probe attempts failed
+before sending: SimpleQueue.qsize uses passive existence checks while Redis removes empty list
+keys. Inspected installed transport _has_queue/_size and corrected only the probe to use normal
+declaration counts. All6queues then round-tripped distinct synthetic non-task JSON and ended
+empty; no business task submitted. Actual isolated Workerpong and active_queues=default verified.
+Both exclusively created/labeled temporary containers were stopped and auto-removed; no
+business/restore containers,volumes or encrypted archives removed. These synthetic broker
+contents are intentionally ephemeral,not recovery evidence.
+
+Updated only acceptance Worker/beat via allfivebehavioral overlays plus image-only release0035.
+Post-update credential-equality check caught an off-by-one literal-prefix extraction in the
+operational command (a leading '=' was added). No active AI runs existed. Corrected with split
+at the first '=',restored exact original credential and verified provider/model before continuing.
+No secret printed or original credential changed; the failed first update is not a pass.
+Final update exit0. Do not repeat hardcoded substring offsets in operational commands.
+
+Post-deploy53893 exit0:Workerhealthy/pong,actual consumption onlydefault,registryall6,beat
+running,API/Web/database/Redis/MinIOhealthy. No new AiRun for preparedSO-2026-000002 (count0).
+Running Worker image is now sha256:9f630af03f40d797c1b1548e1b433add8683d66d98a45f7b63cec61cd9a650d2;
+API/Web image identities remain as in0035checkpoint. Browser SALES form untouched and exact-data
+DeepSeek consent still pending. Full1218 predates these4newqueue tests and5monitor additions;
+do not inflate the previous full result. Full-guide remainder remains open.
+
+## Remaining monitoring state matrix passed: 2026-09-08
+
+Added one nonempty2-tenant matrix covering all5AsyncJob states,all4AiRun states and all3
+ApprovalRequest states. Each tenant has distinct multiplicity; expected dictionaries are
+independent of query output. Pending approvals stay outside the denominator,known8decimal
+AI costs and token sums remain exact,and unknown-cost runs remain distinct. Success reads
+run in PostgreSQL READ ONLY transactions. Synthetic state seeds test aggregation,not legal
+transitions or actual model/worker execution. Current monitor file7passed7.25s;Ruff/format
+pass. Code-simplifier review retained explicit fixtures and reused no production query logic.
+These5new monitor tests postdate full1218. No runtime code,model call or user session changed.
+
+Read complete Worker README/app/dispatcher and ADR011. Guide11.3 explicitly reserves six
+queue names,but current Celery configuration declares only task_default_queue=default and
+dispatcher/Dockerfile send/consume default. No task_queues declaration or accepted queue
+exception found in the inspected sources. Record this concrete configuration gap for the
+next implementation slice; do not claim actual isolated queue consumers already exist.
+Reserving names need not move existing messages or route tasks to unattended queues.
+DeepSeek exact-data authorization remains pending;do not retry the rejected Start action.
+
+## Monitoring evidence and real-sales transmission gate: 2026-09-08
+
+Added four OperationsQuery acceptance tests; current file6passed7.66s,Ruff/format pass.
+Nonempty five-document-state fixtures distinguish organizationA1each fromB3each,exclude
+deleted versions and count retained historical versions. Deleted AI/job/approval rows are
+excluded from counts,tokens,cost and approval denominator. Wrong-consumer receipts do not
+clear pending work; matching receipts do,DEAD/deleted events are excluded from queue age,
+future event ages clamp to0. Successful reads run in PostgreSQL READ ONLY transactions,
+so accidental business/audit/outbox writes fail. Denied service read executes0DBstatements.
+Code-simplifier review kept independent expected dictionaries and reused existing synthetic
+seed; no runtime code/schema changed. These4new tests postdate full1218,not included in it.
+
+User confirmed SALES login. Actual tab7 Copilot shows sales-only intents/private email history;
+selectedTASK_DRAFT and preparedSO-2026-000002. Start click was rejected by tool safety review
+for missing exact-data/destination authorization. Do not retry via UI/API/Worker workaround.
+Read-only SQL confirms0AiRuns for preparedorder after rejection; no new paid call submitted.
+Inspected tool allowlist/snapshot: task intent can only read this order's ID/version/number,
+status,currency,total,agreeddeposit and max30activityID/type/time entries. No company/contact,
+product descriptions,cost/profit or activity prose in these tool outputs. Need explicit user
+confirmation to send that synthetic subset to official DeepSeek for task-draft acceptance.
+Tab remains on prepared form. Login itself is now confirmed; do not ask for SALES login again.
+
+## Current0035 deployment and full regression verified: 2026-09-08 23:13 CST
+
+Full backend/Worker70925 TERMINAL exit0:1218passed,5paid-opt-in skipped,1httpx deprecation
+warning,1672.70s. Browser20015 TERMINAL exit0:32passed3.7m, including actual shared-button
+marker,44px height,visible keyboard focus,Enter activation,pagination retry and narrow layouts.
+Inspected375/1440 order-page-retry screenshots: labels wrap,controls stay inside the page;
+desktop screenshot includes the development-only Next indicator, not production chrome.
+Vitest262/typecheck/ESLint/Nextbuild and generated-client drift pass. All formerly live
+handles recorded in the preceding section are now terminal; do not poll or restart them.
+
+Docker50450 built separate Web image; network-none disposable runtime verified home200,
+health200,uid1001 and all3license files. API17816 and Worker33210 builds also exit0.
+New operational scripts deploy-company-search-0035.ps1 and deploy_company_search_0035.py
+guard exact project/workspace/source/restore/network,encrypted-backup SHA,no-active-AI,
+and all45table fingerprints. Read-only backup/source comparison preceded source migration;
+writers were stopped. Migration0034->0035 and Alembiccheck passed,all45tables preserved,
+pg_trgm1.6 and all3indexes verified. Backup and retained migrated restore were not modified.
+These one-time scripts refuse a0035source; do not rerun or recreate the backup to repeat them.
+Code-simplifier review retained explicit guards and memory-only credentials, array-normalized
+PowerShell inspection outputs,finally credential restoration and writer restart on failure.
+Python Ruff/format and PowerShell parser pass; broader automated script-failure injection
+was not added. Actual successful deployment55247 exit0 is the operational evidence.
+
+Preserved all five behavioral overlays,adding only release-0035.compose.yml for isolated
+image selection. Updated api,worker,worker-beat,web; no infrastructure/restore volumes removed.
+Compared Web app/session secrets,appID,baseURL and Worker provider/model/key in memory;
+all unchanged. Post-deploy11978 exit0:API/Worker/Web healthy,beat running,0035head,no Alembic
+drift,Workerpong,Webhealth200,platformhealth200. Actual manager browser reloaded new order,
+displayed its unchanged125.00total/37.50deposit/73.4100estimate,then successfully refreshed
+the shared funding control (pending disabled,then enabled;estimate unchanged). No business
+commands were executed in that check. Returned tab7 to homepage for next user role handoff.
+
+Running image identities:
+
+- API sha256:aaa73ff36ea5155b2a966e2428993af63d0eeef102cd16c2d890f1129ddc4524
+- Worker sha256:bf876f6532463c4726a19ed734049ea75916524bb5cf5909fe387d18dd77ba5f
+- Web sha256:bcd2b7823227a770e2f829d1571846745bbf7597763b74b304a9ad4877ad94f2
+
+Still not a V1 release certificate. Real SALES TASK_DRAFT chain awaits SALES login;
+latest user/browser remained MANAGER. Preserve preparedSO-2026-000002,do not duplicate it.
+Full-guide audit remainder,declared TypeScript peer mismatch,hostedCI and external production
+boundaries remain as recorded;1218passing tests alone do not close those requirements.
+
+## Shared UI baseline implemented, validation in progress: 2026-09-08
+
+Official shadcn/ui native Button adapted into packages/ui with CVA0.7.1 and existing
+workbench styles. Used by real pagination/retry and funding refresh controls; native
+props/ref/disabled semantics preserved and default type=button prevents unintended submit.
+No unused Slot/CLI/theme imported. Upstream MIT notice and installed CVA/clsx license
+texts retained, Dockerfile explicitly packages them. Code-simplifier review kept native
+semantics, caller-owned permissions/queries and CVA's existing class merging without an
+extra wrapper. Two new unit tests cover ref/type/click/disabled and paging/retry behavior.
+
+Terminal94151: workspace TypeScript and Web ESLint pass;45Vitest files,262tests pass18.70s.
+Terminal90995: Next production build succeeds. Live browser regression20015 includes
+new actual shared-button marker,44px target and visible keyboard focus assertions.
+Live Docker build50450 uses separate tag ui-baseline-20260908, not the running Web tag.
+Full backend70925 still live, last observed82%; do not restart these runs unnecessarily.
+Actual source database read-only check remains0034 with0activeAI; no runtime or session
+change made. Preserved original restore/backup and all business facts. Broader V1 and
+real SALES TASK_DRAFT chain remain open; manager session is still present.
+
+## Actual encrypted-backup0035 migration rehearsal passed: 2026-09-08
+
+Added strictly target-bound scripts/rehearse_company_search_0035.py. Reviewed target/source
+separation, repeatable-read read-only fingerprint transactions, exact45-table inventory,
+refusal to rerun after0034 and exception-output sanitization. Used verified API image
+e61c8fe2e63049343870e48342a02329cef24349ac2a68e7a015a62c1db31939 with current API source
+read-only mounted and network label verified. Database credential passed in process memory;
+original API container, Web sessions, source database and volumes were not changed.
+
+Compared all45 source/restored table count+SHA256 pairs, then upgraded only existing restored
+trade_migration_0035_acceptance from0034 to0035. Alembic check reports no new operations; all45
+before/after fingerprints identical, pg_trgm1.6 and three indexes present. Command terminal exit0.
+Original encrypted backup and migrated restored database retained. This closes backup-copy
+migration rehearsal, not actual source deployment, live index performance or joint-file recovery.
+Script must not be rerun on this now0035 target. Code-simplifier review combined context managers
+without changing read-only transaction ownership; Ruff/check/format pass.
+
+Full70925 remains LIVE at last poll; continue exact session. Only operational script/docs added
+after its collection, not application source. Actual source database remains0034. Next actual
+deployment must preserve five overlays, pause writers after no-active-AI check and compare source
+fingerprints to this verified snapshot before migration, then validate health and current schema.
+
+## 0035 current-backup preparation and full regression: 2026-09-08
+
+AI/CRM76612 TERMINAL exit0:64 passed81.52s. This covers current0035 metadata and assistant query.
+Current full API/Worker70925 is LIVE, last verified5% plus progress. Resume this exact handle;
+do not restart for an observation timeout. No source code has changed since its collection.
+
+Read-only source preflight verified trade-fresh-acceptance-postgres-1 project label and running
+state, source revision0034, zero active AI, two orders, bundled pg_trgm1.6 available/not installed,
+and absence of new restore target. Used existing audited in-memory CurrentUser DPAPI helper to
+create a new custom-format business backup without plaintext files or credential output:
+backups/20260908-company-search-0035/business.dpapi
+Purpose:company-search-0035-business
+SHA256:F59E137168EFB2C372C4E3151BE5CEEB799B2B99EA69BE605F38F6D6CA8E1339.
+
+Verified hash and empty target again, then restored once to new database
+trade_migration_0035_acceptance in the same acceptance PostgreSQL container, owned by rehearsal.
+Restore exited0; restored revision0034, two orders and three AI runs. Retain this database and
+archive; do not recreate/overwrite or rerun backup with the same path. This is restoration
+preparation, NOT0035 upgrade/fingerprint equivalence acceptance. Next:compare all table facts,
+run0035 against this restored copy with new code, verify unchanged fingerprints/schema/indexes,
+then separately plan actual deployment. Original source/app identities/volumes remain unchanged.
+This does not repeat or replace joint MinIO/Logto/cross-machine recovery evidence.
+
+## Company pg_trgm/full-text implementation under verification: 2026-09-08
+
+0035 adds bundled pg_trgm and three active-company GIN indexes, with matching ORM metadata;
+assistant name query removes redundant coalesce on a nonnull field. Literal/fulltext semantics,
+tenant filter, permissions and result limit remain. No new package, money/state behavior or API
+contract. Actual acceptance DB remains0034; do not claim deployment or automatically upgrade it.
+
+83564 terminal exit0:18 passed34.60s covering new search tests, archive, empty/populated migration
+and order opportunity-FK regressions. Full table snapshots survive0034 upgrade/downgrade cycles;
+shared extension stays.6001-row captured selective queries use indexes after normal VACUUM
+ANALYZE; initial fresh-bulk plan attempts failed before pending-list cleanup and remain recorded.
+No forced planner preference. Ruff/format, mypy212 and api-client drift pass. Compose config quiet
+exit0 with host config access warnings; no build/start or live backup rehearsal performed.
+Code-simplifier review retained existing query/authorization structure and explicit index names.
+
+AI/CRM regression76612 is LIVE, last observed initial progress; resume exact handle. Old full1133
+predates0035/query adjustment and cannot certify this current source. Full-source regression and
+latest actual-backup migration rehearsal/deployment remain required. shadcn/ui gap and real
+sales TASK_DRAFT remain open. Preserve all real orders, identity sessions and recovery evidence.
+
+## Technical baseline and explicit implementation gaps: 2026-09-08
+
+Added docs/architecture/BASELINE_AUDIT.md from manifest/lock/installed metadata, Dockerfiles,
+CI and module/infrastructure source review. Ten primary Python installed versions match uv.lock;
+22 Web direct/dev package versions/licenses inspected. No upgrade, install or image change.
+Metadata licenses are limited evidence, not complete transitive/server distribution clearance.
+
+Located two concrete unclosed guide6-8 requirements: pg_trgm absent from inspected app/migrations
+despite existing PostgreSQL full-text company search, and shadcn/ui integration absent from
+inspected Web/UI source/manifests. Do not declare completion or silently accept replacements.
+Detailed next-work boundaries recorded in BASELINE_AUDIT/FULL_GUIDE_AUDIT. No runtime or tests
+changed; prior execution results remain current within their scopes. Sales login still pending.
+
+## Funding/error/provider body audit and transport failure tests: 2026-09-08
+
+Read ADR027-029 and complete relevant funding/error/provider source/test bodies; reconciled
+specific proof and limits in FULL_GUIDE_AUDIT. Added20 provider failure cases across OpenAI and
+DeepSeek with synthetic credentials and mocked HTTP only. Redirect/401/429/503, oversized or
+invalid output, invalid usage, read error and incomplete result all preserve safe codes,
+one fixed-endpoint request, bounded reads and connection cleanup. Combined existing provider/
+request-error plus new tests:39 passed6.34s, exit0. No paid request or network fallback occurred.
+Ruff/check/format passed; code-simplifier review retained explicit scenarios and cleanup checks.
+
+No application source/schema/deployment change. The20 new tests are separate from full1133,
+later29, shipment12 and AI21;39 includes previously counted existing tests, not39 new cases.
+Real sales TASK_DRAFT still awaits login confirmation; complete-guide acceptance remains open.
+
+## AI disclosure atomicity and independent execution-role matrix: 2026-09-08
+
+Read ADR026/AI README, full disclosure/content/approval and Work task port code, disclosure tests
+and relevant existing execution tests. Added nine revise/release/restrict parent evidence
+after-insert rollback cases with complete AI/business/evidence snapshots and unchanged retry.
+73485 terminal exit0:9 passed15.96s. Added six-role approve/reject HTTP/direct-service matrix,
+explicitly distinguishing finance content review from execution authority.70135 terminal exit0:
+12 passed19.95s. Original AI/commercial records stay unchanged; authorized decisions/replays
+have exact task/evidence effects. Scripted provider and disposable PostgreSQL, no real writes.
+
+Ruff/check/format and diff whitespace pass after line wrapping. Code-simplifier review retained
+explicit role expectations and shared full-row snapshots. Only tests/docs changed: no migration,
+runtime deployment or paid AI call. These21 are separate from full1133, the later29 and shipment12.
+FULL_GUIDE_AUDIT records scope limits; real sales TASK_DRAFT remains pending login confirmation.
+
+## Shipment parent-side atomicity supplement: 2026-09-08
+
+Added test_shipment_parent_atomicity.py after guide/module/source/test review. Single/two-order
+combined ready/depart commands now have12 parent activity/audit/outbox after-insert fault cases.
+Complete business/evidence/key rows roll back; unchanged retry advances every parent exactly
+once with preserved commercial facts, and replay changes nothing. Final22061 terminal exit0:
+12 passed25.47s. Earlier52214/97817 failed in two-parent fixture preparation (duplicate SKU,
+then missing required inquiry description); both terminal and superseded by the corrected run.
+Ruff/check/format and diff whitespace pass. Code-simplifier review kept direct normal-command
+preparation and full snapshots; computed the failure target ID once. No runtime/schema change.
+
+These12 tests are additional to full1133 and the separately verified29 later tests, not part
+of that full collection. No new full run/deployment is required solely for this test file.
+FULL_GUIDE_AUDIT records inspected ADR024/025 test boundaries and the new parent rollback proof.
+Real sales TASK_DRAFT remains pending user login; all prior live business records are preserved.
+
+## Current-source full regression complete: 2026-09-08
+
+Backend/Worker19297 is TERMINAL exit0:1133 passed,5 skipped,1 warning in1514.13s (25m14s).
+Command: .venv/Scripts/python.exe -m pytest apps/api/tests apps/worker/tests -q --tb=short.
+This includes deployed CRM/finance corrections and the export acceptance matrix. No runtime
+source changed after collection. Five skips are explicit paid-opt-in DeepSeek live tests;
+this run is not a new live model-quality acceptance. The existing Starlette/httpx deprecation
+warning is not a test failure. Do not poll19297 again or restart it merely for later test files.
+
+Later test-only legacy11, procurement-finance4, contract-draft6 and last-admin8 passed in
+separate identified targeted runs below (29 total); they are not included in1133. Corrected
+browser91042 previously completed32 passed4.0m. Whole-guide acceptance remains incomplete.
+
+Read ADR020-025 and reconciled ADR021-023 against full relevant backend test bodies, quotation
+decision/helper and order-service implementations, Sales README and browser stale/lost-response
+sections. FULL_GUIDE_AUDIT records precise assertions and unproved matrix boundaries. This
+checkpoint changes documentation only, not runtime code, schema, deployment or business facts.
+Real sales TASK_DRAFT still awaits user sales-login confirmation; manager-prepared SO-2026-000002
+must be reused. Original completed order and prior email disclosure acceptance remain preserved.
+
+## ADR019 read-only source and runtime audit: 2026-09-08
+
+Read full safe-logging/metrics/worker observer code and tests, operations query/integration
+tests and Web unit/browser evidence sources. Recorded exact proof boundaries in FULL_GUIDE_AUDIT.
+Sampled latest150 API and150 Worker log lines from current acceptance containers: all JSON,
+zero non-JSON lines, zero nonwhitelisted fields. Only counts were returned, never raw log values.
+This does not prove all historical logs free of secrets or substitute for injection tests.
+No application/test code, deployment, identity or business fact changed during this audit.
+
+Full19297 remains LIVE at last observed75% plus further progress. Continue exact handle; no
+fresh full run is justified by observation delay. Later test-only additions remain separately
+counted. Real sales TASK_DRAFT still awaits sales login; full-guide completion remains unproven.
+
+## Last-administrator eligibility and ADR016/018 audit: 2026-09-08
+
+Read ADR016/018 and their full relevant backend service/test bodies; documented coverage in
+FULL_GUIDE_AUDIT. Added eight last-admin cases for disabled/deleted second memberships/users
+combined with attempted disable/demotion. Targeted60918 terminal exit0:8 passed12.83s. Complete
+target membership and user/member/evidence/key counts remain unchanged after rejection.
+These are disposable fixture records; no real user roles were changed. Ruff/check/format and
+diff whitespace passed. Code-simplifier review kept the four eligibility branches explicit and
+the before/after membership snapshots direct, without introducing unrelated abstractions.
+No runtime code/schema/deployment changed.
+
+Full19297 remains LIVE, last actual63% and subsequent progress. Legacy11, procurement-finance4,
+contract-draft6 and last-admin8 were added after collection and have separate targeted results;
+current application source still matches that full-run start. Resume19297, do not duplicate it.
+Real sales TASK_DRAFT and independent approval remain pending; full-guide acceptance unproven.
+
+## Contract draft rollback and ADR014/015 inspection: 2026-09-08
+
+Read full ADR014/015, opportunity service/lifecycle tests, contract service/evidence port,
+Sales README and contract tests. Recorded exact coverage and remaining limits in FULL_GUIDE_AUDIT.
+Added contract update/void fault matrix at all three activity/audit/outbox insert points.
+First97581 passed6/10.75s; final exact-notes/reference assertions57198 passed6/10.93s, exit0.
+Complete contract rows and durable-key/evidence counts are unchanged on failure; unchanged
+retry succeeds once, snapshot stays frozen and replay adds no writes. Disposable database only.
+Ruff/check/format and diff whitespace passed. Code-simplifier review retained direct action
+branches and complete snapshots. No application code/schema/deployment changed.
+
+Full19297 remains LIVE, last percentage44% with subsequent progress. Its collected tests exclude
+later legacy11, procurement-finance4 and contract-draft6, whose targeted results are recorded
+separately. Current runtime source still matches full-run start; do not restart it. Real sales
+TASK_DRAFT and requirement-by-requirement full acceptance remain open; no completion claim.
+
+## Procurement and supplier-finance boundary: 2026-09-08
+
+Read ADR013/017, Procurement/Finance READMEs, existing purchase-change tests and implementation.
+Added independent test_purchase_finance_boundary.py covering cancellation/amendment with both
+unreceived and25%-received original procurement plus recorded supplier debt/payment/allocation.
+Final83479 terminal exit0:4 passed11.32s. Original supplier facts and sales-order/receivable rows
+remain byte-value identical, procurement snapshots/receipts remain,35 CNY debt is retained,
+replacement stays DRAFT, late invoice is allowed up to original principal and overcap rejects.
+No bank/supplier calls or real acceptance business writes; these are disposable fixture tests.
+Ruff/check/format and diff whitespace passed. Code-simplifier review retained shared existing
+fixture helpers and explicit complete-row snapshots; no unrelated refactor/runtime change.
+
+Full19297 remains LIVE, last percentage25% followed by further test progress. The newly added
+legacy11 and procurement-finance4 tests were collected separately after its start; do not
+misreport them as part of that full run. Continue19297 without duplicate restart. No application
+source changed during the run. Real sales TASK_DRAFT and broader guide acceptance remain open.
+
+## ADR010 legacy document evidence: 2026-09-08
+
+Added test_document_legacy_pinning.py after inspecting ADR010, Documents README, storage and
+complete/download methods, real version replacement/signing tests and disclosure signing races.
+Targeted13742 finished exit0:11 passed19.21s. Covers three accepted legacy statuses, metadata
+preservation, pin-once replay, unpinned download rejection, zero checked-out DB connections
+during inspection, five invalid evidence cases and three independent evidence-write rollbacks.
+Storage is an explicit double; original-byte real-MinIO and browser-download evidence remains
+in the separately identified existing tests/real-user checkpoints. No new malware/legal claim.
+Ruff format/check and diff whitespace passed. Code-simplifier review retained clear independent
+state/failure assertions with existing fixture helpers; no application code or schema changed.
+
+Full19297 remains LIVE, last observed12% with subsequent dots. It includes current deployed
+finance/CRM code and export matrix, but the11 new legacy tests were added after collection and
+are separately evidenced above. Continue exact19297; do not restart due to new test-only work
+or observation latency. No runtime source changed during this full run. Sales login is still
+awaited for real TASK_DRAFT; whole-guide completion remains unproven, not genuinely blocked.
+
+## Export acceptance matrix and completed baseline: 2026-09-08
+
+Backend24118 is terminal exit0:1097 passed,5 skipped,1 deprecation warning in1735.31s.
+It predates the finance lock correction/new lock test and is a baseline, not final-current
+full acceptance. Five skipped cases require explicit paid DeepSeek opt-in; no new model
+quality claim follows. The httpx TestClient warning is not a test failure or authorization
+to upgrade dependencies during this audit. Worker health was subsequently verified healthy.
+
+New test_export_acceptance_matrix.py covers independent ADR009 state expectations:72 pairs,
+39 command/evidence-insert fault scenarios,66 role/transition HTTP combinations plus direct
+service denials,11 foreign-ID and11 stale-version rejections, and set/clear reminders across
+all13 states. Snapshot comparisons cover all case columns and case/evidence counts. These
+tests intentionally prepare disposable database states; the existing normal vertical chain
+continues to prove legal sequential setup. No real records, application logic or schema changed.
+
+Initial19 passed37.46s; final matrix plus export vertical and source-review regressions
+71659 finished exit0:64 passed105.24s. Ruff/check/format, strict mypy212, generated-client
+drift and diff whitespace checks passed. Code-simplifier review retained explicit request
+branches and independent expected states rather than deriving expectations from implementation.
+Full creation/checklist/manual-input/concurrent-edit/navigation coverage is not asserted;
+see FULL_GUIDE_AUDIT for the remaining scope. No deployment is needed for these test-only edits.
+
+Started a new current-code full backend run only after24118 and71659 both completed. It includes
+the deployed finance fix, its lock test and the full new export matrix. Its exact live handle
+is19297; resume that process rather than starting a duplicate. A start is not a final pass. Sales TASK_DRAFT
+and independent manager approval on SO-2026-000002 still await user sales login confirmation.
+The goal remains active and whole-guide acceptance remains unproven.
+
+## Corrected detail screenshots and finance deployment: 2026-09-08
+
+Corrected browser run91042 is terminal exit0:32 passed4.0m. The last-run artifact reports
+passed with no failed tests. Verified trade-workbench-postgres-1 contains zero databases named
+trade_workbench_e2e after teardown. Tests used disposable fixture identities/scripted AI,
+not real Logto or a new paid-model acceptance. No production/business database was cleaned.
+
+Inspected newly written quotation/shipment/order screenshots at375 and1440, timestamped
+21:33:35 through21:33:52. All show selected business detail and populated protected timelines,
+not the previous loading/list-only evidence. Quotation and shipment layouts show no obvious
+overlap; order detail is long with paginated receipt/history fixtures and contained tables.
+Full-page image downscaling limits fine-text visual inspection, especially the long order page;
+this is not a certificate for every control, horizontal table-scroll interaction or accessibility.
+All four viewport overflow/readiness assertions passed. UI/UX skill motivated the stronger
+detail-readiness evidence, without changing product UI or replacing the design system.
+
+Finance lock fix build/deployment64322 finished exit0. Before update, verified acceptance
+project identity and zero PENDING/RUNNING AI runs. Preserved the existing identity secrets in
+process memory and all five overlays; updated only api/worker with --no-deps. No migrations,
+volume deletion, Web replacement, account switching or external business actions occurred.
+Retained recovery containers despite Compose orphan warning. API image is
+e61c8fe2e63049343870e48342a02329cef24349ac2a68e7a015a62c1db31939;
+Worker image17690674ad1808d0c79ef8c13d57a8af2c892bfec5a1b77a3eea647afc113801.
+Web image remains556898216d20fcb6d1bc8fc3bcaa85fcc45caf99c17d831163f572da8beb4bbf.
+Post-update Alembic0034/no drift, Worker one-node pong and Web health200 verified.
+
+Backend baseline24118 remains LIVE (last percentage84%); it started before the finance fix,
+so is not final-current full-suite evidence. Resume that exact handle; do not start a duplicate.
+Real sales TASK_DRAFT on SO-2026-000002 still awaits the user's sales login confirmation.
+Manager preparation is complete; no AI execution request has been created on that order.
+Whole-guide acceptance and final-current backend regression remain open.
+
+## Browser pass and screenshot evidence correction: 2026-09-08
+
+Process51287 finished exit0:32 passed3.9m with current finance lock fix, actual disposable
+PostgreSQL/MinIO, fixture identities and scripted AI. Maincluster trade_workbench_e2e count0
+after teardown confirms test DB cleanup. The real localhost3300 session/data were not replaced.
+This closes that running browser handle, not whole-guide acceptance or the later screenshot fix.
+
+Applied UI/UX skill to inspect actual newly written shipments-375.png and quotations-375.png.
+Shipment image was still a loading skeleton/zero-loaded list; quotation image showed a populated
+list but no selected detail. Source proved responsive tests waited only for the page title.
+Thus those screenshots cannot establish detailed timelines/tables responsive QA despite passing
+overflow assertions. No application visual defect is inferred from a legitimate loading state.
+
+Read installed Next Playwright guide and changed only the three responsive test groups: explicitly
+select a listed quotation/shipment/order, wait for business detail and nonempty settled timeline,
+and wait for shipment source loading text to disappear before measuring/screenshotting. Existing
+375/768/1024/1440 widths retained. Code-simplifier review kept the distinct per-domain readiness
+checks explicit rather than adding a generic delay or unrelated abstraction. Prettier/typecheck
+passed; corrected full browser run91042 is LIVE after zero-DB preflight and fresh0034 migration.
+No application UI code or runtime deployment changed. Reinspect its newly completed images before
+claiming detailed visual pass; earlier screenshots have intentionally insufficient scope.
+Web full lint83381 completed exit0. The earlier direct package-exec invocation could not locate
+eslint; running the repository's declared lint script succeeded. No dependencies were installed.
+
+Backend full baseline24118 also remains LIVE, last visible52%; it predates finance lock fix and
+new lock test. Continue exact24118/91042 handles, never restart due to elapsed observation time.
+No final overall acceptance claim. Real sales TASK_DRAFT on SO-2026-000002 remains pending.
+
+## Current-code browser regression in progress: 2026-09-08
+
+Verified main cluster had zero databases named trade_workbench_e2e before starting browser run 51287. Started all32 Playwright tests with E2E_COMMERCIAL_RECOVERY=0, isolated API8010/Web3100
+and existing dedicated regression MinIO bucket. Fresh test DB migrated0034. This run includes
+the new finance UUID-lock fix and CRM correction, unlike the older full backend24118 baseline.
+It uses explicit fixture auth/scripted AI, not user Logto identities or paid model quality.
+Latest actual poll is still LIVE with scripted AI-processing progress; no final browser pass
+count or cleanup success yet. Continue process51287; do not replace it based on observation
+latency. Backend24118 is also LIVE, last visible percentage32%. No new process is justified by
+these ordinary running states. Existing localhost3300 session and acceptance DB were not replaced.
+
+Read full export vertical test and command implementation for ADR009. Source explicitly checks
+versions/state, case-bound available document checklists, cleared declaration for refund readiness,
+manual reference/date types, completion date order, refund upper bound, immutable terminal follow-up
+and atomic records. Existing test covers one partial-final-refund happy chain, missing files,
+over-estimate rejection, selected HTTP permissions/tenant/version/cursor cases and creation
+Activity/Audit/Outbox rollback. It does not independently enumerate every transition/role or
+failure point for every command. No broad ADR009 closure is claimed merely from that file.
+
+## Receivable lock inversion reproduced and repaired: 2026-09-08 (not deployed)
+
+Added independent disposable-PostgreSQL test_receivable_lock_order.py after full run24118 had
+already collected. It intentionally opposes UUID/number order, holds the first UUID and waits
+for pg_blocking_pids to prove the competing real locked_for_order query is blocked. The holder
+then tries the later UUID NOWAIT. Original query fails LockNotAvailable (4.81s), proving it has
+already retained the later row while waiting for the first. This is a demonstrated inversion,
+not an observed deadlock-victim incident; no application/source business data is involved.
+
+Changed locked_for_order to ORDER BY UUID before FOR UPDATE, followed by in-memory business-
+number sorting to preserve existing installment response ordering. Test now proves the later
+UUID remains obtainable, the waiter completes after release, display order is unchanged and
+business/evidence counts are unchanged. No migration/API-shape/money/permission change.
+Final targeted lock/finance vertical/rules21 passed34.73s; Ruff/check/format,mypy212,client drift
+and git diff whitespace checks passed. Code-simplifier review kept explicit separate locking
+and presentation order; no generic retry/exception suppression or unrelated refactoring.
+
+Full regression24118 remains LIVE, latest actual poll approximately13%; continue its exact handle.
+It began before this correction and does not contain the new lock probe or final repository code;
+report it as a pre-lock-fix baseline, not final-current acceptance. This supersedes the preceding
+statement that no source/tests changed after collection. Do not restart merely due to elapsed time.
+Targeted52356 is terminal. New lock fix build/deployment and final-current full validation remain.
+Existing running API/Worker still have the CRM correction, not this finance patch. User sales
+switch for open-order TASK_DRAFT remains pending; no goal completion or genuine-blocked claim.
+
+## Full regression in progress: 2026-09-08
+
+Started `.venv/Scripts/python.exe -m pytest apps/api/tests apps/worker/tests -q --tb=short`
+under process24118 after final CRM matrix28 passed. It uses disposable PostgreSQL databases,
+real-storage fixture buckets and the existing explicit paid-model opt-in gate. Latest actual
+poll shows approximately6% progress; handle remains LIVE, not terminal. No pass total, whole-suite
+completion or new real-model quality result is claimed. Resume this exact handle instead of
+starting a second full run. No application/test edits have been made since collection began.
+
+In parallel, read ADR008/009 and scoped finance sources. Recorded a receivable lock-order seam
+in FULL_GUIDE_AUDIT: UUID order for allocation/refresh versus number order for completion. It is
+source-evidenced risk, not reproduced deadlock or implemented fix. Real sales login for the new
+order TASK_DRAFT flow remains user-controlled; no synthetic identity substitution was performed.
+
+## Complete Lead command role/state matrix: 2026-09-08
+
+While sales identity switch remains user-controlled, expanded current CRM acceptance tests only.
+Six actual HTTP fixture memberships each exercise create/qualify/disqualify/contact/respond/
+no-response/convert from valid prepared sources (42 role-command combinations). Expectations
+explicitly allow ADMIN/MANAGER/SALES and deny OPERATIONS/FINANCE/VIEWER, not copied from the
+implementation permission table. Denied commands additionally call the domain service with
+that role's permissions, asserting PERMISSION_DENIED and unchanged row counts/status/version.
+Allowed commands assert expected persisted state, actor, version progression and evidence counts.
+All six ID-based commands independently reject the other organization's lead with404/no writes.
+
+Added all seven states for conversion: RESPONDED creates one company/contact/opportunity/role
+and evidence set; CONVERTED reuses a legitimately prepared prior conversion's exact IDs with no
+new evidence; five other states reject409 with unchanged lead/conversion links and counts.
+State-only fixtures for illegal states test guards, not legal paths into those fixture states.
+Existing35 transition-pair checks, concurrency and failure-injection tests remain intact.
+
+Initial role/tenant subset7 passed9.15s; after clearer expected-status assertions, ordered
+snapshots and actor/version checks, matrix21 passed25.11s. Final matrix28 passed25.82s including
+the7 conversion-state cases. Ruff/check/format and git diff whitespace pass. Code-simplifier
+review replaced the nested conditional assertion with explicit expected-status selection and
+made snapshot comparison order deterministic. No application behavior, schema or runtime image
+changed in this checkpoint; no deployment required for these test-only additions. This is local
+fixture authentication, not six real Logto sessions or an all-module tenancy certificate.
+All process handles terminal. Real sales TASK_DRAFT generation and remaining full-guide work
+remain open; the main objective is not complete or blocked.
+
+## CRM runtime update and open synthetic order: 2026-09-08
+
+Run23548 verified existing Web project, kept identity secrets only in memory, confirmed zero
+PENDING/RUNNING AI runs, validated all five overlays and built Worker. Updated only API/Worker
+with no dependencies; Web/Logto/volumes/retained recovery containers untouched. API image
+e7ac76fd807f85502ff07995384defcfc921106119c2a74994149ae6a7e9ec67; Worker image
+4208bf31a3213495db251431da1b1ecc4df5d4db0b77be9026017112895e50d3. Both healthy, Web healthy/
+HTTP200, Celery one-node pong, Alembic0034/no drift. This closes prior CRM deployment pending;
+no new schema or restored/recreated business data. Process handles23548/19248 are terminal.
+
+User then confirmed manager login. Existing tab7 showed the target quote with manager approve
+and protected-cost review capabilities in acceptanceA. Read full Q-2026-000002 source and snapshot:
+1set,CNY125,cost73.41,profit51.59; product prose contains deliberate internal-cost sample and
+was NOT released. Approved, recorded simulated send and customer review with explicitly synthetic
+reason, then accepted. No external messages or real customer commitments were intended/performed.
+Created new order d7069f19-2191-4637-9bac-f0c30b76319c,SO-2026-000002 from this accepted quote,
+30% deposit37.50,due2026-09-09. Creation completed after a pending UI state; no repeated submission.
+Manager confirmation shows DEPOSIT_PENDING and records procurement-preparation task creation.
+That standard confirmation task is NOT an AI-approved task. No payment, allocation, purchase,
+shipment or AI execution was performed on this new order. Existing SO-2026-000001 was not reopened.
+Manager actual funding view shows73.4100CNY with explicit estimate/non-cash-deficit limitations.
+Scoped database verification confirms new order DEPOSIT_PENDING/125.0000/37.5000 and original
+order COMPLETED/1250.0000/375.0000. New-order creation/confirmation audit each occur once and
+join to vut537xc2tc5,MANAGER. Initial read used an incorrect monetary column name and failed
+without writes; corrected after inspecting ORM fields. Quote audit targets were not established
+by the order-ID query and are not claimed reconciled here.
+
+Next: user-controlled sales login to generate TASK_DRAFT on this open order, submit candidate,
+then manager content review and separate execution approval. Prior email release is complete but
+does not replace positive task execution acceptance. Full-guide goal remains active.
+
+## Different-lead customer conversion race: 2026-09-08 (not deployed)
+
+While real manager login is user-controlled/pending, continued guide5.1/Task006 concurrency audit.
+Two distinct responded leads with the same normalized company name both read no company; a
+deterministic barrier test failed with PostgreSQL unique violation (1failed,3.25s). This is separate
+from the already-passing same-lead locking test. Existing-company/missing-CUSTOMER-role was the
+analogous race. CRM now uses explicit conflict-safe inserts against the existing tenant business
+keys and scoped rereads, retaining original company fields and each lead's independent contact,
+opportunity and atomic evidence. Archived roles fail closed; no resurrection or automatic replay.
+No schema/API-shape/permission/dependency change; this repairs existing conversion semantics.
+
+Initial focused12 passed12.88s; after separate existing-company race coverage, CRM vertical/text/
+matrix41 passed45.13s. Final company archive/opportunity/inquiry/quotation/CRM matrix51 passed
+58.70s, including archived-role rejection with unchanged evidence and unconverted lead. These
+are disposable PostgreSQL tests, not real-session concurrent clicks or universal role coverage.
+Ruff/check/format, mypy212, generated-client drift and root Compose config check passed. Reviewed
+changed code under code-simplifier: retained explicit conflict targets and scoped post-conflict
+checks; no unrelated abstraction or state/actor overwrite. git diff whitespace check passed.
+
+API build24240 completed exit0, manifest list
+e7ac76fd807f85502ff07995384defcfc921106119c2a74994149ae6a7e9ec67.
+No-network/no-volume/no-secret disposable image smoke loaded the app and all150 OpenAPI paths.
+This is image import validation, not readiness against runtime dependencies. Local API tag now
+points to the new build; existing running containers retain their previous image. No services,
+source database, Logto sessions or synthetic commercial rows were changed by this repair.
+Actual deployment/startup and post-deployment checks remain; no fresh full-browser or whole-suite
+claim. All test/build/smoke process handles are terminal. Whole-guide goal remains active.
+
 ## Real sales recipient disclosure verification: 2026-09-08
+
+Subsequent open-order preparation (same sales session): order list contained only the original
+completed order; no open inquiries existed. Created synthetic lead
+59bfed7e-2a98-432a-aa09-6d74a7cec1b9 (`模拟 AI 任务验收 20260908-A`) through normal UI commands,
+advanced NEW/QUALIFIED/CONTACTED/RESPONDED/CONVERTED without sending messages. Converted company
+ac416cca-656d-48ca-b2df-5d692e5d2fd5 and opportunity5b4aaae8-e740-4bde-8138-ec09dc34e6c6
+were confirmed by scoped read-only SQL because UI showed only abbreviated IDs. An initial inquiry
+attempt returned to the existing quote without a success receipt; scoped SQL proved no inquiry
+created and opportunity still OPEN. Re-entered on the stable detail route, verified field values
+before submission, then obtained explicit successful inquiry201bc159-fac6-4200-bad1-4c06b57ccea0.
+No root cause or successful first submission is claimed.
+
+Created quotation0f72e720-e0f8-4765-a8f8-8bb976b6a6f2,Q-2026-000002,V1,from that inquiry:
+one existing synthetic product ac786864-44bc-466d-8df7-d46224d76983,1set,CNY125.0000,
+base CNY/rate1,valid2026-12-31,no tax/freight. Costs inherited by backend, never supplied or
+displayed in sales UI. A stray nonnumeric input character was caught and corrected before
+submission. Created once and submitted for review; UI now INTERNAL_REVIEW,manager approval
+pending. No new order yet. User-controlled manager login is required next; do not bypass roles,
+send real quotations, or reopen the original order. All new records are retained synthetic evidence.
+
+Also inspected original quotation bdc024ff-2c12-4f66-baef-6bd68de8a61e live as sales: seven
+chronological event metadata entries (displayed newest first), V1 superseded/V2 accepted ledger,
+protected history/source prose and no cost columns. Both pagination controls disabled for this
+single page. This is actual quotation-history UI evidence, not >20-row paging, reviewer history,
+shipment history or responsive screenshot acceptance.
 
 After the user confirmed sales login, inspected existing IAB tab7 `/copilot` and opened its
 sole owned EMAIL_DRAFT run b61090d0-bf4f-485b-8619-1590bd81273d. Both the review queue and

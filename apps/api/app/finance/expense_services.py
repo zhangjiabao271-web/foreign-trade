@@ -17,7 +17,7 @@ from app.platform.numbering import next_document_number
 from app.platform.records import AuditRecorder, DomainEvent, OutboxRecorder
 from app.sales.models import SalesOrder
 from app.sales.services import quantize_money
-from app.work.models import Activity
+from app.work.records import record_activity
 
 
 class ExpenseRepository:
@@ -330,18 +330,14 @@ class ExpenseService:
                 "reversal_of_expense_id",
             )
         }
-        session.add(
-            Activity(
-                organization_id=context.organization_id,
-                created_by=context.user_id,
-                updated_by=context.user_id,
-                subject_type="sales_order",
-                subject_id=row.sales_order_id,
-                activity_type=f"expense.{action}",
-                summary=f"{row.expense_number}: {action}",
-                details={"expense_id": str(row.id)},
-                correlation_id=context.request_id,
-            )
+        record_activity(
+            session,
+            context,
+            subject_type="sales_order",
+            subject_id=row.sales_order_id,
+            activity_type=f"expense.{action}",
+            summary=f"{row.expense_number}: {action}",
+            details={"expense_id": str(row.id)},
         )
         self.audit.record(
             session,

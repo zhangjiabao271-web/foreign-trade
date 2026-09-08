@@ -47,6 +47,7 @@ run identity. Web receives neither secret. Local live acceptance uses synthetic 
 paid request permission is not permission for real messaging, banking or government actions.
 
 Sources fetched Sep8:
+
 - https://api-docs.deepseek.com/ (deepseek-v4-pro, currently Pro-0813 alias)
 - https://api-docs.deepseek.com/guides/responses_api (stateless Responses compatibility)
 - https://api-docs.deepseek.com/quick_start/pricing (variable cache/time tariffs)

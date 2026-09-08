@@ -18,7 +18,8 @@ from app.sales.order_enums import SalesOrderStatus
 from app.sales.order_projections import order_response
 from app.sales.order_repositories import SalesOrderRepository
 from app.sales.order_schemas import SalesOrderResponse
-from app.work.models import Activity, Task
+from app.work.models import Task
+from app.work.records import record_activity
 
 
 class OrderCompletionService:
@@ -175,18 +176,14 @@ class OrderCompletionService:
             previous = order.status
             order.status = SalesOrderStatus.COMPLETED
             order.updated_by = context.user_id
-            session.add(
-                Activity(
-                    organization_id=context.organization_id,
-                    created_by=context.user_id,
-                    updated_by=context.user_id,
-                    subject_type="sales_order",
-                    subject_id=order.id,
-                    activity_type="sales_order.completed",
-                    summary=f"Sales order {order.order_number} completed",
-                    details={"financial_waiver": bool(unpaid)},
-                    correlation_id=context.request_id,
-                )
+            record_activity(
+                session,
+                context,
+                subject_type="sales_order",
+                subject_id=order.id,
+                activity_type="sales_order.completed",
+                summary=f"Sales order {order.order_number} completed",
+                details={"financial_waiver": bool(unpaid)},
             )
             self._audit_recorder.record(
                 session,

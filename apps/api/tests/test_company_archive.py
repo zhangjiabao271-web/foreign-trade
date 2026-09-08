@@ -103,9 +103,21 @@ def test_archive_tenant_authorization_and_contact_parent_checks(quotation_fixtur
     row = create(f)
     path = f"/api/v1/companies/{row['id']}"
     foreign = headers(f, subject="quotation-other", organization=f.organization_b)
+    before = table_counts(f)
     for suffix in ("", "/contacts", "/activities"):
         assert f.client.get(path + suffix, headers=foreign).status_code == 404
     assert f.client.get("/api/v1/companies", headers=foreign).json()["items"] == []
+    for filters in (
+        {"query": "NORTHERN"},
+        {"role": "SUPPLIER"},
+        {"query": "Northern", "role": "CUSTOMER"},
+    ):
+        response = f.client.get("/api/v1/companies", headers=foreign, params=filters)
+        assert response.status_code == 200
+        assert response.json() == {"items": [], "has_more": False, "next_cursor": None}
+    role = f.client.post(path + "/roles", headers=foreign, json={"role": "AGENT"})
+    assert role.status_code == 404
+    assert role.json()["code"] == "COMPANY_NOT_FOUND"
     assert f.client.get(f"/api/v1/companies?cursor={row['id']}", headers=foreign).status_code == 404
     assert (
         f.client.post(
@@ -129,6 +141,8 @@ def test_archive_tenant_authorization_and_contact_parent_checks(quotation_fixtur
         ).status_code
         == 403
     )
+    assert table_counts(f) == before
+    assert f.client.get(path, headers=headers(f)).json() == row
     _, opportunity_id = create_opportunity(f)
     # Existing converted customer/contact remain distinct from this supplier company.
     from app.crm.models import Opportunity
@@ -145,6 +159,55 @@ def test_archive_tenant_authorization_and_contact_parent_checks(quotation_fixtur
         ).status_code
         == 404
     )
+
+
+def test_foreign_contact_detail_update_and_cursor_preserve_original(quotation_fixture):
+    f = quotation_fixture
+    company = create(f)
+    parent = f"/api/v1/companies/{company['id']}"
+    created = f.client.post(
+        parent + "/contacts",
+        headers=headers(f, "scoped-contact"),
+        json={"full_name": "Protected contact", "email": "protected@example.test"},
+    )
+    assert created.status_code == 201, created.text
+    contact = created.json()
+    path = parent + f"/contacts/{contact['id']}"
+    foreign = headers(f, "foreign-contact", "quotation-other", f.organization_b)
+    other_company = f.client.post(
+        "/api/v1/companies",
+        headers=foreign,
+        json={"name": "Other organization company", "roles": ["CUSTOMER"]},
+    )
+    assert other_company.status_code == 201, other_company.text
+    other_parent = f"/api/v1/companies/{other_company.json()['id']}"
+    before = table_counts(f)
+
+    assert f.client.get(path, headers=foreign).status_code == 404
+    changed = f.client.put(
+        path,
+        headers=foreign,
+        json={
+            "full_name": "Forbidden replacement",
+            "expected_version": contact["version"],
+            "reason": "Cross organization must fail",
+        },
+    )
+    assert changed.status_code == 404
+    for target in (parent, other_parent):
+        response = f.client.get(
+            target + "/contacts", headers=foreign, params={"cursor": contact["id"]}
+        )
+        assert response.status_code == 404
+    visible = f.client.get(other_parent + "/contacts", headers=foreign)
+    assert visible.status_code == 200
+    assert visible.json()["items"] == []
+    original = f.client.get(path, headers=headers(f))
+    assert original.status_code == 200
+    assert original.json() == contact
+    assert table_counts(f) == before
+    with f.session_factory() as session:
+        assert session.scalar(select(func.count()).select_from(Contact)) == 1
 
 
 @pytest.mark.parametrize("recorder", [Activity, AuditRecorder, OutboxRecorder])

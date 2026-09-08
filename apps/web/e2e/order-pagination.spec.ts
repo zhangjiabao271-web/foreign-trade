@@ -65,7 +65,15 @@ test("order pages recover and expose older shipment sources within the session",
   await page.goto("/orders");
   await expect(page.getByText("已加载 50 份")).toBeVisible();
   const more = page.getByRole("button", { name: "加载更多订单" });
+  await expect(more).toHaveAttribute("data-slot", "button");
   await more.focus();
+  await expect(more).toBeFocused();
+  const buttonStyle = await more.evaluate((element) => ({
+    height: element.getBoundingClientRect().height,
+    outline: getComputedStyle(element).outlineStyle,
+  }));
+  expect(buttonStyle.height).toBeGreaterThanOrEqual(44);
+  expect(buttonStyle.outline).not.toBe("none");
   await page.keyboard.press("Enter");
   await expect(page.getByText(/订单分页加载失败/)).toBeVisible();
   await expect(page.locator(".order-row")).toHaveCount(50);

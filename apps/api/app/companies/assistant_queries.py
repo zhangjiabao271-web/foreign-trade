@@ -12,7 +12,7 @@ class CompanyAssistantQueries:
 
     def search(self, context: RequestContext, term: str) -> dict[str, object]:
         context.require(Permission.COMPANY_READ)
-        name = func.coalesce(Company.name, "")
+        name = Company.name
         rows = self.session.scalars(
             select(Company)
             .where(

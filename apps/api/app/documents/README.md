@@ -1,5 +1,11 @@
 # Documents
 
+ADR-033 delegates scan-job creation and success recording to Platform-owned domain_jobs ports.
+Documents retains upload/version/target validation, version-first locking and AVAILABLE replay.
+Job lookup checks tenant and DOCUMENT_SCAN type before replay; owner success staging preserves
+flush ordering and original progress/reference. Original domain evidence and null-actor worker
+activity remain in the same transaction. No new scan engine or external side effect is implied.
+
 ADR-020 document review is implemented; wider free-text policy remains open. Migration 0024 adds nullable,
 organization-bound reviewer/time/content-digest facts, leaving all old versions confidential.
 Review/restrict commands require document.read plus profit.read, an exact content digest,

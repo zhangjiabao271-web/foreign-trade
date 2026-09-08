@@ -1,0 +1,4 @@
+# Image-only eighth overlay; retain all seven preceding acceptance overlays.
+services:
+  web:
+    image: trade-fresh-acceptance-web:session-presence-20260909

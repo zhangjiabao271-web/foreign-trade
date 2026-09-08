@@ -15,8 +15,8 @@ from app.crm.enums import OpportunityStatus
 from app.crm.models import Opportunity
 from app.crm.opportunity_services import advance_from_evidence
 from app.identity.calendar import organization_timezone
-from app.inquiries.enums import InquiryStatus
 from app.inquiries.models import Inquiry
+from app.inquiries.quotation_progress import record_quotation_created
 from app.platform.idempotency import begin_command, complete_command
 from app.platform.numbering import next_document_number
 from app.platform.records import AuditRecorder, DomainEvent, OutboxRecorder
@@ -38,7 +38,7 @@ from app.sales.schemas import (
     QuotationVersionResponse,
 )
 from app.sales.state_commands import begin_state_command
-from app.work.models import Activity
+from app.work.records import record_activity
 
 MONEY_QUANTUM = Decimal("0.0001")
 RATE_QUANTUM = Decimal("0.00000001")
@@ -230,8 +230,7 @@ class QuotationCommandService:
                 values=data,
                 items_data=items_data,
             )
-            inquiry.status = InquiryStatus.QUOTING
-            inquiry.updated_by = context.user_id
+            record_quotation_created(session, context, inquiry.id)
             advance_from_evidence(
                 session, context, opportunity.id, event="quotation", evidence_id=quotation.id
             )
@@ -924,22 +923,18 @@ class QuotationCommandService:
         after: dict[str, object],
         reason: str | None = None,
     ) -> None:
-        session.add(
-            Activity(
-                organization_id=context.organization_id,
-                created_by=context.user_id,
-                updated_by=context.user_id,
-                subject_type="quotation",
-                subject_id=quotation.id,
-                activity_type=action,
-                summary=summary,
-                details={
-                    "version_id": str(version.id),
-                    "version_number": version.version_number,
-                    **({"reason": reason} if reason is not None else {}),
-                },
-                correlation_id=context.request_id,
-            )
+        record_activity(
+            session,
+            context,
+            subject_type="quotation",
+            subject_id=quotation.id,
+            activity_type=action,
+            summary=summary,
+            details={
+                "version_id": str(version.id),
+                "version_number": version.version_number,
+                **({"reason": reason} if reason is not None else {}),
+            },
         )
         self._audit_recorder.record(
             session,

@@ -16,7 +16,7 @@ from app.documents.models import Document, DocumentVersion
 from app.documents.repositories import DocumentRepository
 from app.platform.idempotency import begin_command, complete_command
 from app.platform.records import AuditRecorder, DomainEvent, OutboxRecorder
-from app.work.models import Activity
+from app.work.records import record_activity
 
 
 class DocumentReviewRequest(BaseModel):
@@ -183,18 +183,14 @@ class DocumentReviewService:
             version.updated_by = context.user_id
             action = "document.visibility_reviewed"
             details = {"version_id": str(version.id), "released": request.release}
-            session.add(
-                Activity(
-                    organization_id=context.organization_id,
-                    created_by=context.user_id,
-                    updated_by=context.user_id,
-                    subject_type="document",
-                    subject_id=document.id,
-                    activity_type=action,
-                    summary="Document version visibility reviewed",
-                    details=details,
-                    correlation_id=context.request_id,
-                )
+            record_activity(
+                session,
+                context,
+                subject_type="document",
+                subject_id=document.id,
+                activity_type=action,
+                summary="Document version visibility reviewed",
+                details=details,
             )
             self.audit.record(
                 session,

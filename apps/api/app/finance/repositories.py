@@ -56,12 +56,14 @@ class ReceivableRepository(TenantRepository[Receivable]):
     def locked_for_order(
         self, *, organization_id: UUID, sales_order_id: UUID
     ) -> Sequence[Receivable]:
-        return self.session.scalars(
+        rows = self.session.scalars(
             self._select_for_organization(organization_id)
             .where(Receivable.sales_order_id == sales_order_id)
-            .order_by(Receivable.receivable_number)
+            .order_by(Receivable.id)
             .with_for_update()
         ).all()
+        # Lock consistently with allocation/refresh, then preserve the installment display order.
+        return sorted(rows, key=lambda row: row.receivable_number)
 
     def allocated_totals(
         self, *, organization_id: UUID, receivable_ids: set[UUID]

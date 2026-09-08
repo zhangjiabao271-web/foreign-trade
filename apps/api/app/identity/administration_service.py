@@ -19,7 +19,7 @@ from app.identity.schemas import (
 )
 from app.platform.idempotency import begin_command, complete_command
 from app.platform.records import AuditRecorder, DomainEvent, OutboxRecorder
-from app.work.models import Activity
+from app.work.records import record_activity
 
 
 def rejected(code: str, detail: str) -> ApiProblem:
@@ -65,18 +65,14 @@ class AdministrationService:
         before: dict[str, object] | None = None,
     ) -> None:
         kind = "organization" if isinstance(row, Organization) else "organization_membership"
-        session.add(
-            Activity(
-                organization_id=context.organization_id,
-                created_by=context.user_id,
-                updated_by=context.user_id,
-                subject_type="organization",
-                subject_id=context.organization_id,
-                activity_type=action,
-                summary=action,
-                details={"target_id": str(row.id)},
-                correlation_id=context.request_id,
-            )
+        record_activity(
+            session,
+            context,
+            subject_type="organization",
+            subject_id=context.organization_id,
+            activity_type=action,
+            summary=action,
+            details={"target_id": str(row.id)},
         )
         self.audit.record(
             session,

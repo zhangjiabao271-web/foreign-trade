@@ -16,7 +16,7 @@ from app.procurement.content import content_digest, is_released, text_fields
 from app.procurement.models import PurchaseOrder, PurchaseOrderItem
 from app.procurement.repositories import PurchaseOrderRepository
 from app.sales.models import SalesOrder
-from app.work.models import Activity
+from app.work.records import record_activity
 
 
 class PurchaseTextReviewRequest(ContentReviewRequest):
@@ -123,18 +123,14 @@ class PurchaseTextReviewService:
             row.updated_by = context.user_id
             details = {"record_id": str(row.id), "released": request.release}
             action = "purchase_order.text_reviewed"
-            session.add(
-                Activity(
-                    organization_id=context.organization_id,
-                    created_by=context.user_id,
-                    updated_by=context.user_id,
-                    subject_type="purchase_order",
-                    subject_id=row.id,
-                    activity_type=action,
-                    summary="Purchase source text visibility reviewed",
-                    details=details,
-                    correlation_id=context.request_id,
-                )
+            record_activity(
+                session,
+                context,
+                subject_type="purchase_order",
+                subject_id=row.id,
+                activity_type=action,
+                summary="Purchase source text visibility reviewed",
+                details=details,
             )
             AuditRecorder().record(
                 session,

@@ -20,6 +20,26 @@ class Company(TenantRecordMixin, Base):
         membership_actor_foreign_key("companies", "created_by"),
         membership_actor_foreign_key("companies", "updated_by"),
         Index("ix_companies_org_created_id", "organization_id", "created_at", "id"),
+        Index(
+            "ix_companies_name_trgm_active",
+            "name",
+            postgresql_using="gin",
+            postgresql_ops={"name": "gin_trgm_ops"},
+            postgresql_where=text("deleted_at IS NULL"),
+        ),
+        Index(
+            "ix_companies_normalized_trgm_active",
+            "name_normalized",
+            postgresql_using="gin",
+            postgresql_ops={"name_normalized": "gin_trgm_ops"},
+            postgresql_where=text("deleted_at IS NULL"),
+        ),
+        Index(
+            "ix_companies_name_fts_active",
+            text("to_tsvector('simple'::regconfig, name::text)"),
+            postgresql_using="gin",
+            postgresql_where=text("deleted_at IS NULL"),
+        ),
     )
 
     name: Mapped[str] = mapped_column(String(240), nullable=False)

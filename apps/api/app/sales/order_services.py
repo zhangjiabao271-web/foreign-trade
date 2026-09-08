@@ -1,5 +1,5 @@
 from collections.abc import Sequence
-from datetime import UTC, datetime, timedelta
+from datetime import UTC, datetime
 from uuid import UUID, uuid4
 
 from sqlalchemy import select
@@ -30,7 +30,8 @@ from app.sales.order_schemas import (
     SalesOrderSourceLineResponse,
 )
 from app.sales.services import quantize_money
-from app.work.models import Activity, Task
+from app.work.confirmation_tasks import stage_procurement_preparation
+from app.work.records import record_activity
 
 
 def sales_order_not_found() -> ApiProblem:
@@ -318,23 +319,7 @@ class SalesOrderCommandService:
             order.status = target
             order.confirmed_at = now
             order.updated_by = context.user_id
-            session.add(
-                Task(
-                    organization_id=context.organization_id,
-                    created_by=context.user_id,
-                    updated_by=context.user_id,
-                    task_type="PROCUREMENT_PREPARATION",
-                    subject_type="sales_order",
-                    subject_id=order.id,
-                    title=f"Prepare procurement for {order.order_number}",
-                    priority="HIGH",
-                    due_at=now + timedelta(days=2),
-                    details={
-                        "order_number": order.order_number,
-                        "deposit_pending": target == SalesOrderStatus.DEPOSIT_PENDING,
-                    },
-                )
-            )
+            stage_procurement_preparation(session, context, order_id=order.id)
             self._record_command(
                 session,
                 context,
@@ -397,18 +382,14 @@ class SalesOrderCommandService:
         before: dict[str, object] | None,
         after: dict[str, object],
     ) -> None:
-        session.add(
-            Activity(
-                organization_id=context.organization_id,
-                created_by=context.user_id,
-                updated_by=context.user_id,
-                subject_type="sales_order",
-                subject_id=order.id,
-                activity_type=action,
-                summary=summary,
-                details={"order_number": order.order_number},
-                correlation_id=context.request_id,
-            )
+        record_activity(
+            session,
+            context,
+            subject_type="sales_order",
+            subject_id=order.id,
+            activity_type=action,
+            summary=summary,
+            details={"order_number": order.order_number},
         )
         self._audit_recorder.record(
             session,

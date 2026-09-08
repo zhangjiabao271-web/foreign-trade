@@ -16,6 +16,7 @@ from app.core.unit_of_work import UnitOfWork
 from app.platform.idempotency import begin_command, complete_command
 from app.platform.records import AuditRecorder, DomainEvent, OutboxRecorder
 from app.work.models import Activity
+from app.work.records import record_activity
 
 
 class SupplierLinkRepository:
@@ -252,21 +253,17 @@ class SupplierLinkService:
                     result.updated_by = context.user_id
                     reason = request.reason
                 session.flush()
-                session.add(
-                    Activity(
-                        organization_id=context.organization_id,
-                        created_by=context.user_id,
-                        updated_by=context.user_id,
-                        subject_type="product",
-                        subject_id=product_id,
-                        activity_type=action,
-                        summary=reason or "建立产品供应商参考记录",
-                        details={
-                            "supplier_link_id": str(result.id),
-                            "supplier_id": str(supplier_id),
-                        },
-                        correlation_id=context.request_id,
-                    )
+                record_activity(
+                    session,
+                    context,
+                    subject_type="product",
+                    subject_id=product_id,
+                    activity_type=action,
+                    summary=reason or "建立产品供应商参考记录",
+                    details={
+                        "supplier_link_id": str(result.id),
+                        "supplier_id": str(supplier_id),
+                    },
                 )
                 AuditRecorder().record(
                     session,

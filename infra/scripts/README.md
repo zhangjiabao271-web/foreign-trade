@@ -1,5 +1,66 @@
 # Scripts
 
+## Web session-presence deployment
+
+deploy-session-presence.ps1 reused the reviewed guarded pattern for Web only, with explicit
+old/new Web IDs and all eight overlays. Default preflight and subsequent -Apply both passed.
+Full Web environment arrays matched, including existing login/session secrets; six other
+container IDs and22commercial/file table fingerprints were unchanged. No migration, orphan
+cleanup or provider call. Script parse and image-overlay format passed; code-simplifier review
+kept the limited one-time target explicit instead of broadening the already-executed backend
+script. Web and platform health200, API ready and fresh real-session leads read passed.
+This script has already executed and now refuses the changed source image. Preserve old images.
+
+## Owner-port coordinated deployment
+
+deploy-owner-ports.ps1 was executed successfully on Sep9 after a successful default preflight.
+The first preflight stopped on Redis having no explicit environment property; optional-property
+handling was corrected before any mutation. PowerShell parsing and overlay formatting passed.
+The script defaults to no mutation; -Apply was used once for API/Worker/beat. Exact old images
+are required, so it now refuses a rerun. Do not relax this guard or rerun earlier deploy scripts.
+All six preceding overlays plus owner-ports.compose.yml are required for current image selection.
+Secrets/configuration stay in process memory; environment comparisons never print their values.
+No migration/build/orphan removal is performed. Complete runtime environments, four unrelated
+container identities and the explicitly listed22commercial/file tables matched after deployment.
+That bounded fingerprint is not a complete backup or an all-table preservation certificate.
+API live/ready200, schema0035, zero active AI, actual Worker Redis inspect pong and container
+health passed afterward. Retained recovery containers were not removed. No real AI was launched.
+
+## Settlement-permission API deployment
+
+deploy-settlement-permission.ps1 is the Sep9 API-only follow-up. It additionally requires the
+exact previous inquiry-port image and zero PENDING/RUNNING AI runs, then applies the verified
+settlement-permission image using the same fixed project, overlays and22-table preservation
+checks. Already executed successfully; a rerun refuses the changed source image. No migration,
+orphan removal or model invocation. Release0035 now selects this API; Worker/Web remain unchanged.
+Postdeploy readiness and both pre-order-access permission denials passed; see V1_STATUS.
+
+## Inquiry-owner API deployment
+
+deploy-inquiry-port.ps1 is an API-only local acceptance update, already executed Sep9.
+It validates project/service labels and exact candidate image, copies only required settings
+in memory, retains all five behavioral overlays, and recreates only API. It compares the full
+API environment and fingerprints of 22 named commercial/file tables before/after; asynchronous
+operational tables are excluded explicitly. Other six container identities must remain unchanged.
+No migration, backup overwrite, orphan removal or model call occurs. This is not an all-table
+backup or general production deployment tool. Health and live-route acceptance are separate.
+The release-0035 overlay now selects the inquiry-port-20260909 API image; Worker/Web unchanged.
+
+## Company-search0035 migration copy
+
+The user-approved CurrentUser-encrypted archive under backups/20260908-company-search-0035
+has already been restored and migrated in trade_migration_0035_acceptance. Preserve both.
+apps/api/scripts/rehearse_company_search_0035.py is a one-time target-guarded probe: source is
+read-only, all45 table fingerprints must match before migration and remain unchanged afterward.
+It refuses a target not at0034; do not recreate or downgrade the retained0035 target to rerun it.
+The actual acceptance source is now0035 after guarded deployment on2026-09-08.
+deploy-company-search-0035.ps1 and deploy_company_search_0035.py have already run successfully;
+they verify the preserved encrypted archive,stop writers,compare45tables against the retained
+restore,migrate once and preserve identity/model configuration. Do not rerun them on0035 or
+recreate the backup/restore to repeat acceptance. They are not general production deployment
+tools. Use all five behavioral overlays plus release-0035.compose.yml for current image
+selection; consult latest V1_STATUS for exact runtime identities and remaining boundaries.
+
 ## Current-user encrypted joint recovery
 
 用户已批准本机 DPAPI CurrentUser 保护，详见 `docs/acceptance/JOINT_LOCAL_RECOVERY.md`。

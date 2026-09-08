@@ -1,5 +1,19 @@
 # Work
 
+ADR-034: records.record_activity stages domain evidence from trusted RequestContext, while
+record_system_activity retains null actors and the trusted document event correlation. Domain
+callers retain authorization, subject validation, locking, replay and transaction ownership.
+The recorder performs no query/flush/commit or recursive audit/outbox, and returns no ORM.
+Original fields, database timestamps, evidence counts and confidential defaults are preserved.
+It is not a public arbitrary-activity API and does not approve/release text or grant permissions.
+
+ADR-032: confirmation_tasks.stage_procurement_preparation owns the original confirmation task
+in the Sales caller's transaction. It independently requires order.confirm and obtains immutable
+tenant-checked facts from Sales' confirmation_facts port. It stages without flush/commit or extra
+evidence; title, HIGH priority, two-day due time, details and confidential defaults are unchanged.
+Sales retains order/key locking, version/state checks, replay and original atomic evidence.
+This is not AI task execution; no fabricated approval and no extra task.write grant are involved.
+
 Tasks and activities are organization-scoped. Order tasks are listed only after checking
 order-read permission and the organization-owned order. Completing an order task takes the
 order lock before the task lock, matching order completion's lock order.

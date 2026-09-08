@@ -14,7 +14,7 @@ from app.crm.content import content_digest, is_released, text_fields
 from app.crm.models import Lead, Opportunity
 from app.platform.idempotency import begin_command, complete_command
 from app.platform.records import AuditRecorder, DomainEvent, OutboxRecorder
-from app.work.models import Activity
+from app.work.records import record_activity
 
 CrmTextKind = Literal["lead", "opportunity"]
 
@@ -125,18 +125,14 @@ class CrmTextReviewService:
             row.updated_by = context.user_id
             details = {"record_id": str(row.id), "released": request.release}
             action = "crm.text_reviewed"
-            session.add(
-                Activity(
-                    organization_id=context.organization_id,
-                    created_by=context.user_id,
-                    updated_by=context.user_id,
-                    subject_type=kind,
-                    subject_id=row.id,
-                    activity_type=action,
-                    summary="CRM text visibility reviewed",
-                    details=details,
-                    correlation_id=context.request_id,
-                )
+            record_activity(
+                session,
+                context,
+                subject_type=kind,
+                subject_id=row.id,
+                activity_type=action,
+                summary="CRM text visibility reviewed",
+                details=details,
             )
             AuditRecorder().record(
                 session,

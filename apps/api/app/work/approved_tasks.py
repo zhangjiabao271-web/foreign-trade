@@ -7,7 +7,8 @@ from app.auth.errors import ApiProblem
 from app.auth.permissions import Permission
 from app.platform.records import AuditRecorder, DomainEvent, OutboxRecorder
 from app.sales.order_repositories import SalesOrderRepository
-from app.work.models import Activity, Task
+from app.work.models import Task
+from app.work.records import record_activity
 
 
 def lock_open_order(session: Session, context: RequestContext, order_id: UUID) -> None:
@@ -47,18 +48,14 @@ def create_approved_follow_up(
         details={"approval_id": str(approval_id), "human_approved": True},
     )
     session.add(task)
-    session.add(
-        Activity(
-            organization_id=context.organization_id,
-            created_by=context.user_id,
-            updated_by=context.user_id,
-            subject_type="sales_order",
-            subject_id=order_id,
-            activity_type="task.created_from_approval",
-            summary="Human-approved follow-up task created",
-            details={"task_id": str(task.id), "approval_id": str(approval_id)},
-            correlation_id=context.request_id,
-        )
+    record_activity(
+        session,
+        context,
+        subject_type="sales_order",
+        subject_id=order_id,
+        activity_type="task.created_from_approval",
+        summary="Human-approved follow-up task created",
+        details={"task_id": str(task.id), "approval_id": str(approval_id)},
     )
     AuditRecorder().record(
         session,

@@ -72,6 +72,31 @@ test("creates and converts a lead through the complete browser path", async ({
   await expect(detail.getByText("转换凭证已建立")).toBeVisible();
   await expect(detail.getByText("5 条记录")).toBeVisible();
 
+  const manifest = page.getByRole("region", { name: "潜在客户", exact: true });
+  const convertedLead = manifest.getByRole("link", {
+    name: /Aurora Components GmbH/,
+  });
+  await page.getByLabel("搜索线索", { exact: true }).fill("aUrOrA");
+  await expect(convertedLead).toHaveCount(1);
+  await expect(manifest.getByText("1 条", { exact: true })).toBeVisible();
+  await page.getByLabel("筛选状态", { exact: true }).selectOption("NEW");
+  await expect(
+    manifest.getByText("暂无匹配线索", { exact: true }),
+  ).toBeVisible();
+  await expect(convertedLead).toHaveCount(0);
+  await page.getByLabel("筛选状态", { exact: true }).selectOption("CONVERTED");
+  await expect(convertedLead).toHaveCount(1);
+  await page.getByLabel("搜索线索", { exact: true }).fill("mArTa");
+  await expect(convertedLead).toHaveCount(1);
+  await expect(manifest.getByText("1 条", { exact: true })).toBeVisible();
+  await page.getByLabel("搜索线索", { exact: true }).fill("absent-lead-search");
+  await expect(
+    manifest.getByText("暂无匹配线索", { exact: true }),
+  ).toBeVisible();
+  await page.getByLabel("搜索线索", { exact: true }).fill("Aurora");
+  await expect(convertedLead).toHaveCount(1);
+  await expect(detail.getByText("5 条记录")).toBeVisible();
+
   await page.goto("/opportunities");
   await page.getByRole("link", { name: /Aurora Components GmbH/ }).click();
   await expect(page.getByText("当前阶段 · 待询盘")).toBeVisible();

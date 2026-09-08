@@ -1,5 +1,7 @@
 "use client";
 
+import { Button } from "@trade-workbench/ui";
+
 export function CursorPageControls({
   query,
   label,
@@ -21,14 +23,14 @@ export function CursorPageControls({
   return (
     <div className="list-message">
       {query.hasNextPage && (
-        <button
+        <Button
           type="button"
-          className="secondary-button"
+          variant="secondary"
           disabled={disabled || query.isFetching}
           onClick={() => void query.fetchNextPage()}
         >
           {query.isFetchingNextPage ? `正在加载${label}…` : `加载更多${label}`}
-        </button>
+        </Button>
       )}
       {query.isError && (
         <>
@@ -37,14 +39,14 @@ export function CursorPageControls({
               ? `${label}分页加载失败，已读取的记录仍保留。可重试，或重新加载清单。`
               : `${label}清单加载失败，请重新加载清单。`}
           </p>
-          <button
+          <Button
             type="button"
-            className="quiet-button"
+            variant="quiet"
             disabled={disabled || query.isFetching}
             onClick={() => void query.restart()}
           >
             重新加载{label}清单
-          </button>
+          </Button>
         </>
       )}
     </div>

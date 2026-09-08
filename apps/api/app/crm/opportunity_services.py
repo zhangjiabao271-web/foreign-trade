@@ -18,6 +18,7 @@ from app.platform.idempotency import begin_command, complete_command
 from app.platform.records import AuditRecorder, DomainEvent, OutboxRecorder
 from app.work.content import activity_response
 from app.work.models import Activity
+from app.work.records import record_activity
 from app.work.schemas import ActivityResponse
 
 
@@ -59,18 +60,14 @@ def record_stage(
         "status": target,
         "evidence_id": str(evidence_id) if evidence_id else None,
     }
-    session.add(
-        Activity(
-            organization_id=context.organization_id,
-            created_by=context.user_id,
-            updated_by=context.user_id,
-            subject_type="opportunity",
-            subject_id=record.id,
-            activity_type=action,
-            summary=reason,
-            details={"before": previous, **details},
-            correlation_id=context.request_id,
-        )
+    record_activity(
+        session,
+        context,
+        subject_type="opportunity",
+        subject_id=record.id,
+        activity_type=action,
+        summary=reason,
+        details={"before": previous, **details},
     )
     AuditRecorder().record(
         session,

@@ -11,6 +11,11 @@ An inquiry belongs to one organization, opportunity and customer company. Creati
 V1 direct write; quotation creation advances it from `OPEN` to `QUOTING` inside the quotation
 transaction. Clients never write the status field.
 
+ADR030 moves this assignment into quotation_progress.record_quotation_created. The port checks
+quotation.write and a live tenant inquiry, keeps the caller transaction and existing lock order,
+and refuses CLOSED with INVALID_STATE_TRANSITION. It never accepts a requested status or commits.
+Original quotation evidence remains atomic; matching quotation replay bypasses fresh progression.
+
 The inquiry description and customer reference are source facts. Quotation versions take their
 own commercial snapshots and do not mutate the inquiry.
 

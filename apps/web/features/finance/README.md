@@ -1,5 +1,10 @@
 # Finance UI
 
+FundingEstimate now uses the native-only shared shadcn-derived Button with the
+existing quiet-button style. Its refresh cannot implicitly submit a surrounding
+form. Permission gates, exact decimal rendering, pending/retry and error hiding
+are unchanged; the shared component does not own queries or financial rules.
+
 Shared WorkTextReview permission mapping includes quotation and shipment activity subjects from
 the generated contract, each requiring its original read right plus profit.read. Existing exact
 snapshot/confirmation/retry behavior is unchanged. Failed review refresh now hides the cached

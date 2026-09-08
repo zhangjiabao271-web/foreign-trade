@@ -30,7 +30,7 @@ from app.sales.models import SalesOrder
 from app.sales.order_enums import SalesOrderStatus
 from app.sales.order_repositories import SalesOrderRepository
 from app.sales.text_content import contract_response
-from app.work.models import Activity
+from app.work.records import record_activity
 
 
 class ContractRepository:
@@ -261,18 +261,14 @@ class ContractService:
                 row.updated_by = context.user_id
             session.flush()
             after = ContractResponse.model_validate(row).model_dump(mode="json")
-            session.add(
-                Activity(
-                    organization_id=context.organization_id,
-                    created_by=context.user_id,
-                    updated_by=context.user_id,
-                    subject_type="sales_order",
-                    subject_id=order_id,
-                    activity_type=f"sales_contract.{action}",
-                    summary=f"{row.contract_number}: {action}",
-                    details={"contract_id": str(row.id)},
-                    correlation_id=context.request_id,
-                )
+            record_activity(
+                session,
+                context,
+                subject_type="sales_order",
+                subject_id=order_id,
+                activity_type=f"sales_contract.{action}",
+                summary=f"{row.contract_number}: {action}",
+                details={"contract_id": str(row.id)},
             )
             self.audit.record(
                 session,

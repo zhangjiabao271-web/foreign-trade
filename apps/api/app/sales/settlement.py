@@ -4,10 +4,11 @@ from sqlalchemy.orm import Session
 
 from app.auth.context import RequestContext
 from app.auth.errors import ApiProblem
+from app.auth.permissions import Permission
 from app.platform.records import AuditRecorder, DomainEvent, OutboxRecorder
 from app.sales.models import SalesOrder
 from app.sales.order_enums import SalesOrderStatus
-from app.work.models import Activity
+from app.work.records import record_activity
 
 
 class OrderSettlementPort:
@@ -28,6 +29,8 @@ class OrderSettlementPort:
         amount: str,
         reason: str | None = None,
     ) -> None:
+        permission = Permission.PAYMENT_REVERSE if reversed else Permission.PAYMENT_ALLOCATE
+        context.require(permission)
         if order.organization_id != context.organization_id:
             raise ApiProblem(404, "SALES_ORDER_NOT_FOUND", "Order not found", "Order not found.")
         previous = order.status
@@ -38,18 +41,14 @@ class OrderSettlementPort:
         order.updated_by = context.user_id
         action = "sales_order.payment_reversed" if reversed else "sales_order.payment_allocated"
         details = {"payment_id": payment_id, "amount": amount, "deposit": deposit}
-        session.add(
-            Activity(
-                organization_id=context.organization_id,
-                created_by=context.user_id,
-                updated_by=context.user_id,
-                subject_type="sales_order",
-                subject_id=order.id,
-                activity_type=action,
-                summary=f"Payment allocation for {order.order_number}",
-                details=details,
-                correlation_id=context.request_id,
-            )
+        record_activity(
+            session,
+            context,
+            subject_type="sales_order",
+            subject_id=order.id,
+            activity_type=action,
+            summary=f"Payment allocation for {order.order_number}",
+            details=details,
         )
         self.audit.record(
             session,

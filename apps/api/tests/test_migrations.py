@@ -10,7 +10,7 @@ from sqlalchemy.exc import DBAPIError, IntegrityError
 
 ALEMBIC_INI = Path(__file__).parents[1] / "alembic.ini"
 IDENTITY_REVISION = "20260903_0001"
-HEAD_REVISION = "20260908_0034"
+HEAD_REVISION = "20260908_0035"
 EXPECTED_TABLES = {
     "ai_disclosures",
     "ai_runs",

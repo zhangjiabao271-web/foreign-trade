@@ -7,18 +7,17 @@ from sqlalchemy.orm import Session, sessionmaker
 from app.auth.context import RequestContext
 from app.auth.errors import ApiProblem
 from app.auth.permissions import Permission
-from app.companies.enums import CompanyRoleType
-from app.companies.models import Company, CompanyRole, Contact
+from app.companies.lead_conversion import ConversionSource, resolve_conversion_parties
 from app.companies.normalization import normalize_text
 from app.core.unit_of_work import UnitOfWork
 from app.crm.content import lead_response
 from app.crm.enums import LeadStatus, OpportunityStatus
 from app.crm.models import Lead, Opportunity
-from app.crm.repositories import ConversionRepository, LeadRepository
+from app.crm.repositories import LeadRepository
 from app.crm.schemas import LeadResponse
 from app.platform.records import AuditRecorder, DomainEvent, OutboxRecorder
 from app.work.content import activity_response
-from app.work.models import Activity
+from app.work.records import record_activity
 from app.work.schemas import ActivityResponse
 
 TRANSITIONS: dict[tuple[LeadStatus, str], LeadStatus] = {
@@ -132,59 +131,24 @@ class LeadCommandService:
                     "Lead must be RESPONDED before conversion.",
                 )
 
-            conversion = ConversionRepository(unit.session)
-            normalized_name = normalize_text(lead.company_name)
-            company = conversion.find_company(
-                organization_id=context.organization_id,
-                normalized_name=normalized_name,
-            )
-            if company is None:
-                company = Company(
-                    organization_id=context.organization_id,
-                    created_by=context.user_id,
-                    updated_by=context.user_id,
-                    name=lead.company_name,
-                    name_normalized=normalized_name,
+            parties = resolve_conversion_parties(
+                unit.session,
+                context,
+                ConversionSource(
+                    company_name=lead.company_name,
                     country_code=lead.country_code,
-                )
-                unit.session.add(company)
-                unit.session.flush()
-            if (
-                conversion.find_role(
-                    organization_id=context.organization_id,
-                    company_id=company.id,
-                    role=CompanyRoleType.CUSTOMER,
-                )
-                is None
-            ):
-                unit.session.add(
-                    CompanyRole(
-                        organization_id=context.organization_id,
-                        created_by=context.user_id,
-                        updated_by=context.user_id,
-                        company_id=company.id,
-                        role=CompanyRoleType.CUSTOMER,
-                    )
-                )
-
-            contact = Contact(
-                organization_id=context.organization_id,
-                created_by=context.user_id,
-                updated_by=context.user_id,
-                company_id=company.id,
-                full_name=lead.contact_name or lead.company_name,
-                email=lead.email,
-                email_normalized=lead.email_normalized,
-                phone=lead.phone,
+                    contact_name=lead.contact_name,
+                    email=lead.email,
+                    email_normalized=lead.email_normalized,
+                    phone=lead.phone,
+                ),
             )
-            unit.session.add(contact)
-            unit.session.flush()
             opportunity = Opportunity(
                 organization_id=context.organization_id,
                 created_by=context.user_id,
                 updated_by=context.user_id,
-                company_id=company.id,
-                contact_id=contact.id,
+                company_id=parties.company_id,
+                contact_id=parties.contact_id,
                 source_lead_id=lead.id,
                 name=f"{lead.company_name} opportunity",
                 status=OpportunityStatus.OPEN,
@@ -193,14 +157,19 @@ class LeadCommandService:
             unit.session.flush()
             old_status = LeadStatus(lead.status)
             lead.status = LeadStatus.CONVERTED
-            lead.converted_company_id = company.id
-            lead.converted_contact_id = contact.id
+            lead.converted_company_id = parties.company_id
+            lead.converted_contact_id = parties.contact_id
             lead.converted_opportunity_id = opportunity.id
             lead.converted_at = datetime.now(UTC)
             lead.updated_by = context.user_id
             self._record_change(unit.session, context, lead, "converted", old_status)
             unit.commit()
-            return lead_response(context, lead), company.id, contact.id, opportunity.id
+            return (
+                lead_response(context, lead),
+                parties.company_id,
+                parties.contact_id,
+                opportunity.id,
+            )
 
     def _locked_lead(self, session: Session, organization_id: UUID, lead_id: UUID) -> Lead:
         lead = LeadRepository(session).get_for_update(
@@ -228,18 +197,14 @@ class LeadCommandService:
         before_status: LeadStatus | None,
     ) -> None:
         event_type = f"lead.{command}.v1"
-        session.add(
-            Activity(
-                organization_id=context.organization_id,
-                created_by=context.user_id,
-                updated_by=context.user_id,
-                subject_type="lead",
-                subject_id=lead.id,
-                activity_type=event_type,
-                summary=f"Lead {command.replace('-', ' ')}",
-                details={"status": str(lead.status)},
-                correlation_id=context.request_id,
-            )
+        record_activity(
+            session,
+            context,
+            subject_type="lead",
+            subject_id=lead.id,
+            activity_type=event_type,
+            summary=f"Lead {command.replace('-', ' ')}",
+            details={"status": str(lead.status)},
         )
         self._audit.record(
             session,

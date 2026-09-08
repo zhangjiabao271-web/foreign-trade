@@ -37,6 +37,13 @@ order lock then its receivables. No finance operation holds a receivable lock wh
 an order lock. Receipt recording, allocation, reversal and their activity/audit/outbox writes
 commit together. Number sequences use an atomic PostgreSQL upsert.
 
+Order-scoped receivable reads now acquire locks by UUID, matching allocation and due refresh,
+then sort the materialized rows by receivable number to preserve the existing installment
+response order. A real PostgreSQL blocking probe with opposite UUID/number ordering proved
+the former inversion; the corrected query waits for the first UUID without retaining a later
+one. The test uses NOWAIT to expose inversion without waiting for a deadlock victim. No amount,
+state, permission, response-order or migration change. Deployment status is in V1_STATUS.
+
 Finance and managers may record/allocate/reverse. Only managers/admins may complete an order
 or explicitly waive unsettled receivables with a reason. A waiver preserves the receivable debt.
 Reversal after completion or after planning a shipment against a deposit is blocked pending

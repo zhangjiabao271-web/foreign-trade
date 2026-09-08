@@ -1,0 +1,10 @@
+# Image-only overlay after all five acceptance overlays. Never use for production.
+services:
+  api:
+    image: trade-fresh-acceptance-api:settlement-permission-20260909
+  worker:
+    image: trade-fresh-acceptance-worker:queues-20260908
+  worker-beat:
+    image: trade-fresh-acceptance-worker:queues-20260908
+  web:
+    image: trade-fresh-acceptance-web:ui-baseline-20260908

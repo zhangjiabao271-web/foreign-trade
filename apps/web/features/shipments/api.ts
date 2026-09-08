@@ -218,15 +218,14 @@ export function useUploadShipmentDocument(shipmentId: string) {
   return useMutation({
     mutationFn: async (input: {
       file: File;
-      documentType: string;
+      documentType: components["schemas"]["DocumentType"];
       replacement?: { documentId: string; expectedVersion: number };
     }) => {
       return uploadDocument(
         sessionClient(),
         {
           file: input.file,
-          documentType:
-            input.documentType as components["schemas"]["DocumentType"],
+          documentType: input.documentType,
           targetType: "SHIPMENT",
           targetId: shipmentId,
           replacement: input.replacement,

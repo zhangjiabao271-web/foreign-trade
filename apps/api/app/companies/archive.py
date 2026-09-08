@@ -17,6 +17,7 @@ from app.platform.idempotency import begin_command, complete_command
 from app.platform.records import AuditRecorder, DomainEvent, OutboxRecorder
 from app.work.content import activity_response
 from app.work.models import Activity
+from app.work.records import record_activity
 from app.work.schemas import ActivityResponse
 
 
@@ -366,18 +367,14 @@ class CompanyArchiveService:
         reason: str | None,
     ) -> None:
         target = action.split(".")[0]
-        session.add(
-            Activity(
-                organization_id=context.organization_id,
-                created_by=context.user_id,
-                updated_by=context.user_id,
-                subject_type="company",
-                subject_id=company_id,
-                activity_type=action,
-                summary=reason or ("建立客商档案" if target == "company" else "新增联系人"),
-                details={"record_id": str(record_id), "changed_fields": list(after)},
-                correlation_id=context.request_id,
-            )
+        record_activity(
+            session,
+            context,
+            subject_type="company",
+            subject_id=company_id,
+            activity_type=action,
+            summary=reason or ("建立客商档案" if target == "company" else "新增联系人"),
+            details={"record_id": str(record_id), "changed_fields": list(after)},
         )
         AuditRecorder().record(
             session,

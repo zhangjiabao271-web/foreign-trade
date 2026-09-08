@@ -21,7 +21,11 @@ export type ArchiveCommand =
       body: ContactUpdate;
       key: string;
     }
-  | { kind: "add-role"; id: string; body: { role: CompanyRole } };
+  | {
+      kind: "add-role";
+      id: string;
+      body: components["schemas"]["CompanyRoleRequest"];
+    };
 
 export function useCompanies(
   scope: string,

@@ -4,6 +4,26 @@ Source inspection: 2026-09-06. This inventory is not acceptance and does not nar
 ADR-020 is authoritative. Company/contact/product identification stays visible under original
 permissions by explicit user decision; entering costs in those identifiers is prohibited.
 
+## Sep9 current commercial-history supplement
+
+The old statement below that shipment history has no exposed route is superseded. Current
+fulfillment/routers.py exposes /shipments/{id}/activities through WorkQueryService; quotation
+activities and sales-order activity-history use the same protected projection. Read complete
+Work services,content,timeline and activity_access bodies plus fulfillment response schemas
+and the relevant router body. Owner/domain-read permission is checked before the tenant-bound
+timeline query; cursor anchors additionally bind subject type and ID. Unreleased summary/details
+are null/empty for low roles,while source rows remain unchanged; release hashes include owner,
+organization,record/version,text and details. This is distinct from releasing shipment files.
+
+New test_commercial_timelines.py run:3passed/7.38s,exit0,existinghttpxwarning; report
+tmp/commercial-timeline-final-20260909.xml. Each of quotation/shipment/order covers105 seeded
+same-time history records plus real original events,complete unique pagination,six-role cost
+visibility,foreign/deleted owner denial,invalid cursor,permission refusal before any SQL,
+exact-version safe-text release and confidentiality after text mutation. Query counts remain
+2 for first page and3 with cursor. These are fixture identities and seeded history,not a new
+live Logto browser run. No application source,runtime or business data changed in this review.
+The chronology below is not a current defect list; use named newer evidence for each surface.
+
 ## Confirmed remaining source surfaces
 
 - AI update2026-09-07: ADR-026/0033 now protects run/create/replay, tools and approval responses;
