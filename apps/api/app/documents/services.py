@@ -435,6 +435,12 @@ class DocumentCommandService:
     ) -> DocumentAggregate:
         context.require(Permission.DOCUMENT_WRITE)
         with self._session_factory() as session:
+            repository = DocumentRepository(session)
+            if (
+                repository.get(organization_id=context.organization_id, record_id=document_id)
+                is None
+            ):
+                raise document_not_found()
             version_snapshot = session.scalar(
                 select(DocumentVersion).where(
                     DocumentVersion.organization_id == context.organization_id,
@@ -453,10 +459,12 @@ class DocumentCommandService:
             pending_upload = version_snapshot.status == DocumentVersionStatus.PENDING_UPLOAD
             targets = [
                 (DocumentLinkTargetType(link.target_type), link.target_id)
-                for link in DocumentRepository(session).links(
+                for link in repository.links(
                     organization_id=context.organization_id, document_id=document_id
                 )
             ]
+            if not targets:
+                raise document_not_found()
             for target_type, target_id in targets:
                 require_target(
                     session,
@@ -512,6 +520,9 @@ class DocumentCommandService:
             )
             if document is None or version is None or version.document_id != document.id:
                 raise document_not_found()
+            # Storage inspection releases the read session; reauthorize live links
+            # before recording completion or accepting a replay.
+            require_document_targets(session, context, document.id)
             if version.status in {
                 DocumentVersionStatus.UPLOADED,
                 DocumentVersionStatus.SCANNING,

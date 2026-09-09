@@ -1,5 +1,36 @@
 # Full-guide acceptance audit
 
+## Document completion access correction (Sep9; source only)
+
+Documents router has ten operations: review GET/POST, linked list, create upload, complete,
+replacement upload, resume, detail, latest download and historical download. Source review
+found that complete checked the version before the live parent document and allowed an empty
+active-link set. New test_document_completion_access.py reproduced two failures in5.51s:
+deleted-document calls touched storage before404; deleted-link completion did not reject.
+Report: tmp/document-completion-before-20260909.xml. Synthetic soft deletion was confined to
+disposable PostgreSQL fixtures; no real document, link, object or business state was changed.
+
+Completion now requires a live tenant document and nonempty links before inspecting storage,
+then rechecks current target access after inspection in the write transaction. Existing target
+lock ordering, pinned-object verification, legacy revalidation and replay remain. No new API,
+schema, deletion command, malware engine or authorization grant. This enforces the existing
+access baseline rather than changing architecture. Full selected document/version/link/job,
+commercial and evidence snapshots prove rejected commands do not partially write.
+
+New final three tests passed7.05s (tmp/document-completion-final-20260909.xml), including link
+removal during inspection and owner completion/replay recovery. Earlier combined two cases
+plus recovery, legacy pinning and review tests passed42/1 existing warning in63.96s
+(tmp/document-completion-related-20260909.xml). These overlapping reports are not additive.
+Ruff/format pass, strict mypy219 files passes, client generation check exits0/no drift.
+Code-simplifier review retained explicit guards and the existing repository/access helper.
+Additional current-source storage regression passed15/1 existing warning in17.36s,
+tmp/document-storage-final-20260909.xml: final three access tests, real MinIO replacement and
+pinned historical download, four-target checklist matrix, storage versioning and shipment
+document journeys. The real-storage test uses its own random bucket and removes only that
+bucket's enumerated test versions. It does not touch acceptance objects or repeat user download.
+This correction is not deployed and is not covered by fifth CI at ba38392; actual API remains
+the previously verified forwarder image. Broader Documents path reconciliation remains open.
+
 ## Forwarder correction deployed to acceptance API (Sep9)
 
 Subsequent evidence supersedes the pending-deployment statement below. Candidate build from

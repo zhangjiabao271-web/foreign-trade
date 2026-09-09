@@ -30,6 +30,11 @@ PostgreSQL owns document identity, tenant ownership, immutable version metadata,
 availability and business links. MinIO/S3 stores only binary objects under randomized,
 organization-prefixed keys; object keys contain no customer names or other business PII.
 
+Completion requires a live organization-owned document and nonempty active business links
+before storage inspection, then rechecks linked-target access in the write transaction.
+Deleted or unlinked evidence cannot queue a scan or accept a completion replay. This does
+not add a deletion/unlink API or change immutable storage, legacy pinning or finality rules.
+
 The upload flow creates a `PENDING_UPLOAD` version and a 15-minute presigned PUT URL. Completion
 checks object size, MIME type and SHA-256 before recording `UPLOADED` and queuing a PostgreSQL-backed
 scan job. The current V1 worker is a deliberately minimal scan/parse framework: it idempotently marks

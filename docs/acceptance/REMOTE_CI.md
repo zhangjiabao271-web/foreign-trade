@@ -8,6 +8,11 @@
 此提交包含Work、采购、Sales查询及第四轮成功记录。不得重启活跃运行或套用旧轮成功。
 后续本机Sales跨组织命令补充不在该提交；其上传与CI需另行精确对应。
 
+后续查询确认pnpm test已success，浏览器验收仍in_progress，构建尚未开始。
+container-smoke已success；归档原始日志确认0035(head)、Web/API ready、
+PostgreSQL/Redis/MinIO依赖true及Worker pong/1 node online。尚不宣称整轮通过。
+本机货代和附件完成上传修复同样不在此轮提交，不能借用该结果验收。
+
 ## 第四次运行全部通过（2026-09-09）
 
 34316018142已终结，精确提交de8add878148c37658d12d9fca39ed67e62f1753。
