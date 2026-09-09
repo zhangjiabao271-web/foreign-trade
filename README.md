@@ -4,6 +4,9 @@
 
 规范性实施基线见 [`docs/IMPLEMENTATION_GUIDE.md`](docs/IMPLEMENTATION_GUIDE.md)。
 
+当前验收入口见 [`docs/acceptance/CURRENT_ACCEPTANCE.md`](docs/acceptance/CURRENT_ACCEPTANCE.md)，
+用于区分最新证据、已结束的人工交接与仍未关闭的门槛；旧运行记录保留作历史。
+
 ## 当前组成
 
 - `apps/web`：Next.js 16 / React 19 的 Web 壳层与健康端点。
