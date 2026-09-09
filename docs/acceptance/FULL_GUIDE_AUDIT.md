@@ -1,5 +1,29 @@
 # Full-guide acceptance audit
 
+## Sales repository and read-service path supplement (Sep9)
+
+Read the complete Sales README, quotation/order routers and both repositories, shared tenant
+repository, and both query-service implementations. This supplement is limited to reads: it
+does not close remaining Sales command or commercial-text review mappings by inference.
+
+New test_sales_repository_paths.py builds an accepted quotation and order through existing
+commands in a disposable PostgreSQL database, then uses an actual active organization-B manager.
+Direct checks cover both inherited get/list/count paths; quotation locked parent/current,
+versions/items/current-list; order quotation lookup/locked parent/recent-list/items/batched-items/
+source-lines/locked-items. Foreign results are empty or404, including service detail/cursor/source
+resolution. HTTP list/detail/cursor repeats the check with a valid B-manager token. Six denied
+query invocations (including empty source-line input) must return403 before any SQL. Complete
+selected quotation/version/item/order/line/activity/audit/outbox/key rows remain unchanged.
+
+Initial isolated execution: 1 passed, 1 existing Starlette deprecation warning, 3.21 seconds;
+tmp/sales-query-paths-20260909.xml. Ruff formatting corrected one long assertion; subsequent
+Ruff lint/format checks pass. Code-simplifier review retained explicit path assertions and one
+shared snapshot helper; no application change or deployment. This local test is not part of
+de8add8 or remote run34316018142. Related execution (new query test plus decision roles/states
+and customer-review/revision matrix) subsequently completed: 182 passed, 1 existing warning,
+225.03 seconds, session8626 exit0; tmp/sales-query-state-related-20260909.xml. This confirms the
+read-path supplement alongside the existing state/role matrices, not every Sales command.
+
 ## Procurement concrete path and command map (Sep9)
 
 Read Procurement README, complete business/text routers, repository, command/query services and

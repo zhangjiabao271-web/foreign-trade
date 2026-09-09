@@ -6,7 +6,8 @@
 de8add878148c37658d12d9fca39ed67e62f1753。未改变网络代理、证书校验或仓库权限。
 [运行34316018142](https://github.com/zhangjiabao271-web/foreign-trade/actions/runs/34316018142)
 已由GitHub接口确认in_progress，精确对应该提交。quality job102352290878已完成
-客户端/漂移/格式/lint/类型检查，正在pnpm test；尚无完整成功结论。
+客户端/漂移/格式/lint/类型检查；pnpm test已success，浏览器主链运行中，
+尚无完整成功结论，具体测试数量待终态日志核对。
 container-smoke job102352290685已success，原始日志确认20260908_0035(head)、
 Web/API ready及三项依赖true、Worker pong和1 node online。
 此运行含合同、身份、CRM、公司、产品和worker补充，不含随后本机新增的Work测试。
