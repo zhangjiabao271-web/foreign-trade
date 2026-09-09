@@ -1,5 +1,65 @@
 # Full-guide acceptance audit
 
+## Identity administration concrete path map (Sep9)
+
+Read Identity README, administration query/repository/service and primary tests, identity
+membership repository and calendar port. Public administration has three reads and five writes:
+organization settings, member list/detail; settings update, add member, change role, disable,
+reactivate. Discovery/context remains the separately verified authentication boundary, not an
+organization-management endpoint or permission to list arbitrary global identities.
+
+Existing administration24 and last-admin8 tests cover allowed lifecycle, active identity checks,
+version/replay, foreign member/detail/cursor and all three foreign mutation endpoints, global
+user-name preservation, five operations x three evidence faults, concurrent mutual demotion,
+ineligible alternate administrators and data-preserving index migration. Authorization locks the
+selected organization and rechecks current eligible ADMIN before keys or writes. Adding an
+existing global user joins membership only; it does not reset passwords or edit Logto.
+
+New `test_identity_role_boundary.py` covers all five non-admin roles against all eight HTTP
+entries, five service operations with actual role permissions and again with the prior ADMIN
+context. Every rejection preserves complete organization/user/member/activity/audit/outbox/key
+rows; three query-service denials occur before SQL. This directly tests stale privileged context,
+not only a missing permission token. The test demotion is isolated fixture preparation, not an
+application bypass of last-admin protection.
+
+Related37 passed32.84s (`tmp/identity-paths-final-20260909.xml`). After explicitly binding the
+loop context to satisfy Ruff, final new5 passed6.58s (`tmp/identity-role-source-final-20260909.xml`).
+No overlapping totals. Code-simplifier review retained explicit request/command sets; Ruff and
+format pass. No real identities or runtime code changed. Administration path map is closed at
+this scope; real Logto recovery/login evidence remains separately recorded and is not repeated.
+
+## CRM and Inquiry concrete path and command map (Sep9)
+
+Read CRM/Inquiries READMEs, full Lead service/repository, Opportunity service/query and evidence
+port, both text-review services, Inquiry service/repository/progression port and relevant test
+bodies. Dynamic command routes are counted by their actual accepted commands, not a generic
+PATCH status or an assumption that every string is supported.
+
+| Actual scope                                                                                  | Direct evidence                                                                                                                                                                                                                                                                                            |
+| --------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Lead list/detail/history; create, qualify, disqualify, contact, respond, no-response, convert | CRM acceptance matrix independently asserts35 state/transition pairs, seven conversion states, all six roles/seven commands, six foreign-ID commands, nonempty search/status scope and same/different-lead concurrent conversion. Vertical test supplies natural lead-to-company/contact/opportunity chain |
+| Opportunity list/detail/history; start-negotiation, mark-lost                                 | Lifecycle tests provide foreign scope/cursor, stable loss/version/replay and loss-vs-accept concurrency; command matrix explicitly checks six roles x six states x two commands; no manual win/reopen path                                                                                                 |
+| Opportunity inquiry/quotation/accepted evidence port                                          | Three event predicates across six states, originating permissions, foreign ID, unchanged no-op and caller rollback; owning Inquiry/Quotation transactions remain authoritative                                                                                                                             |
+| CRM source GET/POST review for lead/opportunity                                               | CRM text24 covers six roles, release/revoke/current replay, three evidence failures, real two-membership foreign HTTP GET/POST404, exact changed/restored text, concurrent review, deleted owners and preserved migration                                                                                  |
+| Inquiry list/detail/create                                                                    | Creation15 covers key/no-key semantics, protected later-state replay, six roles, foreign source, source immutability, three failure stages and concurrent same/changed/new registrations; commercial cursor test covers105 rows, status/cursor, six roles and foreign/deleted rejection                    |
+| Inquiry GET/POST text-review and quotation-progress port                                      | Commercial-text inquiry cases cover release/version/role/faults; new valid B-manager HTTP GET/POST404 preserves full selected rows. Progression3 verifies originating permission, foreign owner, caller rollback and CLOSED rejection from actual quotation creation                                       |
+| Direct Lead/Inquiry repository and Opportunity query paths                                    | New test invokes foreign get/locked-get/list/count/search/activities and cursors directly, rather than relying on upstream HTTP guards; full selected rows unchanged                                                                                                                                       |
+
+New remaining CRM fault matrix covers create plus five Lead transitions and both explicit
+Opportunity commands x actual SQL-after-insert activity/audit/outbox failure. Complete selected
+rows remain equal after failure; retry reaches independently expected status with one evidence
+set. Conversion has its separate multi-object rollback test. Negotiation uses a synthetic legal
+starting state to isolate rollback; its natural business path remains the lifecycle test.
+
+Initial new2 plus CRM29/Opportunity12/evidence3/Inquiry15 passed61 in69.37s
+(`tmp/crm-inquiry-paths-20260909.xml`). Final new26 passed23.71s
+(`tmp/crm-command-paths-final-20260909.xml`), including24 SQL failure cases; do not add overlapping
+totals. Current full-reconciled JUnit separately confirms CRM vertical4/text24, Opportunity
+lifecycle9 and progression3, with zero failures/errors/skips. Source/format/Ruff reviewed;
+shared snapshots and explicit independent command expectations retained. These domain maps
+are closed at the inspected path/command scope, not a claim that final V1/remote CI is complete.
+No runtime, migration, external messages, legal actions or real business records were changed.
+
 ## Catalog concrete path map (Sep9)
 
 Read Catalog README, all three routers, product and supplier query/repository/service bodies,
