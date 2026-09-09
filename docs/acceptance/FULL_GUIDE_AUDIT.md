@@ -1,5 +1,27 @@
 # Full-guide acceptance audit
 
+## Forwarder correction deployed to acceptance API (Sep9)
+
+Subsequent evidence supersedes the pending-deployment statement below. Candidate build from
+744e85c was deployed API-only by deploy-forwarder-boundary.ps1: default preflight exit0, explicit
+-Apply session49654 exit0. Exact source/target image IDs were enforced; eight existing Compose
+layers retained and ninth image-only forwarder-boundary.compose.yml appended. No migration,
+provider call, orphan cleanup, volume removal or application business command was issued.
+
+Runtime API now uses sha256:e1fb2c186c86b89321f0fb3cb2d6e8b0108b051bf7de7ffee7d4f6d94ed1b60c.
+Exact API environment arrays match; six other runtime container IDs and22explicitly selected
+commercial/file table fingerprints match. AI pending/running count remains0 and schema0035.
+Restored commercial Postgres/MinIO orphan containers were intentionally retained. Fingerprints
+are bounded preservation evidence, not a new backup or all-table integrity certificate.
+
+Postdeploy Docker health is healthy; actual API /health/live and /health/ready return200.
+Installed app/fulfillment/services.py SHA256 equals the tested workspace source:
+2e6ce3149e62e9aa32441a9a475e48bd65a7f00c203b003edf2e0523213264fa.
+The89case current-source regression below supplies behavior evidence; this postdeploy check
+proves exact installed code and readiness, not a new real-user shipment creation demonstration.
+No login/session change was required. The deployment script is now terminal by its old-image
+guard; do not rerun or weaken it. Future updates must retain all nine layers.
+
 ## Fulfillment source-path reconciliation and forwarder correction (Sep9)
 
 Read complete guide/AGENTS, Fulfillment README, router/repository/services/order_queries and

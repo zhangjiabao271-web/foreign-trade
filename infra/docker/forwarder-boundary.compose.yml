@@ -1,0 +1,4 @@
+# Ninth image-only layer; preserve all eight preceding acceptance layers.
+services:
+  api:
+    image: trade-fresh-acceptance-api:forwarder-20260909
