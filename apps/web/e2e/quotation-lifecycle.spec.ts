@@ -4,6 +4,7 @@ import { execFileSync } from "node:child_process";
 import fs from "node:fs";
 import path from "node:path";
 import { verifyUploadRecovery } from "./upload-recovery";
+import { matchesRoleResponse } from "./role-response";
 
 type Fixture = {
   organization_id: string;
@@ -112,11 +113,13 @@ async function verifyOrderCostRoles(page: Page) {
     ["sales", fixture.access_token, false],
     ["operations", fixture.operations_access_token, false],
   ] as const) {
-    const read = page.waitForResponse(
-      (result) =>
-        result.request().method() === "GET" &&
-        result.url().endsWith(`/sales-orders/${original.id}`) &&
-        result.status() === 200,
+    const read = page.waitForResponse((result) =>
+      matchesRoleResponse(
+        result,
+        `/sales-orders/${original.id}`,
+        token,
+        fixture.organization_id,
+      ),
     );
     await page.evaluate((accessToken) => {
       localStorage.setItem("trade-workbench.access-token", accessToken);
@@ -2459,11 +2462,13 @@ test("quotation snapshots redact costs across live role changes", async ({
     ["sales", fixture.access_token, false],
     ["operations", fixture.operations_access_token, false],
   ] as const) {
-    const read = page.waitForResponse(
-      (response) =>
-        response.request().method() === "GET" &&
-        response.url().endsWith(`/quotations/${id}`) &&
-        response.status() === 200,
+    const read = page.waitForResponse((response) =>
+      matchesRoleResponse(
+        response,
+        `/quotations/${id}`,
+        token,
+        fixture.organization_id,
+      ),
     );
     await page.evaluate((accessToken) => {
       localStorage.setItem("trade-workbench.access-token", accessToken);
