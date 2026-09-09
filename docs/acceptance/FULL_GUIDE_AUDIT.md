@@ -1,5 +1,46 @@
 # Full-guide acceptance audit
 
+## Platform public entry correspondence (Sep9)
+
+Read Platform README, job/outbox/operations routers, complete job/outbox services and repositories;
+inspected tenant HTTP and outbox transaction/concurrency/rollback assertions. Public operations
+are job list/detail, dead-event list/replay and operations monitoring. Existing tenant tests
+exercise nonempty scoped job list/count, foreign detail404, bounded nonempty dead-event pages,
+foreign replay404 and role/version/reason rejection. Monitoring has nonempty two-organization
+state totals, unknown-cost semantics and permission rejection before SQL. Replay is delivery
+bookkeeping with its own audit, not a new business transition that recursively emits outbox.
+
+Added test_platform_query_paths.py to directly exercise job get/list/count and repository
+get/list/count, dead-event locked/list methods with owner/foreign contexts, and all job query
+permission checks. No data changes in query sessions. Combined with tenant isolation, platform
+transactions and operations monitor:49 passed,1 existing warning,37.36s; session19776 exit0,
+tmp/platform-paths-final-20260909.xml. Ruff/format pass. Public path correspondence is reconciled
+with prior worker/domain-job evidence, not inferred solely from repository filters. No runtime
+changes, paid calls or real event replay in this work.
+
+## AI HTTP and direct tenant correspondence (Sep9)
+
+Read AI README, full router and run services, disclosure query/load paths and approval query/
+request paths; inspected existing disclosure privacy/revision/release, execution-role and
+transaction assertions. Added test_ai_http_tenant_paths.py using the explicit scripted provider
+and a naturally prepared draft/content release/execution request. No live provider call.
+All fourteen AI HTTP operations are now exercised with an active foreign MANAGER: four object
+reads, three empty lists, seven denied writes, plus all three foreign-cursor variants. Direct
+run/query/call/locked lookup, disclosure load/inspect/page/submit/change and approval get/page/
+request/decide are also checked. Complete selected run/tool/disclosure/approval/task/order/
+activity/audit/outbox/idempotency snapshots remain unchanged. The provider/tools and worker
+boundaries retain their separate existing evidence; this test does not replace real AI review.
+
+New test1 passed3.92s. Combined new HTTP, copilot, disclosure, disclosure atomicity and execution
+roles:77 passed,1 existing Starlette warning,116.35s; session41350 exit0,
+tmp/ai-http-related-20260909.xml. Ruff/format pass. Code-simplifier review kept explicit endpoint
+and service lists, without new runtime abstractions or production changes. This reconciles the
+finite AI HTTP tenant path inventory; it does not claim every possible model response is safe.
+
+Sixth CI34322866363/c186135 is now fully successful: Web267, API/Worker2213 plus6 skipped and
+1 warning, browser32, build19 pages, configuration and fresh container smoke all successful.
+Exact raw-log results are recorded in REMOTE_CI; this new test is not in that earlier SHA.
+
 ## Export remaining tenant entries and creation rollback (Sep9)
 
 Added test_export_tenant_paths.py after reading both text-review service/router and existing
