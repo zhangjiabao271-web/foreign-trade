@@ -35,9 +35,12 @@ build:
 	pnpm build
 
 check:
+	pnpm api-client:check
+	pnpm --filter @trade-workbench/api-client test:drift
 	pnpm format:check
 	pnpm lint
 	pnpm typecheck
 	pnpm test
+	pnpm --filter @trade-workbench/web test:e2e
 	pnpm build
 	docker compose config --quiet

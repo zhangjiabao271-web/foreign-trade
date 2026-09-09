@@ -2,6 +2,38 @@
 
 This is a progress record, not a release certificate. The implementation guide remains authoritative.
 
+## Root acceptance entrypoint correction: 2026-09-09
+
+Read the complete CI workflow, root scripts/README/Makefile and Web scripts. Found that README's
+claimed alternative `make check` omitted its listed browser gate; it also omitted the client
+generation/drift checks already required in CI. Added those three existing commands to check,
+retaining sequential fail-fast make recipe semantics. README now lists the same nine gates,
+PostgreSQL plus MinIO test prerequisites, first Chromium install, test-only database/auth scope
+and explicit paid-provider opt-in. Its obsolete real-login/AI-pending introduction now points
+to the actual evidence without claiming full V1 acceptance.
+
+Focused code-simplifier review retained direct commands; no runtime/dependency/business code
+changed. README Prettier and targeted diff checks passed. A read-only recipe assertion checked
+all nine exact commands, ordering and tab prefixes. GNU make is not installed on this Windows
+host, so no make invocation or new full-suite execution is claimed. Existing consolidated results
+remain separately identified; Git remote listing remains empty, so GitHub CI cannot be claimed
+executed. Do not add a remote or publish repository contents without the user's chosen destination.
+
+## Real TASK_DRAFT approval postflight completed: 2026-09-09
+
+The user explicitly consented to the listed synthetic fields sent to DeepSeek. Real sales run
+c5ef7c7a-93f1-4fa8-aee1-9bb3fd5a919c succeeded; manager revised/released candidate2, sales
+verified only released content and independently requested execution, then manager approved.
+Postflight initially failed before command startup because the permission-review service reported
+quota exhaustion. After user-reported recovery, the same read-only verification succeeded:
+approval688cedb8-ad86-45de-803d-6aec0aa012de APPROVED, exactly one task
+9250fc9c-805f-4ed5-8ad0-57d7b1d7e2f6 OPEN and assigned to the manager, correct order/title;
+original/candidate/order fingerprints and three customer-finance table fingerprints unchanged.
+Decision/task creation each have one matching audit/activity/outbox. See AI_DISCLOSURE for full
+chronology, IDs, baseline scope and real UI observations. No repeated approval/model call or task
+completion occurred. This closes that specific real-provider human-approval handoff, not the
+remaining full-guide reconciliation, remote CI or separately scoped production requirements.
+
 ## Consolidated backend completed: 2026-09-09
 
 Session93662 terminated0 after2536.54s:1476passed,5paid-provider skips,one existing

@@ -1,5 +1,23 @@
 # 技术与依赖基线核对
 
+## 当前历史缺口判定（2026-09-09）
+
+本轮完整重读0035迁移、共享Button实现/README/第三方通知及两个实际使用方；
+只读查询当前验收 PostgreSQL，版本为20260908_0035，pg_trgm1.6存在，
+ix_companies_name_trgm_active、ix_companies_normalized_trgm_active及
+ix_companies_name_fts_active均 indisvalid=true、indisready=true，定义精确包含
+GIN、相应trigram/全文表达式及deleted_at IS NULL条件。没有重建索引或修改业务表。
+结合本记录既有查询计划/迁移证据，下方第1项“未找到pg_trgm”以及“仍0034未部署”
+不再是当前缺口。本次索引存在性核验不是新的6001行基准或所有查询性能证明。
+
+共享Button源于已记录的shadcn/ui适配，CursorPageControls和FundingEstimate完整代码
+实际导入并渲染它，第三方通知保存MIT原文与修改说明；下方第2项“未找到接入”
+不再是当前缺口。未要求或声称所有原生控件迁移为同一组件。
+第4项中的全Web重复DTO问题由TASK005_ACCEPTANCE完整声明/边界审计另有证据；
+跨模块写入由MODULE_OWNERSHIP和ADR030-034记录修正及运行证据，不以本次组件审阅
+取代全部所有权审计。第3项需保留本机使用与未来镜像分发/公开托管的许可边界。
+本次只更新证据导航，不豁免完整指南、远程CI或生产配置要求。
+
 ## 2026-09-09 服务端许可补充
 
 实际本机版本Redis8.2.9、MinIO RELEASE.2025-09-07T16-13-09Z、PostgreSQL18.6已核对。

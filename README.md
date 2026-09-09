@@ -1,6 +1,6 @@
 # 外贸工作台
 
-围绕“第一笔可盈利订单”建设的个人/小团队经营系统。当前推进 **Phase 8**：应收、收款、订单结案、人工清关与退税已跑通浏览器主链，首页已连接真实行动队列；受控 AI 查询、草稿与内部任务人工审批正在加固和验收。剩余安全边界、真实登录与整体验收仍未完成，尚未宣告 V1 完成。
+围绕“第一笔可盈利订单”建设的个人/小团队经营系统。当前进行 **V1 总验收**：模拟订单已完成收款、结案、人工清关与退税；真实 Logto 销售/经理登录、本机加密联合恢复，以及真实 DeepSeek 草稿的内容审核和独立任务执行审批已有验收证据。完整指南逐项审计和远程 CI 仍未关闭，尚未宣告 V1 全部完成。最新证据与边界见 [`docs/acceptance/V1_STATUS.md`](docs/acceptance/V1_STATUS.md)。
 
 规范性实施基线见 [`docs/IMPLEMENTATION_GUIDE.md`](docs/IMPLEMENTATION_GUIDE.md)。
 
@@ -73,16 +73,23 @@ docker compose exec worker celery -A worker.app inspect ping --timeout 5
 docker compose exec api alembic -c alembic.ini current
 ```
 
-迁移测试使用真实 PostgreSQL，并为每个测试创建和销毁独立临时数据库。运行测试前应先启动 PostgreSQL：
+迁移测试使用真实 PostgreSQL，并为每个测试创建和销毁独立临时数据库；文件版本集成测试还使用真实 MinIO。运行测试前应启动专用本地测试服务：
 
 ```bash
-docker compose up -d postgres
+docker compose up -d --wait postgres minio
 pnpm test
 ```
 
 ## 日常质量门槛
 
+首次运行浏览器验收前安装 Chromium：`pnpm --filter @trade-workbench/web exec playwright install chromium`。
+Linux CI 使用 `playwright install --with-deps chromium` 同时准备系统依赖。
+浏览器验收使用独立测试数据库和测试身份，不替代真实 Logto 登录；不要把测试连接指向业务数据库。
+默认测试不需要模型密钥，真实付费模型测试必须另行显式启用和授权。
+
 ```bash
+pnpm api-client:check
+pnpm --filter @trade-workbench/api-client test:drift
 pnpm format:check
 pnpm lint
 pnpm typecheck

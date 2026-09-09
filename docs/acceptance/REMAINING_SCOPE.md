@@ -1,5 +1,19 @@
 # Remaining V1 scope audit
 
+## Real TASK_DRAFT handoff closed: 2026-09-09
+
+User consent, real sales generation/submission, manager candidate revision/release, sales
+released-only reading and independent execution request, and manager approval are complete
+for the single prepared synthetic order. After the transient approval-service quota rejection,
+the user reported recovery and the previously unstarted read-only postflight succeeded:
+one OPEN task assigned to the manager, exact released title/order, preserved original/candidate
+fingerprints, unchanged order and receivable/payment/allocation table fingerprints, and matching
+decision/task audit/activity/outbox evidence. See AI_DISCLOSURE for IDs and comparison limits.
+Do not ask again for consent/login or repeat approval for this completed sample. The new task
+is a follow-up item, not completed work. Earlier exact-data-consent and real-task handoffs below
+are historical. Full-guide reconciliation and remote-CI/production boundaries remain separate;
+this is not a blanket V1 acceptance certificate.
+
 ## Current gate navigation: 2026-09-09 consolidated follow-up
 
 This section supersedes matching historical counts and runtime questions below, not the
