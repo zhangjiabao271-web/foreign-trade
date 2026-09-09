@@ -1,5 +1,32 @@
 # Full-guide acceptance audit
 
+## All business API authentication-entry inventory (Sep9)
+
+Read auth dependency/router bodies and app router registration. New
+test_api_authentication_inventory.py enumerates effective FastAPI routes, including included
+router contexts, rather than a selected job endpoint.181 method/path operations each reject
+anonymous and invalid-token requests with401 and the exact expected error code. Database and
+command-session dependencies are replaced by fail-on-access probes; no database/network
+provider is contacted. A separate nonempty/duplicate inventory guard allows only the two
+explicit public health APIRoutes outside the business prefix (framework docs are not APIRoutes).
+
+First run correctly failed the nonempty guard: the newer installed framework wraps included
+routers, so a shallow isinstance filter saw zero business routes (1failed,2empty-set skips).
+Read the installed routing implementation and used its iter_route_contexts, which also drives
+OpenAPI generation and preserves effective include prefixes. Final363passed/5.97s,exit0,
+one existinghttpx warning;tmp/route-auth-final-20260909.xml. Initial report remains
+tmp/route-auth-20260909.xml. Final Ruff and format checks passed. This proves entry refusal for
+the current181 operations, not valid-token role/tenant isolation, every invalid JWT type,
+well-formed unauthorized command bodies or live Logto signature/network behavior. Those retain
+their existing separate matrices. No application code/schema/runtime settings changed.
+Combined inventory/auth_unit/OIDC/tenant_isolation run90915 then exited0:426passed/27.43s,
+one existinghttpx warning;tmp/auth-inventory-related-20260909.xml. This includes the363 above
+and confirms the dependency probes restore cleanly for the subsequent real-PostgreSQL tests.
+Upload scan reported one generic-api-key finding at the new test's explicitly synthetic local
+verifier secret. The literal was introduced in this test, is never used by runtime Logto and
+does not grant a real account. Manually classified as a test false positive; do not report the
+scanner itself as zero-findings or suppress the rule. The redacted report remains ignored locally.
+
 ## Guide13 / ADR011 concrete tool inventory reconciliation (Sep9)
 
 Read the complete AI README, ADR011, ApplicationTools, both Companies/Sales assistant-query
