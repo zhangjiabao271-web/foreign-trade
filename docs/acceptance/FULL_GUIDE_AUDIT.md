@@ -2,6 +2,17 @@
 
 ## ADR016 populated cash and expense correction boundary (Sep9)
 
+Subsequent tenant-route check added an actual FINANCE membership in the other fixture
+organization, verified authenticated context200, then exercised all five expense endpoints
+(plus cursor-list variant) against the original organization's real order/expense. Every
+request returned404/SALES_ORDER_NOT_FOUND rather than a permission-mask403. Complete rows in
+Expense,SalesOrder,Activity,AuditLog,OutboxEvent,IdempotencyKey,DocumentSequence across both
+organizations stayed identical after each request, including record with the original tenant's
+key. Original-tenant replay still returned the unchanged original without writes.
+Full expense-boundary file9passed/18.42s,exit0,one existinghttpx warning;
+tmp/expense-tenant-20260909.xml. Initial line-width finding was formatted; final Ruff/format pass.
+This closes the inspected cross-organization HTTP expense endpoint gap, not all other modules.
+
 Read the complete ADR016, Finance README, expense model/schema/router/service, existing
 expense tests and funding tests. The latter exercises net funding calculations but does not
 compare complete populated cash and commercial rows across expense commands.

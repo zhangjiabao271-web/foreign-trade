@@ -6,8 +6,10 @@ from app.finance.models import Payment, PaymentAllocation, Receivable
 from app.finance.supplier_models import Payable, SupplierPayment, SupplierPaymentAllocation
 from app.identity.enums import MembershipRole
 from app.identity.models import OrganizationMembership
+from app.platform.models import AuditLog, DocumentSequence, IdempotencyKey, OutboxEvent
 from app.procurement.models import PurchaseOrder, PurchaseOrderItem
 from app.sales.models import Quotation, QuotationItem, QuotationVersion, SalesOrder, SalesOrderItem
+from app.work.models import Activity
 from sqlalchemy import select
 from test_finance_vertical_slice import allocation, payment, receivables
 from test_order_expenses import counts, payload, request
@@ -165,3 +167,73 @@ def test_expense_http_read_record_and_reverse_six_role_matrix(quotation_fixture,
         status=201 if allowed else 403,
     )
     assert counts(f) == tuple(count + (2 if allowed else 0) for count in before)
+
+
+def test_foreign_finance_cannot_read_or_write_any_expense_endpoint(quotation_fixture):
+    f = quotation_fixture
+    order, _, _ = create_confirmed_order(f)
+    original = request(f, order, body=payload(order), key="tenant-expense")
+    with f.session_factory.begin() as session:
+        # A real allowed role in B ensures rejection is tenant isolation, not missing rights.
+        membership = session.scalar(
+            select(OrganizationMembership).where(
+                OrganizationMembership.organization_id == f.organization_b,
+            )
+        )
+        membership.role = MembershipRole.FINANCE
+    headers = {
+        **f.headers("quotation-other", f.organization_b),
+        "Idempotency-Key": "tenant-expense",
+    }
+    context = f.client.get("/api/v1/me/context", headers=headers)
+    assert context.status_code == 200
+    models = (
+        Expense,
+        SalesOrder,
+        Activity,
+        AuditLog,
+        OutboxEvent,
+        IdempotencyKey,
+        DocumentSequence,
+    )
+
+    def snapshot():
+        # Both organizations: an unauthorized command must not leave even a B-side key or number.
+        with f.session_factory() as session:
+            return {
+                model: [
+                    dict(row)
+                    for row in session.execute(
+                        select(model.__table__).order_by(model.id)
+                    ).mappings()
+                ]
+                for model in models
+            }
+
+    before = snapshot()
+    path = f"/api/v1/sales-orders/{order['id']}/expenses"
+    requests = [
+        ("get", path, None),
+        ("get", f"{path}/{original['id']}", None),
+        ("get", f"{path}/summary", None),
+        ("get", f"{path}?cursor={original['id']}", None),
+        ("post", path, payload(order)),
+        (
+            "post",
+            f"{path}/{original['id']}/reverse",
+            {
+                "expected_version": original["version"],
+                "reason": "Foreign correction attempt",
+            },
+        ),
+    ]
+    for method, endpoint, body in requests:
+        response = f.client.request(
+            method, endpoint, headers=headers, **({"json": body} if body else {})
+        )
+        assert response.status_code == 404, response.text
+        assert response.json()["code"] == "SALES_ORDER_NOT_FOUND"
+        assert original["description"] not in response.text
+        assert snapshot() == before
+    assert request(f, order, body=payload(order), key="tenant-expense") == original
+    assert snapshot() == before
