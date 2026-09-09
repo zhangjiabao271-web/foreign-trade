@@ -8,7 +8,10 @@ must not trigger those actions again. No additional production scope is silently
 ## Current version boundary
 
 - Remote application/test source:3cda32a41b5c3bd97a538611514b082fb1f4aefd.
-- Seventh CI34326750634 is live; its final quality result is still required.
+- Seventh CI34326750634 completed successfully: quality102385661574 and smoke102385661303.
+- Full raw quality logs confirm Web267/API-Worker2236/browser32 passed, six expected skips,
+  one backend deprecation warning, successful generation/drift/static checks and19-page build.
+  Skip reasons match the independently inspected paid-provider/Windows guards below.
 - Sixth CI34322866363 atc186135 is fully successful, with archived quality and smoke evidence.
 - Local ce93046 adds deployed API selection/script and documentation, not application changes.
 - The actual API includes both Documents completion and Export cursor fixes. Source hashes,
@@ -132,12 +135,11 @@ logs must still confirm the observed skip total; no skipped case is relabeled as
 
 ## Remaining release actions
 
-1. Obtain seventhCI terminal quality logs and reconcile skips without counting them as passes.
-2. Reconcile the seventh browser/build result with the inspected assertions above. Finite guide,
-   ADR, retained-runtime and browser-source checks are now mapped; historical evidence is not
-   claimed as a new execution.
-3. Upload the subsequent deployment record/configuration without interrupting current CI; account
-   for the exact code-versus-documentation boundary in final remote evidence.
-4. Produce the final requirement-based result only after those checks. No blanket V1 completion
-   is claimed by this working sheet and no repeated login, restore, paid run or business approval
-   is requested for already completed evidence.
+1. Seventh terminal quality logs, actual skip reasons and browser/build results are now reconciled.
+   The earlier still-live wording above is retained checkpoint history, superseded by this result.
+2. Upload the subsequent deployment record/configuration and verify exact remote synchronization;
+   application/test/dependency/CI/root-Compose differences against seventh SHA were checked empty.
+3. Inspect any resulting latest upload checks before final handoff. No further application changes,
+   repeated login, restore, paid run or business approval are required by the completed finite map.
+   Local V1 acceptance includes simulated external business steps and CurrentUser joint recovery;
+   production hosting/scanning/channels and cross-machine recovery are not certified by this map.

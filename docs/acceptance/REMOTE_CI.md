@@ -1,5 +1,21 @@
 # GitHub 上传与远程验收
 
+## 第七轮全部通过（2026-09-09）
+
+精确提交3cda32a41b5c3bd97a538611514b082fb1f4aefd，运行34326750634已终结。
+quality102385661574、container-smoke102385661303均success；完整quality原始日志已读取。
+前端46文件267通过；API/Worker2236通过、6跳过、1警告、1828.90秒；浏览器32通过/5.7分钟。
+生成客户端、3项漂移探针、格式、lint、严格类型219文件、19页面构建及Compose检查通过。
+容器原始日志已确认0035head、Web/API ready、PostgreSQL/Redis/MinIO正常、Worker pong。
+六跳过明确为五个需付费授权的DeepSeek意图和一个Windows进程清理测试；其独立本机
+证据见FINAL_RECONCILIATION，不冒充CI通过。后端一项Starlette/httpx弃用警告；托管
+Actions另提示旧Node目标兼容运行，未导致失败，不宣称日志零警告。
+
+后续ce93046、b387efb、fe25afc及本记录只增加部署选层/脚本和验收说明，apps、packages、
+依赖锁、CI和根Compose与该精确SHA无差异。部署脚本已经实际执行并独立验证，不能重跑；
+本轮再次语法检查通过。此前三个未上传提交整体扫描31402字节无泄漏。上传后应按精确
+远程提交检查同步及新CI状态；第七轮证明上述应用基线，不冒称尚未发生的新运行成功。
+
 ## 第七轮已启动（2026-09-09）
 
 普通push已成功c186135..3cda32a，精确远程提交
