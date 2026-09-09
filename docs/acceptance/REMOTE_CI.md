@@ -1,5 +1,26 @@
 # GitHub 上传与远程验收
 
+## 第三次运行终态：只读请求连接中断（2026-09-09）
+
+34312341146已结束，对应33144281a8a952e13a13440a905020aa534cb8ae。
+quality原始日志：Web267通过；API/Worker1868通过、6跳过、1警告，1490.32秒。
+浏览器17通过、1失败、14未执行，2.1分钟；发布构建与最终配置检查跳过。
+失败是quotation-lifecycle.spec.ts:783的订单正文审核GET发生read ECONNRESET，
+没有收到HTTP响应；不是成本断言失败。缺少该时刻服务端诊断，底层重置原因未证实。
+仅对此只读GET设置Playwright maxRetries:1；已安装类型文档明确它只重试ECONNRESET，
+不重试HTTP错误。业务POST、权限断言、等待时间及全测试retries:0保持不变。
+本机及新提交远程复验结果须另记，不能据此声称故障已解决。
+
+本机复验session66338已退出0：32通过，3.3分钟，包含完整主链及两个成本角色切换。
+日志tmp/e2e-read-reset-20260909.log；last-run为passed、failedTests为空。
+类型、目标ESLint/Prettier、补充Python测试Ruff及diff检查通过；此次未重跑完整API。
+选定六文件上传快照Gitleaks无告警，不包含浏览器trace或环境凭据。
+本机通过不证明远程底层连接问题已消失，新提交CI仍必须独立取得终态。
+
+container-smoke原始日志独立确认20260908_0035(head)、Web/API ready、
+PostgreSQL/Redis/MinIO探测为true、Worker pong及1 node online。
+此次运行不包含后续worker/company/catalog/identity/CRM补充，不能套用其通过结果。
+
 ## 第三次运行检查点（2026-09-09 12:51 CST）
 
 已上传至私有main：33144281a8a952e13a13440a905020aa534cb8ae。

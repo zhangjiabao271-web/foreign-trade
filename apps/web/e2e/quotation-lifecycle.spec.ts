@@ -782,6 +782,8 @@ test("completes quotation, deposit, procurement, delivery, balance and order thr
   const orderReviewUrl = `http://127.0.0.1:8010/api/v1/commercial-text/sales_order/${orderId}/review`;
   const orderReviewResponse = await page.request.get(orderReviewUrl, {
     headers: reviewerHeaders,
+    // Retry one connection reset on this read only; HTTP errors still fail below.
+    maxRetries: 1,
   });
   expect(orderReviewResponse.ok()).toBeTruthy();
   const orderReview = await orderReviewResponse.json();
