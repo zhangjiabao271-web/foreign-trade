@@ -1,5 +1,34 @@
 # Full-guide acceptance audit
 
+## Customer Finance paths and remaining evidence-failure commands (Sep9)
+
+Read the complete Finance README, customer routers/repositories/services, payment review,
+Sales completion service, navigation/rules/concurrency bodies and relevant vertical bodies.
+New test_customer_finance_tenant_paths.py uses naturally generated deposit/balance, receipt,
+allocation and reversal facts. Both repositories' inherited reads, locks, aggregate batches,
+reversal lookup and scoped totals have populated owner and empty foreign controls. Empty
+batches and foreign cursor rejection are explicit. An active B MANAGER exercises receipt
+detail/cursor/review/create/allocate/reverse, receivable generation and order completion404;
+foreign filtered lists and B refresh return empty. Full selected money/order/shipment and
+activity/audit/outbox/key rows remain identical after each request. Existing direct foreign
+command tests remain the service-layer counterpart. Initial1 passed4.82s.
+
+Current-source combination of new path test and existing finance vertical/navigation/text
+review/rules/completion-refresh/lock-order tests passed40,1 existing warning,74.75s
+(tmp/customer-finance-final-20260909.xml). Scope includes concurrent allocation, receipt keys,
+settlement/waiver completion, note privacy, pagination and actual PostgreSQL lock ordering.
+
+Concrete missing rollback assertions for generate, refresh, reverse and complete are now
+test_customer_finance_atomicity.py:4 commands x activity/audit/outbox AFTER INSERT failures.
+Synthetic refresh preparation changes only stale derived statuses/dates in disposable DBs;
+completion uses a natural delivered/paid/task-resolved journey. Each failure has one confirmed
+insert hook, restores complete selected rows, then allows recovery and no-write replay.
+12 passed,1 existing warning,22.90s (tmp/customer-finance-atomicity-20260909.xml).
+Ruff/format pass; code-simplifier inspection retained explicit fixture branches. No production
+code, schema, real receipt, transfer or acceptance environment changes. These supplements do
+not by themselves close every state/role/source variant or supplier settlement/Export mapping.
+They were created after c186135 and are not in sixth remote CI.
+
 ## Documents tenant-path reconciliation (Sep9)
 
 test_document_tenant_paths.py exercises all ten router operations with an active B MANAGER,
