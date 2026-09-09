@@ -1,5 +1,25 @@
 # Full-guide acceptance audit
 
+## Documents tenant-path reconciliation (Sep9)
+
+test_document_tenant_paths.py exercises all ten router operations with an active B MANAGER,
+not a permission-denied substitute: each returns404 and preserves complete selected document,
+version/link/job, shipment/order and evidence/key rows. All four storage protocol operations
+are replaced with failing probes, proving these foreign calls do not reach storage. Eight
+direct command/review paths and two direct query paths also reject; own populated reads work.
+Repository get/list/count/locked document/versions/links/batched versions and links/linked
+target/locked version are checked in both organizations, including empty batches. Existing
+four-target checklist matrix and contract evidence tests cover their separate metadata ports;
+worker entry/scan job map was reconciled earlier. There is no generic link mutation route.
+
+Initial1 passed4.00s; Ruff found two loop-lambda bindings. Code-simplifier review replaced
+them with direct calls. Final new path test plus three completion regressions passed4,
+1 existing warning,9.73s (tmp/document-paths-final-20260909.xml). Ruff and format pass.
+This closes the inspected Documents tenant entry/repository map in combination with existing
+review/recovery/version/legacy/checklist evidence; it is not exhaustive arbitrary-input or
+production malware-engine assurance. Upload completion correction remains source-only until
+separately deployed. Fifth remote CI ba38392 is now all-green, but does not include this work.
+
 ## Document completion access correction (Sep9; source only)
 
 Documents router has ten operations: review GET/POST, linked list, create upload, complete,
