@@ -2,6 +2,27 @@
 
 This is a progress record, not a release certificate. The implementation guide remains authoritative.
 
+## Remote CI and command concurrency supplement: 2026-09-09
+
+First private GitHub upload8b8d6bc has real running CI34295330627. Container-smoke succeeded,
+including fresh build/start,0035head,Web/API probes andWorkerpong;quality static/client gates
+succeeded and pnpm test remains in_progress at this checkpoint. SeeREMOTE_CI for exact job IDs.
+No full remote-green claim; no persistent automation was created after permission rejection.
+
+New completion/refresh concurrency tests cover settled and explicitly waived synthetic orders;
+both actual application commands synchronize at receivable locking, preserve ledger/amounts,
+and completion evidence/replay remain unique. They supplement the existing opposite-order lock
+probe, not production load or every interleaving. Initial3passed7.09s included the two new cases
+and original probe; first Ruff line-width finding was formatted and recheck passed. An existing
+httpx deprecation and a local pytest cache-write warning were reported; neither failed tests.
+Final amount-preservation assertion run is tracked separately, not included in remote8b8d6bc.
+Final focused run completed3passed/6.89s,exit0;independently parsed
+tmp/completion-refresh-final-20260909.xml:3tests,0failures/errors/skips. Disabling cacheprovider
+for this invocation added a harmless unknown-cache_dir warning alongside existinghttpx warning;
+configuration was not changed to hide it. FinalRuff/format,MarkdownPrettier anddiff checks pass.
+No runtime code/schema/deployment or real financial fact changed. Focused code-simplifier review
+retained explicit fixture setup and bounded concurrency rather than adding a general framework.
+
 ## Root acceptance entrypoint correction: 2026-09-09
 
 Read the complete CI workflow, root scripts/README/Makefile and Web scripts. Found that README's

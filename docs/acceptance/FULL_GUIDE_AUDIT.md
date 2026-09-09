@@ -1,5 +1,21 @@
 # Full-guide acceptance audit
 
+## Completion/refresh command concurrency supplement (Sep9)
+
+Read complete Finance README, completion service, refresh command, lock repository and original
+finance/locking tests. Added test_completion_refresh_concurrency.py for settled and authorized
+unpaid-waiver orders, using normal synthetic order/shipment/task/payment commands and a storage
+double. Disposable-only stale DUE status/date and opposite UUID/number ordering make both
+installments eligible. An engine-level barrier synchronizes the two actual FOR UPDATE queries;
+both full application commands must finish within bounded lock waits. Complete payment and
+allocation rows plus receivable IDs/amounts/currencies remain unchanged. Refresh derives PAID
+or PAID/OVERDUE; completion writes exactly one activity/audit/outbox, and replay adds no evidence.
+
+This supplements the deterministic repository-level inversion probe; it is not a production
+load test, real storage scan, actual debt waiver or exhaustive interleaving proof. No business
+code, schema, deployed image or real order changed. See the focused JUnit result in V1_STATUS;
+the running first GitHub upload tests an earlier commit without this additional test file.
+
 ## Populated finance baseline supplement (Sep9)
 
 New current-source finance benchmark passed1/10.27s,7operations with3warmups/30samples each.

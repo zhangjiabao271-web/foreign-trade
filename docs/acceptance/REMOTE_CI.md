@@ -1,5 +1,25 @@
 # GitHub 上传与远程验收
 
+## 首次远程运行检查点（2026-09-09）
+
+已成功上传提交 `8b8d6bc8c3e288d64b80059048073cf25b339306` 到原空仓库main，
+远程运行 [34295330627](https://github.com/zhangjiabao271-web/foreign-trade/actions/runs/34295330627)
+已启动，不再是“未配置仓库/未执行远程CI”。本次读取对应job状态与原始日志：
+
+- container-smoke job102290598320：success；Ubuntu24.04全新检出该提交，构建/启动
+  完整Compose，Alembic实际输出 `20260908_0035 (head)`，Web/API探测成功，Worker
+  实际返回pong。清理仅发生在GitHub临时runner的测试卷，本机业务及恢复卷未动。
+- quality job102290598078：仍in_progress；依赖安装、客户端生成及三项漂移检查、
+  格式、lint、类型检查和MinIO启动均success；当前 `pnpm test` 尚无终态。
+  浏览器主链、发布构建及最终配置检查尚未执行，不宣称整个运行通过。
+
+启动日志最初有本地API标签的远程pull失败提示，随后源码构建及所有冒烟步骤成功；
+不能把该中间提示当作最终失败，也不隐藏它。GitHub另有旧action声明Node20的弃用
+提示，runner实际强制使用Node24；不因此放宽安全版本策略。
+
+曾尝试创建持续后台跟进，但权限审核因缺乏明确的长期自动化授权拒绝；未创建，
+不得把后续目标自动续行当作该授权。当前交互任务内检查既有运行仍可继续。
+
 ## 上传前检查（2026-09-09）
 
 用户明确批准向 `zhangjiabao271-web/foreign-trade` 上传已检查的项目源码及测试配置，
