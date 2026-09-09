@@ -1,5 +1,36 @@
 # Full-guide acceptance audit
 
+## Guide13 / ADR011 concrete tool inventory reconciliation (Sep9)
+
+Read the complete AI README, ADR011, ApplicationTools, both Companies/Sales assistant-query
+ports, AiRunner and live_context, plus the Work order-activity path and relevant existing tests.
+The actual catalog is exactly read_order,order_timeline,order_profit,search_companies.
+New test_ai_tool_boundary.py independently fixes the five-intent name sets, strict argument
+schemas and absence of model-controlled actor/organization fields. Each tool requires ai.run
+and its domain permission before any database access. Three order-tool cases use live_context
+for a real fixture MANAGER membership in B while model order_id and run subject both identify
+the real A order: each returns404 with complete A order/item rows preserved. Scope-change probes
+reject a different order or search term before database access.14passed/5.66s,exit0,one existing
+httpx warning;tmp/ai-tool-boundary-20260909.xml. Final Ruff/format pass after unused-import cleanup.
+
+CompanyAssistantQueries' separately read nonempty search test covers A/B matching rows, deleted
+rows, escaped wildcards, full-text matching and the ten-item bound. The tool returns only company
+source ID/version/name; order snapshot only declared selling fields, adding protected forecast
+costs solely for profit intent. Timeline emits at most30 event IDs/types/times, not raw prose.
+AiRunner re-resolves current membership at provider/tool/result boundaries, and writes denied
+hash-only receipts separately; unknown names remain denied and redacted. Existing scripted tests
+cover SQL-tool rejection, extra organization argument, revoked authority, malformed/parallel calls,
+lease/retry bounds, no held connection during provider call, and independent task approval.
+
+The four approved tool paths now have explicit inventory, scope and tenant/permission evidence,
+not only an empty successful search sample. This is not a new real-provider call or a proof of
+all AI HTTP disclosure/approval paths; those retain their separate ADR026 matrices and real sample.
+Combined boundary/runner/execution-role/nonempty-search regression session65838 subsequently
+exited0:63passed/76.42s,one existinghttpx warning;tmp/ai-tool-related-20260909.xml.
+This includes the14 cases above, not77 distinct cases. Current remote30f931b lacks this new
+test file; no remote result is attributed to it. No application, provider configuration or
+business facts changed.
+
 ## ADR016 populated cash and expense correction boundary (Sep9)
 
 Subsequent tenant-route check added an actual FINANCE membership in the other fixture
