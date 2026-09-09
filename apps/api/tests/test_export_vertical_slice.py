@@ -6,7 +6,7 @@ import pytest
 from app.auth.context import RequestContext
 from app.auth.errors import ApiProblem
 from app.auth.permissions import Permission
-from app.export.models import CustomsDeclaration
+from app.export.models import CustomsDeclaration, TaxRefundCase
 from app.export.schemas import (
     CaseCommand,
     CustomsClear,
@@ -271,7 +271,8 @@ def test_export_http_contract_requires_permissions_versions_and_tenant_owned_cur
 
 
 @pytest.mark.parametrize("record_model", [Activity, AuditLog, OutboxEvent])
-def test_export_creation_rolls_back_each_required_record(quotation_fixture, record_model):
+@pytest.mark.parametrize("refund", [False, True])
+def test_export_creation_rolls_back_each_required_record(quotation_fixture, record_model, refund):
     f = quotation_fixture
     order = executing_order(f)
     shipment = create_shipment(
@@ -291,12 +292,17 @@ def test_export_creation_rolls_back_each_required_record(quotation_fixture, reco
     request = CustomsCreate(
         shipment_id=UUID(shipment["id"]), declared_amount=Decimal("1"), currency_code="USD"
     )
+    create = service.create_customs
+    if refund:
+        declaration, _ = service.create_customs(context, request, key="parent-customs")
+        request = RefundCreate(customs_declaration_id=declaration.id, expected_amount=Decimal("1"))
+        create = service.create_refund
 
     def counts():
         with f.session_factory() as session:
             return tuple(
                 session.scalar(select(func.count()).select_from(model))
-                for model in (CustomsDeclaration, Activity, AuditLog, OutboxEvent)
+                for model in (CustomsDeclaration, TaxRefundCase, Activity, AuditLog, OutboxEvent)
             )
 
     before = counts()
@@ -307,9 +313,10 @@ def test_export_creation_rolls_back_each_required_record(quotation_fixture, reco
     event.listen(record_model, "before_insert", fail)
     try:
         with pytest.raises(RuntimeError, match="export atomicity failure"):
-            service.create_customs(context, request, key="atomic-create")
+            create(context, request, key="atomic-create")
     finally:
         event.remove(record_model, "before_insert", fail)
     assert counts() == before
-    created, _ = service.create_customs(context, request, key="atomic-create")
-    assert created.declaration_number.endswith("000001")
+    created, _ = create(context, request, key="atomic-create")
+    number = created.case_number if refund else created.declaration_number
+    assert number.endswith("000001")

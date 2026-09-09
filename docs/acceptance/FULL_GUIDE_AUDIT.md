@@ -1,5 +1,26 @@
 # Full-guide acceptance audit
 
+## Export remaining tenant entries and creation rollback (Sep9)
+
+Added test_export_tenant_paths.py after reading both text-review service/router and existing
+source-review tests completely. For both case kinds, an active foreign MANAGER is denied at
+detail, activity, parent-linked creation, follow-up, review inspection and review decision HTTP
+entries; lists are empty. Direct query/creation/follow-up/review services likewise deny access.
+Repository get/locked and parent-association methods return owner rows and no foreign rows.
+Selected case/evidence snapshots and complete idempotency-key rows remain unchanged. Earlier
+matrix covers all eleven transition entries; cursor correction covers list anchor paths. These
+are finite route/method correspondence checks, not arbitrary-input or external-authority tests.
+
+Extended existing creation fault injection to both customs and refund creation across activity,
+audit and outbox insert failures. Recovery with the same key creates the first case number;
+both case-table and evidence counts roll back. Existing tests retain separate state-pair,
+transition permission/version/foreign-ID, review confidentiality/replay/concurrency and natural
+customs-to-refund evidence. New paths alone:2 passed,5.65s. Final new paths plus complete vertical
+file:10 passed,1 existing deprecation warning,17.72s, session91413 exit0,
+tmp/export-paths-creation-20260909.xml. Ruff/format pass. No further application edits.
+The earlier66-test report overlaps these files and must not be added as disjoint coverage.
+Sixth CI34322866363 now passed its test step and is running browser E2E; not yet terminal.
+
 ## Export case-list cursor correction (Sep9)
 
 Docker Desktop startup completed; a fresh read-only container inventory confirmed the existing
