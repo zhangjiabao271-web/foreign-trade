@@ -39,6 +39,13 @@ the live acceptance API retains its earlier image. Guarded candidate build/deplo
 verification remain mandatory before claiming the fix live. Remote34318952226 atba38392 also
 does not contain this change; do not attribute that run's result to the correction.
 
+Candidate API build15159 completed exit0 from current744e85c source, frozen dependencies:
+trade-fresh-acceptance-api:forwarder-20260909, inspected image ID
+sha256:e1fb2c186c86b89321f0fb3cb2d6e8b0108b051bf7de7ffee7d4f6d94ed1b60c.
+Existing API still runs sha256:1988a4285fce5779d97791c474101b459bcba809648935f65a90b8a64c06f684.
+Build only: no container replaced, no migration or business write. Guarded deployment must retain
+all eight existing Compose layers; the terminal deploy-owner-ports script must NOT be rerun.
+
 ## Sales foreign-manager command and confirmation-state supplement (Sep9)
 
 An inspected concrete gap in test_quotation_state_commands.py: its organization-B actor is SALES,
