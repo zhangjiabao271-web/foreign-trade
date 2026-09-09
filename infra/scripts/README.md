@@ -1,5 +1,15 @@
 # Scripts
 
+## Document/export boundary API deployment
+
+deploy-document-export-boundary.ps1 completed its default preflight and one -Apply on Sep9.
+It preserves the nine earlier overlays and appends document-export-boundary.compose.yml.
+Only API was replaced; its complete environment, six other container identities and22 selected
+commercial/file fingerprints stayed unchanged. Schema0035 and zero active AI were checked.
+Running document service and Export repository hashes match tested source; live/ready return200.
+This script now refuses its changed source image. Do not rerun it or remove retained restore
+containers/images. No migration, file upload, model call or real business command was performed.
+
 ## Web session-presence deployment
 
 deploy-session-presence.ps1 reused the reviewed guarded pattern for Web only, with explicit

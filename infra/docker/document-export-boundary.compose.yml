@@ -1,0 +1,4 @@
+# Tenth image-only layer; preserve all nine preceding acceptance layers.
+services:
+  api:
+    image: trade-fresh-acceptance-api:document-export-20260909

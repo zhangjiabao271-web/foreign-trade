@@ -1,5 +1,31 @@
 # Full-guide acceptance audit
 
+## Document/export API corrections deployed (Sep9)
+
+Read both infra READMEs and previous one-time deployment script. Compared744e85c to current
+source: only Documents completion authorization and Export missing-cursor status change in
+application code; no frontend/worker/schema change. Candidate build session93493 exited0.
+New deploy-document-export-boundary.ps1 retains old-script guards unchanged in the original,
+requires exact current and target images, appends a tenth image-only overlay and defaults to
+read-only preflight. PowerShell parse, overlay format and no-network candidate import/hash pass.
+Code-simplifier review retained explicit one-time scope and avoided generic deployment expansion.
+
+Preflight passed without mutation. Apply session65711 exited0: only API replaced; full API
+environment and six unrelated service IDs unchanged,22 selected commercial/file fingerprints
+unchanged, schema0035 and no activeAI. Compose reported retained restore orphans; none removed.
+Postdeploy running image ID:
+`sha256:86f39ecb264554cd53b2152d8ff138624b11709178f56be109e3047ee3cb7ecf`.
+Both /health/live and /health/ready returned200. Exact installed/source SHA256:
+
+- Documents services: `61a23c4379b1ffe533122caec33f5c668163eb7ca1a87a97ba34969398a7f32a`.
+- Export repository: `ceef79202fca8452ea1dde2713fb44fa982ba4c8d73d85da4fcf6d374912098a`.
+
+The old forwarder image remains available. No migration, data restoration, model invocation,
+file upload or business command was performed. This proves installation/health and bounded
+preservation, not a repeated real-user browser journey. Prior functional regressions retain
+their own explicit scope. SeventhCI34326750634 at3cda32a remains in test step; its smoke job
+is success, not yet raw-log inspected. Deployment script/docs are subsequent local changes.
+
 ## Platform public entry correspondence (Sep9)
 
 Read Platform README, job/outbox/operations routers, complete job/outbox services and repositories;

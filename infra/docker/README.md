@@ -1,5 +1,14 @@
 # Docker
 
+## Latest API image selection (Sep9 document/export correction)
+
+Current stack requires ten files in order: docker-compose.yml, fresh, identity-acceptance,
+acceptance-storage, deepseek-acceptance, release-0035, owner-ports, session-presence,
+forwarder-boundary and document-export-boundary.compose.yml (all overlays under infra/docker).
+The tenth image-only layer selects document-export-20260909 for API. Worker/beat and Web are
+unchanged. The one-time guarded deployment has executed; older image-selection notes below
+are historical, not instructions to omit newer layers. Preserve all existing volumes and secrets.
+
 ## Latest Web image selection (Sep9)
 
 Append session-presence.compose.yml as the eighth image-only overlay after owner-ports and
