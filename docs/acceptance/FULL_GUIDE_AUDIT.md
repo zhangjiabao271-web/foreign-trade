@@ -1,5 +1,36 @@
 # Full-guide acceptance audit
 
+## Companies concrete path and command map (Sep9)
+
+Read complete Companies README, both HTTP routers, archive query/repository/service,
+role service/repository, assistant search and conversion-owner port, plus archive, search
+and conversion tests. Current public inventory is five reads and five writes, not generic CRUD.
+
+| Actual scope                                                    | Direct evidence                                                                                                                                                                                                                                                              |
+| --------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| GET company list with name/role/cursor; GET company             | `test_archive_tenant_authorization_and_contact_parent_checks`: B sees empty filtered lists, foreign company/cursor404; new command matrix checks all six roles can read; missing company.read fails before SQL in every query service                                        |
+| GET contact list/detail; GET company activities                 | Archive foreign-parent/contact/cursor cases and mismatched same-tenant parent404; new six-role read checks; protected history separately uses Work disclosure                                                                                                                |
+| POST company; PUT company; POST contact; PUT contact; POST role | New `test_company_command_matrix.py`: five actions x six roles, explicit ADMIN/MANAGER/SALES/OPERATIONS allowlist, FINANCE/VIEWER HTTP and service403 with complete selected rows unchanged; exact name/contact/role fields, one evidence set and same-result/no-write retry |
+| Each of those five writes x activity/audit/outbox               | New matrix injects failure after actual SQL evidence insert, compares complete company/role/contact/activity/audit/outbox/key rows, then retries and replays without duplicate evidence; covers create and update branches, not merely one shared function                   |
+| CompanyArchiveRepository and CompanyRepository reads            | New direct-method foreign-ID/list/role/history/contact/cursor checks bypass HTTP/services; protected rows unchanged; handler map remains explicit                                                                                                                            |
+| AI company search                                               | `test_search_keeps_literal_fulltext_tenant_deleted_limit_and_permissions`: nonempty two-tenant names, fulltext/literal matching, deleted exclusion, ten-result bound and permission denial; three actual GIN indexes verified separately                                     |
+| CRM conversion owner port                                       | `test_company_conversion_port.py`: originating permission before SQL, same-name other-tenant preservation, new/existing-company rollback, caller-owned transaction and stable replay; full Lead state/role matrix remains CRM-owned                                          |
+
+No company/contact deletion, merge or arbitrary status endpoint exists. Ordinary field updates
+use versions/keys, add-role uses the locked natural company/role identity for replay. Business
+identifiers remain visible under the accepted user policy; this does not auto-detect costs typed
+into names. No runtime code/schema/identity/commercial record changed for this supplement.
+
+Current report reconciliation: full-reconciled contains archive10, conversion-port7 and search3,
+all with zero failures/errors/skips. These were parsed from JUnit, not inferred from filenames.
+New first matrix50 passed43.01s; after adding concrete returned fields/six-role reads, combined
+matrix+archive60 passed55.04s (`tmp/company-paths-final-20260909.xml`). Final direct-repository
+supplement plus both complete files61 passed55.69s, exit0, in
+`tmp/company-paths-complete-20260909.xml`. The inspected Companies path/command map is closed
+at this source scope; it does not close other modules or the pending latest remote CI.
+Code-simplifier review kept one explicit command table, shared snapshot/invocation and independent
+role expectations; renamed the replay response for clarity. Ruff/check/format pass.
+
 ## Guide15.1 concrete worker-entry reconciliation (Sep9)
 
 Read complete Worker tasks/context, Platform job ports/consumer handlers and Documents scan
