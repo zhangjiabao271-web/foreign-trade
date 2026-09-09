@@ -1,5 +1,48 @@
 # Full-guide acceptance audit
 
+## Procurement concrete path and command map (Sep9)
+
+Read Procurement README, complete business/text routers, repository, command/query services and
+text-review service. Inspected complete creation/decision/receiving/change/cost/text tests and
+commercial cursor test. Thirteen HTTP operations: three reads, eight commands (including create),
+two source-text review operations. Work's separate purchase history review was mapped above.
+
+New test_purchase_path_matrix.py enumerates all seven existing-record commands x eight purchase
+states with independent allowed-state expectations. Guarded approve/send/confirm target-state
+no-ops add no business evidence; amendments generate replacement DRAFT plus cancellation/creation/
+replacement evidence, not a silent edit. Illegal states preserve complete purchase/line, parent
+order/line, activity/audit/outbox/key snapshots. Success checks expected status, exact evidence
+count, unchanged sales parents and HTTP/service replay. State/receipt seeds isolate guards and
+do not prove natural reachability; existing partial/full receiving and commercial journeys do.
+
+Four remaining commands(receive/close/cancel/amend) x six roles supplement the earlier three
+decision-role matrix: receiving/closing allow ADMIN/MANAGER/OPERATIONS; cancelling/amending only
+ADMIN/MANAGER. Both HTTP and direct service deny other roles. Existing cost tests cover all six
+read projections and priced-create/approve/cancel/amend denials; cost visibility alone grants no
+writing. Create8, decisions53, receiving6, changes16, cost8 and populated finance-boundary4 in
+full-reconciled baseline were reparsed, each zero fail/error/skip. They are not new combined runs.
+
+Close now has each activity/audit/outbox after-SQL-insert fault with full selected-row rollback,
+retry and no-repeat replay. Other seven commands already have three evidence-stage tests;
+replacement creation outbox has an additional failure check. Earlier financial-boundary tests
+retain debts/payments/allocations while cancel/amend changes only procurement commitments.
+
+Direct repository get/lockedget/list/count/recent parent filter/items/batched items/history and
+foreign cursor are exercised against the other organization. Active B MANAGER also gets404 for
+close and source-review GET/POST; direct close404. Existing HTTP cursor test independently covers
+105 rows, all six roles, foreign/deleted/unrelated anchors, exact pages and three-query bound.
+Its single cross-domain case was reparsed passed; it is not four independent benchmarks here.
+
+Initial new matrix:83passed/1failed135.48s,tmp/purchase-paths-20260909.xml. The failing fixture
+fabricated B context without B membership; PostgreSQL rejected the key actor FK before business
+lookup. Added actual active B membership; affected test1passed3.77s,
+tmp/purchase-query-final-20260909.xml, now also checking foreign HTTP close/source review.
+Final full new-file rerun84passed135.39s,tmp/purchase-paths-final-20260909.xml,
+session96312 exit0. Initial failure remains recorded; overlapping results are not summed.
+The inspected Procurement path/command map is now closed at this scope. Ruff/format pass; simplifier
+review retains explicit state/role tables and one shared request/snapshot path. No application,
+schema, receipt, supplier message or payment was changed. New tests are not in de8add8 CI.
+
 ## Work non-order activity subject map (Sep9)
 
 The actual ActivitySubject whitelist has eight owners: lead/company/opportunity/customs_declaration/
