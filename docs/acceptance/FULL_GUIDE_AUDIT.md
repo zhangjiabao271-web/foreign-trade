@@ -1,5 +1,34 @@
 # Full-guide acceptance audit
 
+## Catalog concrete path map (Sep9)
+
+Read Catalog README, all three routers, product and supplier query/repository/service bodies,
+ProductTextReviewService and core tenant repository, plus product pagination, six-role costs,
+supplier and relevant commercial-text test bodies. Ten current HTTP operations are reconciled:
+
+| Actual scope                                                      | Direct evidence                                                                                                                                                                                                                                                                                                    |
+| ----------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| Product GET list/detail and POST create                           | Cost-policy six-role HTTP checks, cached ORM cost preservation, double permission checks; pagination105 A/3 B equal-name rows, literal search and foreign/deleted cursor404; new direct repository get/list/count/search/cursor foreign checks                                                                     |
+| Supplier-link GET list/detail/activities, POST create, PUT update | Existing supplier tests cover foreign authorized manager on all five endpoints and cursor variants, foreign supplier, wrong parent, role-required, immovable identities, version/replay, concurrent duplicate/update and quote snapshot preservation; cost tests enforce privileged reads and manager/admin writes |
+| Product GET/POST text-review                                      | Existing product cases in commercial-text matrix cover six-role visibility, release/restrict, exact-version/digest, restored-text invalidation, concurrency, three evidence faults and deleted owner; new actual B-manager HTTP GET/POST404 preserves complete selected rows and the original review snapshot      |
+| SupplierLinkRepository product/get/list/history/supplier_names    | New direct-method foreign checks, including foreign cursor and empty names; no HTTP parent guard is needed to conceal another organization's rows                                                                                                                                                                  |
+| Product creation transaction                                      | New audit/outbox SQL-after-insert failures preserve entire selected table snapshots; retry creates one product/evidence set at exact cost3.1250USD, duplicate SKU returns stable conflict with no further writes                                                                                                   |
+| Supplier creation/update transaction                              | Existing two branches x activity/audit/outbox faults retain row counts and original price; exact edit/replay tests and immutable quotation comparison remain separate assertions                                                                                                                                   |
+
+Product creation owns master defaults, has no product status transition and currently records
+audit/outbox without a product-created activity; the new test records that actual boundary,
+not an invented timeline feature. Supplier references do not reprice historical quotations or
+become procurement commitments. No catalog-owned job or additional AI tool exists; company
+search/order-based AI tools are mapped separately. Product description review is independent
+of cost disclosure and downstream snapshots.
+
+Final new4 plus costs7/pagination3/supplier21 =35 passed40.79s, exit0, one existing httpx warning;
+`tmp/catalog-paths-final-20260909.xml`. Full-reconciled JUnit independently contains costs7,
+pagination3/supplier21/commercial-text54 with zero failures/errors/skips;54 includes other
+commercial domains, not54 product cases. Code-simplifier review retained explicit boundary
+cases and shared snapshots. Ruff/check/format passed. No application/schema/deployment or
+business data changed. Catalog path map is closed at this inspected scope, not total V1/CI.
+
 ## Companies concrete path and command map (Sep9)
 
 Read complete Companies README, both HTTP routers, archive query/repository/service,
