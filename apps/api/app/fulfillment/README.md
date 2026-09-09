@@ -1,5 +1,11 @@
 # Fulfillment
 
+Forwarder selection checks the live organization-owned Company before its FORWARDER role.
+Missing, foreign or archived companies return404 FORWARDER_NOT_FOUND; an active local company
+without the role retains409 FORWARDER_ROLE_REQUIRED. This prevents a retained role row from
+making an archived company selectable. Existing shipment snapshots/keyed replay remain intact;
+no schema change or archive backfill. Current-source tests and deployed-runtime scope are separate.
+
 Shipment activities now have an owner-authorized cursor GET at shipments/{id}/activities,
 using Work's existing protected activity projection and content-review workflow. The current
 milestone display is not a substitute for full activity history. No business event backfill or

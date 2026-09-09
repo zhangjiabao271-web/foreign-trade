@@ -1,5 +1,44 @@
 # Full-guide acceptance audit
 
+## Fulfillment source-path reconciliation and forwarder correction (Sep9)
+
+Read complete guide/AGENTS, Fulfillment README, router/repository/services/order_queries and
+creation/decision/locking/source/list/parent-atomicity/vertical test bodies. Actual router has
+four reads (list/detail/history/source-lines) and eight writes (create plus seven milestones).
+Existing tests cover six-role milestone replay, version/key conflict, all milestones' evidence
+failures, three concurrency modes, parent-first locks, source revalidation, partial/combined
+shipments and nine invalid checklist forms. Parent-atomicity separately fails after the last
+order's SQL evidence insert for ready/depart, including combined parents.
+
+New test_shipment_path_matrix.py: seven milestones x eight shipment states, seven valid B-manager
+HTTP/service denials, six creation roles and direct repository/query/aggregate ports. Complete
+selected shipment/items/order/items/activity/audit/outbox/key snapshots prove rejected paths
+unchanged. Valid target-state no-ops preserve rows except the receipt; ordinary ready/depart also
+emit one parent event. State seeds isolate guards; the existing journeys prove reachability.
+Foreign milestone quantities return empty, foreign file aggregation reports all missing rather
+than revealing A's files; own populated controls succeed. List/detail/cursor/history/source-lines
+and creation reject foreign sources. No-permission query paths fail before SQL. Initial70 passed
+122.58s, tmp/shipment-paths-20260909.xml; import order fixed and nested effect ternary made explicit.
+
+Concrete application defect found in optional forwarder selection: only CompanyRole was checked,
+so a retained role made an archived Company selectable; missing/foreign companies also produced
+409 role errors instead of guide10's404. Regression test_shipment_forwarder_boundary.py first
+failed3/passed2 in8.89s (tmp/shipment-forwarder-before-20260909.xml): archived selection returned201,
+missing/foreign409. These are disposable fixtures, not archived production-company mutation.
+Now the command first selects a live organization-owned Company; unavailable returns
+404 FORWARDER_NOT_FOUND, while active local/no-role retains409 FORWARDER_ROLE_REQUIRED.
+No schema, permission, pricing, source-line, historical snapshot or keyed replay rule changes.
+This implements the existing tenant/active-record baseline, not an architectural deviation.
+
+Ruff/format checks pass; strict mypy219 source files passes; generated-client check exits0 with
+no drift. Code-simplifier keeps the explicit company-then-role distinction. Current-source
+combined regression (new70 paths,5 forwarder cases,14 existing creation cases) completed89 passed,
+1 existing warning,154.13s; session37985 exit0, tmp/shipment-boundary-final-20260909.xml.
+This application fix is NOT deployed:
+the live acceptance API retains its earlier image. Guarded candidate build/deploy and postdeploy
+verification remain mandatory before claiming the fix live. Remote34318952226 atba38392 also
+does not contain this change; do not attribute that run's result to the correction.
+
 ## Sales foreign-manager command and confirmation-state supplement (Sep9)
 
 An inspected concrete gap in test_quotation_state_commands.py: its organization-B actor is SALES,

@@ -10,7 +10,7 @@ from app.auth.context import RequestContext
 from app.auth.errors import ApiProblem
 from app.auth.permissions import Permission
 from app.companies.enums import CompanyRoleType
-from app.companies.models import CompanyRole
+from app.companies.models import Company, CompanyRole
 from app.core.unit_of_work import UnitOfWork
 from app.documents.enums import (
     SHIPMENT_DEPARTURE_REQUIRED_DOCUMENTS,
@@ -689,6 +689,20 @@ class ShipmentCommandService:
     ) -> None:
         if forwarder_id is None:
             return
+        company_id = session.scalar(
+            select(Company.id).where(
+                Company.organization_id == context.organization_id,
+                Company.id == forwarder_id,
+                Company.deleted_at.is_(None),
+            )
+        )
+        if company_id is None:
+            raise ApiProblem(
+                404,
+                "FORWARDER_NOT_FOUND",
+                "Forwarder not found",
+                "The selected forwarding company was not found.",
+            )
         role = session.scalar(
             select(CompanyRole).where(
                 CompanyRole.organization_id == context.organization_id,
