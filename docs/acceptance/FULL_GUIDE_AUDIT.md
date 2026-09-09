@@ -1,5 +1,30 @@
 # Full-guide acceptance audit
 
+## Work non-order activity subject map (Sep9)
+
+The actual ActivitySubject whitelist has eight owners: lead/company/opportunity/customs_declaration/
+tax_refund_case/purchase_order/quotation/shipment. Both generic activity-review HTTP operations
+delegate to WorkReviewService with original owner-read plus profit.read; owner is resolved before
+the exact activity and both locking paths remain tenant-bound. Inspected complete activity,
+purchase-text and commercial-timeline tests distinguish source disclosure from history release.
+
+New test_activity_tenant_paths.py covers each owner with an active B MANAGER session against A
+owner/activity IDs. GET/POST return404 WORK_CONTENT_NOT_FOUND; direct inspect/decide and locked
+owner/record helpers also404. Full selected owner rows plus activities/audit/outbox/keys remain
+unchanged, original private content remains intact, and own-organization review/replay succeeds
+once without mutating business owners. The test uses existing business fixtures and synthetic
+history; customs/refund fixture states do not claim new natural export-state reachability.
+
+Combined new8 + activity-review38 + commercial-timelines3 + purchase-text19 passed68/98.61s,
+tmp/activity-paths-20260909.xml, session80332 exit0. Existing cases cover six-role protected reads,
+release/revoke, content changes/deleted owners, original read permissions, pagination and shared
+review evidence failure. A first Ruff import-order warning was mechanically corrected; final
+Ruff/format checks pass. Simplifier review retained explicit owner setup and shared snapshot,
+without broader abstractions or runtime changes. Final source rerun8passed14.31s,
+tmp/activity-tenant-final-20260909.xml, session49830 exit0; overlapping results are not summed.
+This maps the remaining non-order Work review entry types; it does not close the separate Sales,
+Procurement, Fulfillment or Export business command/query maps. New tests are not in de8add8 CI.
+
 ## Work order-task command and query reconciliation (Sep9)
 
 Read Work README, both routers, query/command/review services, timeline/subject access, task
