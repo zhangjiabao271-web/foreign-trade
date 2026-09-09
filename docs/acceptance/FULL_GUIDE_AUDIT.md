@@ -22,6 +22,13 @@ proves exact installed code and readiness, not a new real-user shipment creation
 No login/session change was required. The deployment script is now terminal by its old-image
 guard; do not rerun or weaken it. Future updates must retain all nine layers.
 
+Deployment-file scanner report (tmp/upload-audit-20260909/forwarder-deployment-report.json) has
+two generic-api-key findings, not zero: both are the explicitly inspected Docker image SHA256
+IDs in this document (runtime target and historical source). Exact lines were reviewed against
+image inspection; no credentials are embedded. Keep this false-positive evidence rather than
+claim scanner-zero or suppress arbitrary future findings. Expanded Compose/environment values
+were used only in memory and are not part of this commit or upload scope.
+
 ## Fulfillment source-path reconciliation and forwarder correction (Sep9)
 
 Read complete guide/AGENTS, Fulfillment README, router/repository/services/order_queries and
