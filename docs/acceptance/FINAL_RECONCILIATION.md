@@ -17,6 +17,29 @@ must not trigger those actions again. No additional production scope is silently
 - Worker/Web remain the previously verified owner-port/session-presence versions. No actual
   model task, financial record, document or retained restore was recreated in the final audit.
 
+## Current retained runtime evidence check
+
+Sep9 read-only PostgreSQL transaction, scoped to the recorded organization and exact existing
+sample IDs, confirmed the commercial order COMPLETED with selling1250/cost snapshot734.10,
+shipment DELIVERED, customs CLEARED and refund REFUNDED with estimate100/received90. The
+separate AI order's whole-row fingerprint still equals its pre-approval baseline. Its approval
+is APPROVED with the original manager and exact task ID; that task is OPEN, assigned to the
+same manager and linked to the correct order. The read ended with ROLLBACK and changed no facts.
+
+The accepted BOL database version remains AVAILABLE,644 bytes, pinned and released. The exact
+previously downloaded Windows file still exists and was independently rehashed:
+`1fc47705160be7ad9de6e9a9b84b663c7326a2169330e60a36813d8bccffa161`, matching the database.
+This is retained-byte verification, not a new download or another role's browser demonstration.
+
+Joint recovery documentation was checked for actual three-database/table/role/object results,
+restored real Logto logins and return-to-source. Its encrypted package inventory remains present;
+no package was decrypted, overwritten or restored again. Inventory presence alone is not used
+as recovery proof: the prior actual recovery and exact comparison results retain that role.
+The explicit CurrentUser/no-cross-machine limits are unchanged.
+
+Seventh fresh-smoke raw logs were inspected:0035head, Web/API ready, PostgreSQL/Redis/MinIO
+dependencies true and Worker pong/one node online. Quality is still live; smoke is not final CI.
+
 ## Named foundation deliverables
 
 Task003's verifier/context/membership/test issuer/repository/job obligations map to the specific
@@ -74,11 +97,45 @@ Seeded states isolate guards in disposable databases; they are not fabricated re
 | 18 performance                                            | GUIDE_18_GATES identifies24 measured operations, populated datasets and exact samples. Initial local benchmarks, not all-endpoint production SLO guarantees.                                                                                                     |
 | 19–21 named tasks and decisions                           | Foundation map above and ADR008–034/user decisions; production hosting/channel/scanning and cross-machine disaster recovery remain separately configured, not concealed local failures.                                                                          |
 
+## Accepted ADR and guarded-browser reconciliation
+
+The remaining ADR023/024/025 text was read in full; its acceptance obligations do not require
+another actual order, supplier message or shipment. The current browser source
+`apps/web/e2e/quotation-lifecycle.spec.ts` was inspected for committed-response-loss behavior,
+not merely test names: it executes the real request with route.fetch, checks successful status,
+then aborts delivery to the page. Recovery checks the original request body/key and resource ID.
+Order creation additionally retains the deposit input; stale quotation/order/purchase views
+explicitly reject VERSION_CONFLICT. The same journey exercises procurement approve/send/confirm
+and each of book/ready/enter-customs/depart/start-transit/arrive/deliver through recovery helpers.
+Quotation submission is its representative guarded-decision browser loss case; all six quotation
+decisions have separate backend/owned-UI coverage, not six claimed browser loss demonstrations.
+These assertions were included in the sixth green32-browser run; the seventh execution remains
+pending. No browser or real-role journey was rerun during this source reconciliation.
+
+ADR008-019 obligations map to the finance/locking, immutable file, Copilot, real identity,
+procurement amendment, CRM, contract, expense, supplier settlement, membership and operations
+records above and in FULL_GUIDE_AUDIT. ADR020/026 retain separate cost/text confidentiality,
+candidate review and execution approval evidence; ADR027's estimate is not a cash-flow forecast.
+ADR021-025 caller guards and rollout are supported by their backend/form/browser records and
+subsequent deployed-source evidence, superseding their historical not-yet-deployed checkpoints.
+ADR028 preserves safe error envelopes; ADR029 has separate live five-intent and approved-task
+evidence; ADR030-034 owner-port changes retain their transaction and deployed regression maps.
+This finite review found no additional local-scope ADR acceptance action beyond the final remote
+checks and upload below. Production-only configuration remains explicitly outside this result.
+
+The six Linux CI skips are identified in source: five parameterized real-provider intents in
+`test_deepseek_live_acceptance.py` require ALLOW_PAID_DEEPSEEK_ACCEPTANCE=1, and the one
+`test_e2e_process_ownership.py` case requires Windows. The paid cases have a separately recorded
+real five-intent run (session90632:5 passed,66.89s), not CI coverage. The retained Sep9 Windows
+JUnit report is separate platform-specific evidence, not an additional Linux pass. Final remote
+logs must still confirm the observed skip total; no skipped case is relabeled as a CI pass.
+
 ## Remaining release actions
 
 1. Obtain seventhCI terminal quality logs and reconcile skips without counting them as passes.
-2. Complete final verification of the remaining guide/ADR artifacts against this sheet, especially
-   real-runtime and browser evidence. A citation to an old document alone is not a new execution.
+2. Reconcile the seventh browser/build result with the inspected assertions above. Finite guide,
+   ADR, retained-runtime and browser-source checks are now mapped; historical evidence is not
+   claimed as a new execution.
 3. Upload the subsequent deployment record/configuration without interrupting current CI; account
    for the exact code-versus-documentation boundary in final remote evidence.
 4. Produce the final requirement-based result only after those checks. No blanket V1 completion
