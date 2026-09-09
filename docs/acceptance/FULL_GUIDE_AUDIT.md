@@ -1,5 +1,29 @@
 # Full-guide acceptance audit
 
+## Deployed quotation/shipment history read supplement (Sep9)
+
+Opened the existing synthetic shipment in the in-app browser. The initial session gate redirected
+through the ordinary login link and the existing Logto SSO returned successfully without entering
+credentials or changing accounts/permissions. This is not a new password/MFA test or six-role run.
+The authenticated privileged view displayed SHP-2026-000001 as delivered, its original booking
+reference and eight distinct descending history entries: created,booked,ready,customs,departed,
+in_transit,arrived,delivered. Both history pagination controls were disabled for this one-page
+sample. Explicit timeline refresh returned the same eight entries. Terminal-order guidance
+continued to prohibit new shipment milestones; no mutation control was used.
+
+Navigated through the actual quotation list to Q-2026-000001
+(bdc024ff-2c12-4f66-baef-6bd68de8a61e). V2 accepted1250 and V1 superseded1200 remain distinct
+from the actual seven-entry timeline: created,revised,submitted,approved,sent,
+customer_review_started,accepted, in descending time order. The list has its own refresh and
+disabled previous/next controls for this sample. Browser screenshots confirmed actual rendered
+timeline text and controls at the current desktop viewport; no claim about all responsive sizes.
+No approval,review,send,download,task completion,financial command or provider call occurred.
+
+This closes the previously absent quotation/shipment-specific deployed read observation only.
+The samples have fewer than20entries, so they do not prove multi-page live traversal; the105-row
+automated service tests and separate browser pagination evidence retain their own scope.
+Role-disclosure/security evidence is not inferred from this privileged read or screenshot.
+
 ## Completion/refresh command concurrency supplement (Sep9)
 
 Read complete Finance README, completion service, refresh command, lock repository and original

@@ -86,6 +86,8 @@ pnpm test
 Linux CI 使用 `playwright install --with-deps chromium` 同时准备系统依赖。
 浏览器验收使用独立测试数据库和测试身份，不替代真实 Logto 登录；不要把测试连接指向业务数据库。
 默认测试不需要模型密钥，真实付费模型测试必须另行显式启用和授权。
+隔离浏览器测试的合成令牌有效期为30分钟，以覆盖远程完整测试；仍校验到期时间，
+不改变真实Logto登录或普通单元测试发行方的5分钟默认值。
 
 ```bash
 pnpm api-client:check

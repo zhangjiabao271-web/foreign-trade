@@ -1,8 +1,9 @@
 import json
 import os
 import sys
+from datetime import timedelta
 from pathlib import Path
-from uuid import uuid4
+from uuid import UUID, uuid4
 
 from alembic import command
 from alembic.config import Config
@@ -29,6 +30,13 @@ DEFAULT_ADMIN_URL = (
 TOKEN_SECRET = "playwright-only-secret-with-at-least-32-characters"
 TOKEN_ISSUER = "https://issuer.playwright.test"
 TOKEN_AUDIENCE = "trade-workbench-playwright"
+
+
+def issue_browser_token(subject: str, organization_id: UUID) -> str:
+    # One isolated browser suite can exceed the unit issuer's five-minute default in CI.
+    return LocalTestTokenIssuer(
+        secret=TOKEN_SECRET, issuer=TOKEN_ISSUER, audience=TOKEN_AUDIENCE
+    ).issue(subject=subject, organization_id=organization_id, expires_in=timedelta(minutes=30))
 
 
 def _quoted_database_name() -> str:
@@ -123,20 +131,9 @@ def setup() -> None:
             ]
         )
         session.flush()
-        issuer = LocalTestTokenIssuer(
-            secret=TOKEN_SECRET,
-            issuer=TOKEN_ISSUER,
-            audience=TOKEN_AUDIENCE,
-        )
-        token = issuer.issue(subject=user.external_subject, organization_id=organization.id)
-        manager_token = issuer.issue(
-            subject=manager.external_subject,
-            organization_id=organization.id,
-        )
-        operations_token = issuer.issue(
-            subject=operations.external_subject,
-            organization_id=organization.id,
-        )
+        token = issue_browser_token(user.external_subject, organization.id)
+        manager_token = issue_browser_token(manager.external_subject, organization.id)
+        operations_token = issue_browser_token(operations.external_subject, organization.id)
         dead_event = OutboxEvent(
             organization_id=organization.id,
             event_type="fixture.acceptance_failure.v1",
@@ -155,8 +152,8 @@ def setup() -> None:
             "access_token": token,
             "manager_access_token": manager_token,
             "operations_access_token": operations_token,
-            "admin_access_token": issuer.issue(
-                subject=administrator.external_subject, organization_id=organization.id
+            "admin_access_token": issue_browser_token(
+                administrator.external_subject, organization.id
             ),
         }
     engine.dispose()
