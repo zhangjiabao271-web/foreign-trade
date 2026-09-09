@@ -1,5 +1,30 @@
 # Full-guide acceptance audit
 
+## ADR016 populated cash and expense correction boundary (Sep9)
+
+Read the complete ADR016, Finance README, expense model/schema/router/service, existing
+expense tests and funding tests. The latter exercises net funding calculations but does not
+compare complete populated cash and commercial rows across expense commands.
+Added test_expense_financial_boundary.py: two classifications each exercise all five categories,
+with independent JPY/CNY/order-currency conversion expectations including a HALF_UP tie.
+Normal commands first create customer receipt/allocation and supplier debt/payment/allocation.
+All thirteen protected tables are asserted nonempty, then their complete tenant-scoped rows
+remain identical after each expense post, full reversal and replay. Original expense rows remain
+unchanged; reversals copy exact amount/FX/classification/evidence fields. Summary subtracts only
+additional costs and returns to original forecast after correction. Ten new facts produce ten
+activity/audit/outbox records, without repeated evidence on replay.
+
+Six HTTP role cases independently exercise list/detail/summary, record and reverse: only
+ADMIN/MANAGER/FINANCE succeed; SALES/OPERATIONS/VIEWER are denied without expense/evidence count
+changes. These are fixture memberships, not six new real Logto login demonstrations.
+Initial targeted result:8passed/16.09s,one existing httpx warning,exit0;
+tmp/expense-boundary-20260909.xml. Ruff/format pass. Combined new/original expense/funding
+regression session18707 exited0:42passed/60.83s,one existing httpx warning;
+tmp/expense-related-20260909.xml. This is one combined run, not fifty distinct cases.
+No application code, schema,
+deployment, actual money movement or business data changed. Current remote run30f931b predates
+this new test-only supplement; it must not be described as remotely verified by that run.
+
 ## Deployed quotation/shipment history read supplement (Sep9)
 
 Opened the existing synthetic shipment in the in-app browser. The initial session gate redirected
