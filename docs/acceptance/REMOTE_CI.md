@@ -1,5 +1,13 @@
 # GitHub 上传与远程验收
 
+## 第五次运行已启动（2026-09-09）
+
+已成功push de8add8..ba38392，精确远程提交ba383925cbdd4fa13e377e47868a035de86e4bde。
+[运行34318952226](https://github.com/zhangjiabao271-web/foreign-trade/actions/runs/34318952226)
+由GitHub接口确认in_progress；quality102361132045、container-smoke102361131767。
+此提交包含Work、采购、Sales查询及第四轮成功记录。不得重启活跃运行或套用旧轮成功。
+后续本机Sales跨组织命令补充不在该提交；其上传与CI需另行精确对应。
+
 ## 第四次运行全部通过（2026-09-09）
 
 34316018142已终结，精确提交de8add878148c37658d12d9fca39ed67e62f1753。

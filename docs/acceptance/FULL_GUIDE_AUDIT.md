@@ -1,5 +1,34 @@
 # Full-guide acceptance audit
 
+## Sales foreign-manager command and confirmation-state supplement (Sep9)
+
+An inspected concrete gap in test_quotation_state_commands.py: its organization-B actor is SALES,
+so approve returns403 rather than exercising the organization predicate with approval authority.
+New test_sales_foreign_commands.py uses an actual active B MANAGER for all eight existing-record
+quotation commands. HTTP and direct service both404; full selected commercial rows, opportunities
+and activity/audit/outbox/key snapshots survive unchanged. The identical owner request succeeds,
+showing the denial is not just invalid input or an unusable source state.
+
+Quotation-version and sales-order source-review GET/POST, inspect/decide and locked/unlocked
+require_content are likewise404 for B MANAGER. Rejected requests leave complete selected rows
+unchanged; the owner can release the exact original details and replay without another write.
+Contract review already has its separate path test. No source content was released in the live app.
+
+Read the complete order service and commercial-text review service, current order confirmation
+tests and customer-review tests. Added B-manager order confirm HTTP/service404, plus all eight
+order states under a fresh confirmation key. DRAFT confirms; confirmed DEPOSIT_PENDING/EXECUTING
+are guarded no-ops; other states409 without partial writes. Original confirmation supplies the
+timestamp/task before disposable downstream state seeds; this is guard isolation, not natural
+reachability. Existing completion/finance/shipping tests own downstream transitions.
+
+Initial eight-command/two-review supplement:10 passed14.20s, tmp/sales-foreign-commands-20260909.xml.
+Expanded19 passed25.86s, tmp/sales-foreign-state-final-20260909.xml; existing Starlette warning.
+Ruff lint/format pass. Code-simplifier review replaced nested snapshot tuple indexing with named
+facts/counts and explicitly compares opportunity rows on no-op. Final rerun19 passed25.84s,
+session56743 exit0, tmp/sales-foreign-state-reviewed-20260909.xml (1 existing warning).
+This is tests only, no application/schema/deployment or actual business action. Not included in
+ba383925cbdd4fa13e377e47868a035de86e4bde or its running remote CI34318952226.
+
 ## Sales repository and read-service path supplement (Sep9)
 
 Read the complete Sales README, quotation/order routers and both repositories, shared tenant
