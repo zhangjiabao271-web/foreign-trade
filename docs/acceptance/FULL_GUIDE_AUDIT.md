@@ -1,5 +1,42 @@
 # Full-guide acceptance audit
 
+## Sales contract concrete path and command map (Sep9)
+
+Read Sales README, full contract router/service/repository/schema/model, commercial text router/
+review service, complete sales-contract, draft-atomicity and commercial-text tests. Contract's
+two HTTP reads and four writes are separate from quotation/order commands; disclosure uses the
+shared commercial-text GET/POST with sales_contract as its exact kind.
+
+New test_contract_path_matrix.py executes four commands x six roles with independent allowsets:
+ADMIN/MANAGER can create/update/sign/void; SALES create/update/void but not sign; OPERATIONS,
+FINANCE/VIEWER no contract writes. HTTP and direct service denials return PERMISSION_DENIED;
+successful HTTP writes and HTTP/service replay preserve one evidence/key set. All six roles
+read list/detail successfully; reads leave selected complete rows unchanged. Existing commercial
+text tests separately check confidential notes/JSON, release/revoke, stale/deleted review and
+copy-without-inherited-disclosure; profit permission alone does not confer contract write/sign.
+
+New final-state matrix reaches SIGNED or VOIDED by normal commands, then checks update/sign/void
+all return CONTRACT_IMMUTABLE with complete selected row/evidence/key preservation. Existing
+tests cover finalized parent, unconfirmed order, future date, wrong-order/type/unpinned/scanning
+signature evidence, original snapshot/version retention, concurrent creation and migration guard.
+Existing creation/signature and draft update/void tests inject all three evidence failures.
+
+An actual active B MANAGER HTTP context checks list/detail/cursor, all four commands and both
+contract-text-review operations against A IDs:404, not permission-masked403, without writes.
+Direct ContractRepository order/get (locking), list and foreign cursor plus ContractQuery reads
+and all four service commands also deny foreign IDs; permissionless query calls issue no SQL.
+Compared rows are orders/lines/contracts/documents/versions/links/activity/audit/outbox/keys,
+not a claim of a full-database fingerprint. Synthetic AVAILABLE document metadata is not a new
+real storage/malware scan/electronic-signature acceptance; no external contract is signed.
+
+Initial new31 plus prior contract17 and draft6:54passed77.70s,
+tmp/contract-paths-20260909.xml. After adding six-role HTTP reads and foreign disclosure GET/POST,
+final new31passed41.83s,tmp/contract-paths-final-20260909.xml. Both processes exited0; no sum of
+overlapping results. Reparsed full-reconciled baseline commercial-text54 has0fail/error/skip,
+but spans five domains, not54 contract-only cases. Ruff/format passed. Simplifier review keeps
+one snapshot/request builder and explicit independent expected roles/states; no runtime change.
+This closes the inspected contract path/command map, not all Sales or remaining V1 gates.
+
 ## Identity administration concrete path map (Sep9)
 
 Read Identity README, administration query/repository/service and primary tests, identity
