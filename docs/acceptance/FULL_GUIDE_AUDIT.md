@@ -1,5 +1,37 @@
 # Full-guide acceptance audit
 
+## Guide15.1 concrete worker-entry reconciliation (Sep9)
+
+Read complete Worker tasks/context, Platform job ports/consumer handlers and Documents scan
+handler, with Worker/Platform/Documents/AI/Work READMEs. The actual business dispatch has
+three event routes, not six independent consumers: the six queue names are reservations.
+
+| Actual path                                                                              | Concrete execution evidence                                                                                                                                                                                                                                                  | Boundary                                                                                                                        |
+| ---------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------- |
+| `ai.run_requested.v1 -> ai.execute-run -> AiRunner`                                      | New `test_worker_ai_tenant_boundary.py`: mismatched organization, wrong event type and invalid context UUID rejected before dependency initialization; matching organization-B event cannot execute existing A run; provider calls zero and complete selected rows unchanged | Actual task function and runner, scripted provider; not a paid call or broker delivery                                          |
+| `async_job.created.v1 -> platform.consume-outbox-event -> mark_async_job_event_consumed` | New handler test uses persisted B event and existing A job; exception rolls back attempted receipt and preserves both organizations' rows                                                                                                                                    | No job result mutation; not just context mismatch                                                                               |
+| `document.uploaded.v1 -> platform.consume-outbox-event -> mark_document_available`       | Two new handler tests independently substitute A version with valid B job, or A job with valid B version; full selected rows and receipt table unchanged                                                                                                                     | Synthetic worker-ready metadata, not object storage or malware scanning                                                         |
+| Other event types -> acknowledgement only                                                | Existing `test_tasks.py` dispatcher/context tests and `test_platform_transactions.py` duplicate/recovery tests                                                                                                                                                               | No registered extra business side effect; not an email/export worker implementation                                             |
+| `platform.relay-outbox` / `platform.recover-outbox`                                      | Existing `test_two_relays_do_not_claim_the_same_event`, intended-receipt recovery, bounded concurrent recovery and lost-message replay                                                                                                                                       | Trusted global maintenance reads durable events; each publication includes its own organization; not a user-selected tenant API |
+| `health.ping` / `platform.tenant-context-probe`                                          | Existing `test_tasks.py` health payload and explicit valid/invalid context checks                                                                                                                                                                                            | Health is public infrastructure; probe is not business coverage                                                                 |
+
+Platform-owned bind/start/finish/scan-lock/scan-finish have all five foreign-ID/type/not-found
+and caller rollback paths in `test_domain_job_ports.py`. Its creation methods separately test
+originating permissions before SQL. `test_domain_job_atomicity.py` verifies run/job flush failure,
+revocation failure recording and document/version/job/activity/consumer-receipt rollback.
+These are internal trusted-event ports, not HTTP404 contracts; failures are explicit exceptions.
+
+New final file7 passed6.26s, `tmp/worker-handler-source-final-20260909.xml`. Related combined
+32 passed17.90s in `tmp/worker-all-handlers-final-20260909.xml`; afterward only the synthetic
+scan event aggregate ID was corrected to its actual document, and the final7 reran. Do not add
+overlapping totals. Initial snapshot incorrectly assumed ProcessedEvent had an id; fixed to its
+real composite primary key. Later seed omitted required job correlation_id; fixed the fixture,
+not schema/production behavior. Both initial failed reports remain in ignored tmp.
+Ruff/check/format passed. Code-simplifier review consolidated duplicate snapshots while retaining
+explicit handler cases. No runtime/schema/deployment/model call or real business data changed.
+This closes the inspected worker-entry tenant gap, not the remaining module HTTP/command map.
+The new tests postdate remote3314428 and are not included in its CI34312341146.
+
 ## All business API authentication-entry inventory (Sep9)
 
 Read auth dependency/router bodies and app router registration. New
