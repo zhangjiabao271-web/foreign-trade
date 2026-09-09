@@ -1,5 +1,13 @@
 # Remaining V1 scope audit
 
+## Current release navigation: Sep9 final reconciliation
+
+Use FINAL_RECONCILIATION and CURRENT_ACCEPTANCE for the current finite release actions. Sixth
+remoteCI is fully successful; seventh34326750634 runs at3cda32a. All later domain tenant maps,
+AI HTTP and Platform query supplements have current-source reports. Document/export corrections
+are installed under the tenth image overlay. The historical no-remote/source-only/login/consent
+notes below are superseded by named evidence, not repeated user handoffs. Full V1 remains active.
+
 ## Real TASK_DRAFT handoff closed: 2026-09-09
 
 User consent, real sales generation/submission, manager candidate revision/release, sales
