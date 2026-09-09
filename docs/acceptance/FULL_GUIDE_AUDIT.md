@@ -1,5 +1,32 @@
 # Full-guide acceptance audit
 
+## Export case-list cursor correction (Sep9)
+
+Docker Desktop startup completed; a fresh read-only container inventory confirmed the existing
+acceptance API/Web/worker/database/storage containers healthy and the separate localhost5432
+test server restored. No stack recreation or volume deletion was performed. The earlier
+export-cursor-before-20260909.xml contains two environment setup errors, not defect reproduction.
+
+After recovery, export-cursor-repro-20260909.xml reproduced two assertion failures: both case
+repositories returned400 for a foreign cursor instead of guide10/15's404. Corrected only the
+case-list missing-anchor status to404, retaining INVALID_CURSOR/title/detail and tenant-scoped
+lookup. Unknown and deleted anchors use the same response, preventing existence distinction.
+Updated the specific old customs assertion, not the separate Work activity cursor contract.
+README records why ADR028 envelope normalization does not exempt this tenant lookup rule.
+No schema, financial fact, permission or business transition changes. The frontend already
+handles404 with its organization-local not-found message. Code-simplifier review retained the
+small explicit correction without introducing additional abstractions.
+
+Final combined cursor/vertical-slice/text-review/state-command-matrix run:66 passed,1 existing
+Starlette deprecation warning,111.50s; tmp/export-cursor-final-20260909.xml, session35723 exit0.
+Ruff checks/format pass, mypy219 files pass, generated client check has no drift, README Prettier
+check passes via installed executable (the pnpm prettier shortcut was unavailable). The new
+regression checks repository and HTTP foreign/unknown cursors, owner pagination, deleted anchor
+rejection and unchanged selected case/evidence snapshots. It is not a complete repository map.
+This fix is not deployed or included in sixth CI34322866363, whose quality job remains running;
+its container-smoke job is success. Remaining Export creation/read/review correspondence and
+the full V1 audit are not declared complete.
+
 ## Supplier Finance tenant entry/repository correspondence (Sep9)
 
 Read complete supplier router/repository/query/service/schema/model and existing settlement

@@ -212,7 +212,7 @@ def test_export_http_contract_requires_permissions_versions_and_tenant_owned_cur
     }
     assert (
         f.client.get(f"/api/v1/customs-declarations?cursor={case['id']}", headers=other).status_code
-        == 400
+        == 404
     )
     stale = f.client.post(
         f"/api/v1/customs-declarations/{case['id']}/prepare",

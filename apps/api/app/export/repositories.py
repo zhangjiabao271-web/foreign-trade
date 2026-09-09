@@ -22,7 +22,7 @@ class CaseRepository[Case: CustomsDeclaration | TaxRefundCase](TenantRepository[
             anchor = self.get(organization_id=organization_id, record_id=cursor)
             if anchor is None:
                 raise ApiProblem(
-                    400, "INVALID_CURSOR", "Invalid cursor", "Restart case pagination."
+                    404, "INVALID_CURSOR", "Invalid cursor", "Restart case pagination."
                 )
             statement = statement.where(
                 tuple_(self._model.created_at, self._model.id) < (anchor.created_at, anchor.id)

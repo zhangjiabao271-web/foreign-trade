@@ -27,6 +27,10 @@ Amounts use Decimal/four places. A recorded refund cannot exceed the human-enter
 The remaining difference stays visible. Finalized or rejected cases cannot be rewritten.
 
 Case activity endpoints support cursor pagination, scoped to both organization and case.
+Case-list cursors require a live organization-owned anchor; missing, foreign and deleted
+anchors return 404 INVALID_CURSOR under guide 10/15. This corrects the former 400 status
+before V1 release, without changing the error code/details, schema or stored case facts.
+ADR-028's error-envelope normalization did not define an exception to tenant lookup rules.
 Clearance and refund receipt dates remain in activity and audit payloads.
 Follow-up scheduling is an explicit versioned command with a reason. Clearing a follow-up
 date removes its deadline, not the underlying case. Finalized/rejected cases cannot reschedule.
