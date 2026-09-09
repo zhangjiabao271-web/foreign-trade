@@ -1,5 +1,47 @@
 # Full-guide acceptance audit
 
+## Work order-task command and query reconciliation (Sep9)
+
+Read Work README, both routers, query/command/review services, timeline/subject access, task
+models, approved/confirmation task ports and activity recorder. Read complete work-review,
+commercial-timeline, activity-review and confirmation/recorder test bodies; inspected the
+finance vertical task-resolution-to-order-completion journey. No arbitrary task status API exists.
+
+New test_work_command_boundary.py covers six roles x four stored task states. VIEWER denies
+completion at HTTP and service boundaries; the other five roles can complete OPEN/IN_PROGRESS,
+replay DONE without writes, and must reject CANCELLED with INVALID_STATE_TRANSITION. Successful
+commands preserve parent orders/lines, save the exact resolution/actor and append one activity,
+audit and outbox. HTTP/service replay adds nothing. Synthetic state seeds isolate predicates;
+the existing financial/browser journey establishes normal OPEN -> DONE reachability.
+
+Three after-SQL evidence-insert failures compare complete orders/lines/tasks/activity/audit/
+outbox/key rows, then retry and replay. A real row revision after the captured opening version
+separately makes HTTP and service completion fail VERSION_CONFLICT without writes. It does not
+claim a new concurrent browser edit demonstration or change DONE replay's existing semantics.
+
+Two active B MANAGER cases address A task/activity IDs: all three order collection/history
+reads, both order Work-review operations and task completion404, with selected full snapshots
+unchanged. Direct query methods and review/completion services likewise reject foreign access.
+Existing work-review23 tests cover six-role default confidentiality and exact release/revoke,
+content restoration, six evidence faults, concurrent review and protected completion replay.
+Commercial-timeline3 tests traverse105+ records for all three owners, six roles, owner/cursor
+rejection, release/invalidation, read-permission prechecks and two/three query page bounds.
+
+Execution: new29 + work-review23 + timeline3 =55passed66.11s,
+tmp/work-paths-20260909.xml. Simplified the nested expectation to explicit if/elif; new29 then
+passed34.01s,tmp/work-paths-final-20260909.xml. Added version-mismatch case: new30passed49.76s,
+tmp/work-command-paths-final-20260909.xml; strengthened that case from a future counter to an
+actual newer row with old opening counter: final changed case1passed3.99s,
+tmp/work-stale-source-final-20260909.xml. All sessions terminal0; no overlapping totals summed.
+Ruff/format pass. Only tests/docs changed, no real user task marked complete.
+
+Reparsed prior full baseline: activity-review38, confirmation-port8, activity-recorder7,
+finance-vertical14 and Work-review migration1 all zero fail/error/skip. Those are existing
+independent evidence, not new runs or blanket proof of every non-order activity path.
+This closes inspected order-task/collection paths; non-order review uses its eight-owner
+subject map and existing owner-specific evidence, still to reconcile with remaining modules.
+The new Work tests are not part of remote de8add8/run34316018142.
+
 ## Sales contract concrete path and command map (Sep9)
 
 Read Sales README, full contract router/service/repository/schema/model, commercial text router/

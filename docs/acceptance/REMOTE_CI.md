@@ -1,5 +1,17 @@
 # GitHub 上传与远程验收
 
+## 上传恢复与第四次运行（2026-09-09）
+
+普通push已成功：3314428..de8add8，远程main现为
+de8add878148c37658d12d9fca39ed67e62f1753。未改变网络代理、证书校验或仓库权限。
+[运行34316018142](https://github.com/zhangjiabao271-web/foreign-trade/actions/runs/34316018142)
+已由GitHub接口确认in_progress，精确对应该提交。quality job102352290878已完成
+客户端/漂移/格式/lint/类型检查，正在pnpm test；尚无完整成功结论。
+container-smoke job102352290685已success，原始日志确认20260908_0035(head)、
+Web/API ready及三项依赖true、Worker pong和1 node online。
+此运行含合同、身份、CRM、公司、产品和worker补充，不含随后本机新增的Work测试。
+下节上传网络失败是已结束的历史阻碍，不再当作当前等待用户操作的理由。
+
 ## 本机新提交待上传：网络阻碍（2026-09-09）
 
 本机af0d5029723ff881ecce5d4038d4d4814b3483a8包含worker/company/catalog/
