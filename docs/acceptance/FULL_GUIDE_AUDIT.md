@@ -1,5 +1,31 @@
 # Full-guide acceptance audit
 
+## Supplier Finance tenant entry/repository correspondence (Sep9)
+
+Read complete supplier router/repository/query/service/schema/model and existing settlement
+and purchase-finance boundary tests, under the Finance README/guide already read for this
+module audit. Nine HTTP operations map to four query and five command entry methods. Existing
+settlement tests cover original/replay, partial/full allocation, reversal/void, version/currency/
+overpayment guards, all five commands x three evidence failures, concurrent allocation and
+reversal, KEY SHARE lock regression, filter cursors and populated migration downgrade guard.
+Purchase boundary tests show cancel/amend retain supplier debt and payment facts, including
+late reconciled obligations capped by original purchase principal.
+
+New test_supplier_finance_paths.py supplies the missing authorized foreign-manager map for
+all five HTTP/service commands and four HTTP read operations, plus foreign cursor probes.
+Locked/unlocked payable/payment lookups, list filters, allocations, net totals and reversal
+maps have owner-populated and foreign-empty controls. Two direct detail query methods check
+foreign404 and no-permission403; both direct lists are empty for B. Full selected supplier
+and customer money/order/shipment/evidence/key rows remain unchanged after rejection.
+Natural partial-domain fixture records and reverses a100 CNY payment; no external bank call.
+
+New path test plus existing settlement and purchase-finance boundary suites passed34,
+1 existing warning,64.05s (tmp/supplier-finance-paths-20260909.xml). Ruff/format pass.
+Code-simplifier inspected the new explicit path inventory without broad refactoring. This
+closes the inspected supplier tenant entry/repository map with the existing behavioral suite,
+not an assertion of all arbitrary inputs, production banking or final V1 acceptance.
+No runtime code/schema changed; this supplement is not in sixth CI at c186135.
+
 ## Customer Finance paths and remaining evidence-failure commands (Sep9)
 
 Read the complete Finance README, customer routers/repositories/services, payment review,
